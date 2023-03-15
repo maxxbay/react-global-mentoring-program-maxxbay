@@ -10,7 +10,7 @@ export const Button = ({ children, color, onClick, type }) => {
 
   return (
     <button className={buttonClass} onClick={onClick} type={type}>
-      {children}
+      {/* {children} */}
     </button>
   );
 };
