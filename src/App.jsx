@@ -1,30 +1,31 @@
 import React from 'react';
+import './App.scss';
 import Counter from 'components/Counter';
 import SearchForm from 'components/SearchForm';
 import GenreSelect from 'components/GenreSelect';
 
-function App() {
-  const handleSearch = query => {
-    console.log(`Searching for ${query}`);
+const App = () => {
+  const genres = ['Action', 'Adventure', 'Comedy', 'Drama', 'Horror', 'Sci-Fi'];
+
+  const handleSearch = searchQuery => {
+    console.log('Search:', searchQuery);
   };
 
-  const handleGenreSelect = genre => {
-    console.log(`Selected genre: ${genre}`);
+  const handleGenreSelect = selectedGenre => {
+    console.log('Selected genre:', selectedGenre);
   };
 
-  return React.createElement(
-    'div',
-    null,
-    React.createElement(Counter, { initialValue: 0 }),
-    React.createElement(SearchForm, {
-      initialValue: 'Action',
-      onSearch: handleSearch,
-    }),
-    React.createElement(GenreSelect, {
-      genres: ['Action', 'Drama', 'Comedy', 'Adventure', 'Fantasy'],
-      selected: 'Action',
-      onSelect: handleGenreSelect,
-    })
+  return (
+    <div className="app">
+      <Counter initialValue={10} />
+      <SearchForm initialSearchQuery="Movie" onSearch={handleSearch} />
+      <GenreSelect
+        genres={genres}
+        selectedGenre={genres[0]}
+        onSelect={handleGenreSelect}
+      />
+    </div>
   );
-}
+};
+
 export default App;
