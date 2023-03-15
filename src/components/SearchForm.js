@@ -1,38 +1,27 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import './SearchForm.scss';
 
-class SearchForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { query: props.initialValue };
-  }
+const SearchForm = ({ initialSearchQuery = '', onSearch }) => {
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
 
-  handleInputChange = event => {
-    this.setState({ query: event.target.value });
+  const handleSearch = event => {
+    event.preventDefault();
+    onSearch(searchQuery);
   };
 
-  handleSearch = () => {
-    this.props.onSearch(this.state.query);
-  };
-
-  handleKeyPress = event => {
-    if (event.key === 'Enter') {
-      this.handleSearch();
-    }
-  };
-
-  render() {
-    return React.createElement(
-      'div',
-      null,
-      React.createElement('input', {
-        type: 'text',
-        value: this.state.query,
-        onChange: this.handleInputChange,
-        onKeyPress: this.handleKeyPress,
-      }),
-      React.createElement('button', { onClick: this.handleSearch }, 'Search')
-    );
-  }
-}
+  return (
+    <form className="search-form" onSubmit={handleSearch}>
+      <input
+        type="text"
+        className="search-input"
+        value={searchQuery}
+        onChange={e => setSearchQuery(e.target.value)}
+      />
+      <button type="submit" className="search-button">
+        Search
+      </button>
+    </form>
+  );
+};
 
 export default SearchForm;
