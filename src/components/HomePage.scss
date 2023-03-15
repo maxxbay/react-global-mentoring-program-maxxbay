@@ -1,0 +1,30 @@
+.home {
+    background-color: #f3efef;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 80%;
+    
+
+    .style {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        padding-top: 20px;
+        list-style: none;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-size: large;
+        
+      
+    }
+
+}
+
+        a {
+            text-decoration: none;
+            list-style: none;
+            color: black;
+        }
+        a:hover {
+            color: blue;
+        }

@@ -9,8 +9,7 @@ const Counter = () => {
   const handleIncrement = () => setCount(count + 1);
   const handleDecrement = () => setCount(count - 1);
   return (
-    <div>
-      <h1>Counter Page</h1>
+    <div className="container">
       <h2>Counter: {count}</h2>
       <div className="counter">
         <Button onClick={handleIncrement}>Increment</Button>

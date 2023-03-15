@@ -16,7 +16,7 @@ const MovieFilters = ({ setMovieFilter, movieFilter }) => {
   ];
 
   const movieFilters = [
-    { movie: 'all' },
+    { movie: [] },
     ...filters.map(filter => ({ movie: filter })),
   ];
 

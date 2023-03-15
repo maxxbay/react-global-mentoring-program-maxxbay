@@ -1,4 +1,4 @@
-import React from 'react';
+// import React, { useState } from 'react';
 
 import './MovieList.scss';
 import { Button } from './Button';
