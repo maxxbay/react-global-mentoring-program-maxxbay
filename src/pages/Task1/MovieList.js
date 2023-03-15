@@ -29,7 +29,7 @@ const MoviesList = () => {
       <MovieFilters />
       <div className="movies-list">
         {movies.map(movie => (
-          <div className="movies-list">
+          <div className="movies-list" key={movie.imdbID}>
             <p>
               Film {movie.Title} genre {movie.Genre}
             </p>
