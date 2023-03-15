@@ -1,4 +1,4 @@
-// import React, { useState } from 'react';
+import React from 'react';
 
 import './MovieList.scss';
 import { Button } from './Button';
@@ -29,7 +29,7 @@ const MoviesList = () => {
       <MovieFilters />
       <div className="movies-list">
         {movies.map(movie => (
-          <div className="movies-list" key={movie.imdbID}>
+          <div className="movies-list">
             <p>
               Film {movie.Title} genre {movie.Genre}
             </p>
