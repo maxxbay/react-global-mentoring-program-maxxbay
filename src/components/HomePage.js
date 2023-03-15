@@ -1,20 +1,22 @@
 import { Link } from 'react-router-dom';
+import React from 'react';
+import './HomePage.scss';
 
 const Homepage = () => {
   return (
-    <div>
+    <div className="home">
       <h1>React global mentoring program - Task 1</h1>
-      <ul>
-        <li>
+      <ul className="style">
+        <li className="style-item">
           <Link to="/">Home</Link>
         </li>
-        <li>
+        <li className="style-item">
           <Link to="/counter">Counter</Link>
         </li>
-        <li>
+        <li className="style-item">
           <Link to="/search-form">Search Form</Link>
         </li>
-        <li>
+        <li className="style-item">
           <Link to="/genre-search">Search Film Genre</Link>
         </li>
       </ul>

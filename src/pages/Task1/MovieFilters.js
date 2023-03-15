@@ -16,7 +16,7 @@ const MovieFilters = ({ setMovieFilter, movieFilter }) => {
   ];
 
   const movieFilters = [
-    { movie: 'all' },
+    { movie: [] },
     ...filters.map(filter => ({ movie: filter })),
   ];
 
@@ -26,7 +26,7 @@ const MovieFilters = ({ setMovieFilter, movieFilter }) => {
         <li
           key={movie.imdbID}
           className={movie === movieFilter ? 'active' : ''}
-          onClick={() => setMovieFilter(movie.Genre)}
+          // onClick={() => setMovieFilter(movie.Genre)}
         >
           {movie}
         </li>
