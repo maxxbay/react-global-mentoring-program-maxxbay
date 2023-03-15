@@ -31,7 +31,7 @@ const SearchForm = ({ setSearchValue }) => {
           value={value}
           onChange={handleChange}
         />
-        <Button>search</Button>
+        <Button>Search</Button>
       </form>
       <div className="search-button">
         <Button onClick={() => navigate('/')}>Go Back</Button>
