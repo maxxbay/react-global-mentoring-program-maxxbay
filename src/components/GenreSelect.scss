@@ -1,7 +1,9 @@
 .genre-select {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    // display: flex;
+
+    justify-content: space-between;
+    margin-right: 0 auto;
+    // flex-direction: raw;
     gap: 1rem;
 
     .genre-button {
@@ -15,9 +17,21 @@
 
         &:hover,
         &.selected {
-            background-color: #2196f3;
+            background-color: #f65261;
             color: white;
-            border-color: #2196f3;
+            border-color: #f65261;
         }
+    }
+}
+
+select {
+    height: 36px;
+    border-radius: 5px;
+    background-color: #424242;
+    color: #f65261;
+    width: 20%;
+
+    option {
+        padding: 5px 0;
     }
 }
