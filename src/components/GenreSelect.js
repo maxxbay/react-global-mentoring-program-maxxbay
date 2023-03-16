@@ -3,13 +3,22 @@ import './GenreSelect.scss';
 
 const GenreSelect = ({ genres, selectedGenre, onSelect }) => {
   const [genre, setGenre] = useState(selectedGenre);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleGenreChange = e => {
     setGenre(e.target.value);
     onSelect(e.target.value);
   };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   return (
-    <div className="genre-select">
+    <div
+      className={`genre-select ${isDropdownOpen ? 'open' : ''}`}
+      onClick={toggleDropdown}
+    >
       <select
         title="Genre"
         name="genre"
