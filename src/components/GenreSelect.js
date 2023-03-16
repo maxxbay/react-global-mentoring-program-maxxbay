@@ -1,16 +1,19 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import './GenreSelect.scss';
 
-const GenreSelect = ({ genres }) => {
-  const [genre, setGenre] = useState('');
+const GenreSelect = ({ genres, selectedGenre, onSelect }) => {
+  const [genre, setGenre] = useState(selectedGenre);
 
-  // console.log(genres);
+  const handleGenreChange = e => {
+    setGenre(e.target.value);
+    onSelect(e.target.value);
+  };
   return (
     <div className="genre-select">
       <select
         title="Genre"
         name="genre"
-        onChange={e => setGenre(e.target.value)}
+        onChange={handleGenreChange}
         value={genre}
       >
         {genres.map(genre => (

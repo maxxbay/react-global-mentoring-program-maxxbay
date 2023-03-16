@@ -1,12 +1,12 @@
 import React from 'react';
 import './Button.scss';
 
-const ButtonSearch = ({ children, type }) => {
+const Button = ({ children, type, className }) => {
   return (
-    <button className={'button'} type={type}>
+    <button className={`button ${className}`} type={type}>
       {children}
     </button>
   );
 };
 
-export default ButtonSearch;
+export default Button;

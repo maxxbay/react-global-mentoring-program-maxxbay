@@ -2,32 +2,23 @@ import React, { useState } from 'react';
 import './App.scss';
 import GenreSelect from 'components/GenreSelect';
 import Header from './components/Header/Header';
+import { genres } from 'common/MovieArray/MovieArray';
 
 const App = () => {
-  const genres = [
-    'ALL',
-    'Action',
-    'Adventure',
-    'Comedy',
-    'Drama',
-    'Horror',
-    'Sci-Fi',
-  ];
-  const [, setSearchValue] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState(genres[0]);
 
-  const handleGenreSelect = selectedGenre => {
-    console.log('Selected genre:', selectedGenre);
+  const handleGenreSelect = genre => {
+    setSelectedGenre(genre);
   };
-
   return (
     <>
       <header className="header-content">
-        <Header setSearchValue={setSearchValue} />
+        <Header />
       </header>
       <main className="container">
         <GenreSelect
           genres={genres}
-          selectedGenre={genres[0]}
+          selectedGenre={selectedGenre}
           onSelect={handleGenreSelect}
         />
       </main>

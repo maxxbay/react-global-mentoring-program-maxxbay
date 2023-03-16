@@ -1,24 +1,25 @@
 import React, { useState, useCallback } from 'react';
-import ButtonSearch from './Button/Button';
+import Button from './Button/Button';
 import './SearchForm.scss';
 
-const SearchForm = ({ setSearchValue }) => {
-  const [value, setValue] = useState('');
+const SearchForm = ({ initialSearchQuery, onSearch }) => {
+  const [value, setValue] = useState(initialSearchQuery);
 
   const handleForm = useCallback(
     event => {
       event.preventDefault();
-      setSearchValue(value);
+      if (typeof onSearch === 'function') {
+        onSearch(value);
+      }
     },
-    [value, setSearchValue]
+    [value, onSearch]
   );
-
   const handleChange = useCallback(({ target: { value } }) => {
     setValue(value);
   }, []);
 
   return (
-    <div className="search" onSubmit={handleForm}>
+    <div className="search">
       <h1 className="search-title">Find your movie</h1>
       <form onSubmit={handleForm}>
         <input
@@ -27,7 +28,7 @@ const SearchForm = ({ setSearchValue }) => {
           value={value}
           onChange={handleChange}
         />
-        <ButtonSearch>search</ButtonSearch>
+        <Button type="submit">search</Button>
       </form>
     </div>
   );
