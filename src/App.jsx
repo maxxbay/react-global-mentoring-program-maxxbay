@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './App.scss';
+import Header from './components/Header/Header';
+import { genres } from 'common/MovieArray/MovieArray';
+import GenreSelect from 'components/GenreSelect';
 
-export const App = () => {
+const App = () => {
+  const [selectedGenre, setSelectedGenre] = useState(genres[0]);
+
+  const handleGenreSelect = genre => {
+    setSelectedGenre(genre);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Learn React global</h1>
-      </header>
-    </div>
+    <>
+      <Header />
+      <main className="container">
+        <GenreSelect
+          genres={genres}
+          selectedGenre={selectedGenre}
+          onSelect={handleGenreSelect}
+        />
+      </main>
+    </>
   );
 };
+
+export default App;

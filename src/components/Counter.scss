@@ -1,0 +1,22 @@
+.counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .counter-value {
+        margin: 0 1rem;
+    }
+
+    button {
+        background-color: #f65261;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #f65261;
+        }
+    }
+}
