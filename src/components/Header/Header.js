@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import NetflixLogo from 'common/Logo/NetflixLogo';
 import './Header.scss';
 import SearchForm from 'components/SearchForm';
+import GenreSelect from 'components/GenreSelect';
 
-const Header = () => {
+const Header = ({ genres, selectedGenre, onSelect }) => {
   const [searchValue, setSearchValue] = useState('');
 
   const handleSearch = value => {
@@ -19,6 +20,11 @@ const Header = () => {
         </div>
       </div>
       <SearchForm initialSearchQuery={searchValue} onSearch={handleSearch} />
+      <GenreSelect
+        genres={genres}
+        selectedGenre={selectedGenre}
+        onSelect={onSelect}
+      />
     </header>
   );
 };

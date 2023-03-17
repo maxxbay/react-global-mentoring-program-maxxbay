@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './App.scss';
-import GenreSelect from 'components/GenreSelect';
 import Header from './components/Header/Header';
 import { genres } from 'common/MovieArray/MovieArray';
 
@@ -12,16 +11,12 @@ const App = () => {
   };
   return (
     <>
-      <header className="header-content">
-        <Header />
-      </header>
-      <main className="container">
-        <GenreSelect
-          genres={genres}
-          selectedGenre={selectedGenre}
-          onSelect={handleGenreSelect}
-        />
-      </main>
+      <Header
+        genres={genres}
+        selectedGenre={selectedGenre}
+        onSelect={handleGenreSelect}
+      />
+      <main className="container"></main>
     </>
   );
 };

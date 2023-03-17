@@ -6,7 +6,9 @@ const NetflixLogo = () => {
   return (
     <div className="netflixLogo-header">
       <span className="logo-symbol"></span>
-      <img src={logo} alt="Logo" className="logo" />
+      <a href="/">
+        <img src={logo} alt="Logo" className="logo" />
+      </a>
     </div>
   );
 };
