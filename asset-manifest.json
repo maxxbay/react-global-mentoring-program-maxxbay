@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.css": "/react-global-mentoring-program-maxxbay/static/css/main.7acaea2f.css",
-    "main.js": "/react-global-mentoring-program-maxxbay/static/js/main.4cd4151f.js",
+    "main.css": "/react-global-mentoring-program-maxxbay/static/css/main.bdb0c18f.css",
+    "main.js": "/react-global-mentoring-program-maxxbay/static/js/main.2b1f644f.js",
+    "static/media/HeaderBackground.png": "/react-global-mentoring-program-maxxbay/static/media/HeaderBackground.53531d7fe69062ef9213.png",
+    "static/media/netflixroulette.svg": "/react-global-mentoring-program-maxxbay/static/media/netflixroulette.9e596775d20e065fbcd7680dff0b79e7.svg",
     "index.html": "/react-global-mentoring-program-maxxbay/index.html",
-    "main.7acaea2f.css.map": "/react-global-mentoring-program-maxxbay/static/css/main.7acaea2f.css.map",
-    "main.4cd4151f.js.map": "/react-global-mentoring-program-maxxbay/static/js/main.4cd4151f.js.map"
+    "main.bdb0c18f.css.map": "/react-global-mentoring-program-maxxbay/static/css/main.bdb0c18f.css.map",
+    "main.2b1f644f.js.map": "/react-global-mentoring-program-maxxbay/static/js/main.2b1f644f.js.map"
   },
   "entrypoints": [
-    "static/css/main.7acaea2f.css",
-    "static/js/main.4cd4151f.js"
+    "static/css/main.bdb0c18f.css",
+    "static/js/main.2b1f644f.js"
   ]
 }
