@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.scss';
 import Header from './components/Header/Header';
 import { genres } from 'common/MovieArray/MovieArray';
+import GenreSelect from 'components/GenreSelect';
 
 const App = () => {
   const [selectedGenre, setSelectedGenre] = useState(genres[0]);
@@ -11,12 +12,14 @@ const App = () => {
   };
   return (
     <>
-      <Header
-        genres={genres}
-        selectedGenre={selectedGenre}
-        onSelect={handleGenreSelect}
-      />
-      <main className="container"></main>
+      <Header />
+      <main className="container">
+        <GenreSelect
+          genres={genres}
+          selectedGenre={selectedGenre}
+          onSelect={handleGenreSelect}
+        />
+      </main>
     </>
   );
 };

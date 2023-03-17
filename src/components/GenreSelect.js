@@ -4,8 +4,8 @@ import './GenreSelect.scss';
 const GenreSelect = ({ genres, selectedGenre, onSelect }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const handleGenreChange = e => {
-    onSelect(e.target.value);
+  const handleGenreChange = ({ target: { value } }) => {
+    onSelect(value);
   };
 
   const toggleDropdown = () => {
