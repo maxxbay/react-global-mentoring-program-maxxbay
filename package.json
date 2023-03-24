@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test jest --coverage",
     "eject": "react-scripts eject",
     "lint:js": "eslint src/**/*.{js,jsx}",
     "cypress:open": "cypress open"

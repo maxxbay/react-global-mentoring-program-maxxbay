@@ -23,6 +23,7 @@ describe('SearchForm', () => {
     });
     const submitButton = screen.getByRole('button', { name: /search/i });
 
+    userEvent.clear(input);
     userEvent.type(input, 'New search');
     userEvent.click(submitButton);
 
@@ -38,6 +39,7 @@ describe('SearchForm', () => {
       placeholder: 'What do you want to watch?',
     });
 
+    userEvent.clear(input);
     userEvent.type(input, 'New search{enter}');
 
     expect(onSearchMock).toHaveBeenCalledWith('New search');
