@@ -1,38 +1,44 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 import SearchForm from './SearchForm';
 
 describe('SearchForm', () => {
-  test('renders an input with the value equal to initial value passed in props', () => {
+  test('renders input with initial value from props', () => {
     render(<SearchForm initialSearchQuery="Initial search" />);
-    const input = screen.getByPlaceholderText('What do you want to watch?');
+    const input = screen.getByRole('textbox', {
+      placeholder: 'What do you want to watch?',
+    });
     expect(input.value).toBe('Initial search');
   });
 
-  test('after typing to the input and a "click" event on the Submit button, the "onSearch" prop is called with proper value', () => {
+  test('calls "onSearch" with correct value after typing and clicking Submit', () => {
     const onSearchMock = jest.fn();
     render(
       <SearchForm initialSearchQuery="Initial search" onSearch={onSearchMock} />
     );
-    const input = screen.getByPlaceholderText('What do you want to watch?');
-    const submitButton = screen.getByText('search');
+    const input = screen.getByRole('textbox', {
+      placeholder: 'What do you want to watch?',
+    });
+    const submitButton = screen.getByRole('button', { name: /search/i });
 
-    fireEvent.change(input, { target: { value: 'New search' } });
-    fireEvent.click(submitButton);
+    userEvent.type(input, 'New search');
+    userEvent.click(submitButton);
 
     expect(onSearchMock).toHaveBeenCalledWith('New search');
   });
 
-  test('after typing to the input and pressing Enter key, the "onSearch" prop is called with proper value', () => {
+  test('calls "onSearch" with correct value after typing and pressing Enter', () => {
     const onSearchMock = jest.fn();
     render(
       <SearchForm initialSearchQuery="Initial search" onSearch={onSearchMock} />
     );
-    const input = screen.getByPlaceholderText('What do you want to watch?');
+    const input = screen.getByRole('textbox', {
+      placeholder: 'What do you want to watch?',
+    });
 
-    fireEvent.change(input, { target: { value: 'New search' } });
-    fireEvent.submit(input);
+    userEvent.type(input, 'New search{enter}');
 
     expect(onSearchMock).toHaveBeenCalledWith('New search');
   });

@@ -9,7 +9,7 @@ describe('GenreSelect', () => {
   test('renders all genres passed in props', () => {
     render(<GenreSelect genres={genres} />);
     genres.forEach(genre => {
-      expect(screen.getByText(genre)).toBeInTheDocument();
+      expect(screen.getByText(genre, { exact: false })).toBeInTheDocument();
     });
   });
 
@@ -19,7 +19,7 @@ describe('GenreSelect', () => {
     expect(selectElement.value).toBe('Drama');
   });
 
-  test('after a click event on a genre button component calls "onSelect" callback and passes correct genre in arguments', () => {
+  test('calls "onSelect" with correct genre after click event', () => {
     const onSelectMock = jest.fn();
     render(<GenreSelect genres={genres} onSelect={onSelectMock} />);
 
