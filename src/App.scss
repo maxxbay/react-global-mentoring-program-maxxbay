@@ -7,13 +7,28 @@
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: #232323;
-        color: #ffffff;
-}
-.header-content {
-    height: 300px;
-}
-.container {
-    width: 90%;
-    margin: 0 auto;
+    color: #ffffff;
 }
 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.marg {
+    margin-top: 15px;
+}
