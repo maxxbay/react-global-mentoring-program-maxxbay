@@ -1,12 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './MovieTile.scss';
 
 const MovieTile = ({ movie, onClick, onEdit, onDelete }) => {
   const { title, release_date, genres, poster_path } = movie;
   const [showContextMenu, setShowContextMenu] = useState(false);
 
-  const toggleContextMenu = () => {
+  const closeContextMenu = () => {
+    setShowContextMenu(false);
+  };
+
+  const toggleContextMenu = e => {
+    e.stopPropagation();
     setShowContextMenu(!showContextMenu);
+  };
+
+  const handleEdit = e => {
+    e.stopPropagation();
+    if (typeof onEdit === 'function') {
+      onEdit(movie);
+    }
+    closeContextMenu();
+  };
+
+  const handleDelete = e => {
+    e.stopPropagation();
+    if (typeof onDelete === 'function') {
+      onDelete(movie);
+    }
+    closeContextMenu();
   };
 
   const handleTileClick = () => {
@@ -15,17 +36,17 @@ const MovieTile = ({ movie, onClick, onEdit, onDelete }) => {
     }
   };
 
-  const handleEdit = () => {
-    if (typeof onEdit === 'function') {
-      onEdit(movie);
-    }
-  };
-
-  const handleDelete = () => {
-    if (typeof onDelete === 'function') {
-      onDelete(movie);
-    }
-  };
+  useEffect(() => {
+    const handleClickOutside = e => {
+      if (showContextMenu) {
+        closeContextMenu();
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [showContextMenu]);
 
   return (
     <div className="movie-tile" onClick={handleTileClick}>
