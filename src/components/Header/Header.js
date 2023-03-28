@@ -12,7 +12,9 @@ const Header = ({ selectedMovie }) => {
   };
 
   return (
-    <header className={`header ${selectedMovie ? 'movie-selected' : ''}`}>
+    <header
+      className={`container header ${selectedMovie ? 'movie-selected' : ''}`}
+    >
       <div className="header-container container">
         <NetflixLogo />
         <div className="add-button">
