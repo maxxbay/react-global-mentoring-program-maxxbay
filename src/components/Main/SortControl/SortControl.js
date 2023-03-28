@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './SortControl.scss';
-import movies from '../../../common/MoviesLibrary/movies.json';
 
 const SortControl = ({ currentSelection, onSelectionChange }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -33,15 +32,8 @@ const SortControl = ({ currentSelection, onSelectionChange }) => {
         onChange={handleSelectionChange}
       >
         <option value="">Select an option</option>
-        {Object.keys(movies[0])
-          .filter(
-            key => key !== 'id' && key !== 'imageUrl' && key !== 'description'
-          )
-          .map(key => (
-            <option key={key} value={key}>
-              {key.charAt(0).toUpperCase() + key.slice(1)}
-            </option>
-          ))}
+        <option value="releaseDate">Release Date</option>
+        <option value="title">Title</option>
       </select>
     </div>
   );
