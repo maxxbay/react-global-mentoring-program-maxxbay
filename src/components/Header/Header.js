@@ -24,11 +24,13 @@ const Header = ({ selectedMovie }) => {
       {selectedMovie ? (
         <MovieDetails movie={selectedMovie} />
       ) : (
-        <SearchForm
-          className="header-container container"
-          initialSearchQuery={searchValue}
-          onSearch={handleSearch}
-        />
+        <div className="search-container">
+          <SearchForm
+            className="header-container container"
+            initialSearchQuery={searchValue}
+            onSearch={handleSearch}
+          />
+        </div>
       )}
     </header>
   );
