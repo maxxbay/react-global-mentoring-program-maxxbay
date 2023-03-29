@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import NetflixLogo from 'components/Header/Logo/NetflixLogo';
 import './Header.scss';
 import SearchForm from '../SearchForm/SearchForm';
-import MovieDetails from 'components/Main/MovieDetails/MovieDetails';
+import { MovieDetails } from 'components/Main';
 
 const Header = ({ selectedMovie }) => {
   const [searchValue, setSearchValue] = useState('');

@@ -4,8 +4,7 @@ import Header from './components/Header/Header';
 import moviesData from './components/assets/movies.json';
 import { genres } from './components/assets/configmovie';
 import GenreSelect from './components/GenreSelect/GenreSelect';
-import MovieTile from './components/Main/MovieTile/MovieTile';
-import SortControl from './components/Main/SortControl/SortControl';
+import { MovieTile, SortControl } from './components/Main';
 
 const App = () => {
   const [selectedGenre, setSelectedGenre] = useState('All');
