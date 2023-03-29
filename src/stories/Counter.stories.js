@@ -1,7 +1,16 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import Counter from '../components/Counter/Counter';
 
-storiesOf('Counter', module)
-  .add('Default', () => <Counter />)
-  .add('Initial value 5', () => <Counter initialValue={5} />);
+export default {
+  title: 'Components/Counter',
+  component: Counter,
+};
+
+const Template = args => <Counter {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  count: 0,
+  onIncrement: () => {},
+  onDecrement: () => {},
+};

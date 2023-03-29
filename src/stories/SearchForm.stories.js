@@ -1,14 +1,18 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import SearchForm from '../components/SearchForm/SearchForm';
 
-storiesOf('SearchForm', module)
-  .add('Default', () => (
-    <SearchForm onSearch={searchQuery => console.log(searchQuery)} />
-  ))
-  .add('Initial value "Star Wars"', () => (
-    <SearchForm
-      initialSearchQuery="Star Wars"
-      onSearch={searchQuery => console.log(searchQuery)}
-    />
-  ));
+export default {
+  title: 'Components/SearchForm',
+  component: SearchForm,
+  argTypes: {
+    onSearch: { action: 'onSearch' },
+  },
+};
+
+const Template = args => <SearchForm {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  initialSearchQuery: '',
+  onSearch: value => console.log('Searching for:', value),
+};

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './MovieTile.scss';
+import ContextMenu from '../ContextMenu/ContextMenu';
 
-const MovieTile = ({ movie, onClick, onEdit, onDelete }) => {
+const MovieTile = ({ movie, onClick }) => {
   const { title, release_date, genres, poster_path } = movie;
   const [showContextMenu, setShowContextMenu] = useState(false);
 
@@ -14,20 +15,12 @@ const MovieTile = ({ movie, onClick, onEdit, onDelete }) => {
     setShowContextMenu(!showContextMenu);
   };
 
-  const handleEdit = e => {
-    e.stopPropagation();
-    if (typeof onEdit === 'function') {
-      onEdit(movie);
-    }
-    closeContextMenu();
+  const handleEdit = () => {
+    console.log('Edit action for movie:', movie);
   };
 
-  const handleDelete = e => {
-    e.stopPropagation();
-    if (typeof onDelete === 'function') {
-      onDelete(movie);
-    }
-    closeContextMenu();
+  const handleDelete = () => {
+    console.log('Delete action for movie:', movie);
   };
 
   const handleTileClick = () => {
@@ -63,30 +56,21 @@ const MovieTile = ({ movie, onClick, onEdit, onDelete }) => {
         <p className="movie-tile__duration">Duration: {movie.runtime} min</p>
         <p className="movie-tile__description">{movie.overview}</p>
       </div>
-      <button
-        className="movie-tile__context-menu-toggle"
-        onClick={toggleContextMenu}
-      >
-        &#x2026;
-      </button>
-      {showContextMenu && (
-        <div className="movie-tile__context-menu">
-          <button
-            className="movie-tile__context-menu-item"
-            onClick={handleEdit}
-          >
-            Edit
-          </button>
-          <button
-            className="movie-tile__context-menu-item"
-            onClick={handleDelete}
-          >
-            Delete
-          </button>
-        </div>
-      )}
+      <div className="movie-tile__context-menu-wrapper">
+        <button
+          className="movie-tile__context-menu-toggle"
+          onClick={toggleContextMenu}
+        >
+          &#x2026;
+        </button>
+        <ContextMenu
+          show={showContextMenu}
+          onClose={closeContextMenu}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      </div>
     </div>
   );
 };
-
 export default MovieTile;

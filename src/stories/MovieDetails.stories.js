@@ -1,8 +1,22 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import MovieDetails from '../components/Main/MovieDetails/MovieDetails';
-import moviesData from '../common/MoviesLibrary/movies.json';
 
-storiesOf('MovieDetails', module).add('default', () => (
-  <MovieDetails movie={moviesData[0]} />
-));
+export default {
+  title: 'Components/MovieDetails',
+  component: MovieDetails,
+};
+
+const Template = args => <MovieDetails {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  movie: {
+    title: 'Example Movie',
+    release_date: '2022-01-01',
+    genres: ['Action', 'Adventure'],
+    poster_path: '/example-poster.jpg',
+    vote_average: 8.5,
+    runtime: 120,
+    overview: 'This is an example movie for the MovieDetails component.',
+  },
+};

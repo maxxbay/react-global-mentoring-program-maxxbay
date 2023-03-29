@@ -1,7 +1,18 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import SortControl from '../components/Main/SortControl/SortControl';
 
-storiesOf('SortControl', module).add('default', () => (
-  <SortControl currentSelection="title" onSelectionChange={() => {}} />
-));
+export default {
+  title: 'Components/SortControl',
+  component: SortControl,
+  argTypes: {
+    onSelectionChange: { action: 'onSelectionChange' },
+  },
+};
+
+const Template = args => <SortControl {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  currentSelection: 'releaseDate',
+  onSelectionChange: option => console.log('Sorting by:', option),
+};

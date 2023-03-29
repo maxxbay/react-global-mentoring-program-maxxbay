@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './App.scss';
 import Header from './components/Header/Header';
-import moviesData from './common/MoviesLibrary/movies.json';
-import { genres } from './common/MovieArray/MovieArray';
+import moviesData from './components/assets/movies.json';
+import { genres } from './components/assets/configmovie';
 import GenreSelect from './components/GenreSelect/GenreSelect';
 import MovieTile from './components/Main/MovieTile/MovieTile';
 import SortControl from './components/Main/SortControl/SortControl';

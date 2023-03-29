@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import NetflixLogo from 'common/Logo/NetflixLogo';
+import NetflixLogo from 'components/Header/Logo/NetflixLogo';
 import './Header.scss';
 import SearchForm from '../SearchForm/SearchForm';
 import MovieDetails from 'components/Main/MovieDetails/MovieDetails';
