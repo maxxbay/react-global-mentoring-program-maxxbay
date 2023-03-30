@@ -59,6 +59,7 @@ const MovieTile = ({ movie, onClick }) => {
       <div className="movie-tile__context-menu-wrapper">
         <button
           className="movie-tile__context-menu-toggle"
+          aria-label="context menu"
           onClick={toggleContextMenu}
         >
           &#x2026;

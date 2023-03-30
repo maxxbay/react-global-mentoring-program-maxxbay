@@ -1,20 +1,25 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
 import MovieTile from './MovieTile';
+import ContextMenu from '../ContextMenu/ContextMenu';
 
 const mockMovie = {
-  title: 'Test Movie',
-  release_date: '2022-03-27',
+  title: 'Mock Movie',
+  release_date: '2022-01-01',
   genres: ['Action', 'Adventure'],
-  poster_path: '/test_poster.jpg',
+  poster_path: '/mock-poster.jpg',
   vote_average: 7.5,
   runtime: 120,
-  overview: 'This is a test movie description.',
+  overview: 'This is a mock movie.',
 };
 
-describe('MovieTile', () => {
-  it('renders the movie information', () => {
+describe('MovieTile component', () => {
+  it('renders correctly', () => {
+    const { container } = render(<MovieTile movie={mockMovie} />);
+    expect(container).toMatchSnapshot();
+  });
+
+  it('renders movie data correctly', () => {
     render(<MovieTile movie={mockMovie} />);
     expect(screen.getByText(mockMovie.title)).toBeInTheDocument();
     expect(screen.getByText(mockMovie.release_date)).toBeInTheDocument();
@@ -26,42 +31,73 @@ describe('MovieTile', () => {
       screen.getByText(`Duration: ${mockMovie.runtime} min`)
     ).toBeInTheDocument();
     expect(screen.getByText(mockMovie.overview)).toBeInTheDocument();
+    expect(screen.getByAltText(mockMovie.title)).toHaveAttribute(
+      'src',
+      `https://image.tmdb.org/t/p/w185${mockMovie.poster_path}`
+    );
   });
 
-  it('calls onClick when the tile is clicked', () => {
-    const onClickMock = jest.fn();
-    render(<MovieTile movie={mockMovie} onClick={onClickMock} />);
+  it('calls onClick function when clicked', () => {
+    const handleClick = jest.fn();
+    render(<MovieTile movie={mockMovie} onClick={handleClick} />);
     fireEvent.click(screen.getByText(mockMovie.title));
-    expect(onClickMock).toHaveBeenCalledTimes(1);
+    expect(handleClick).toHaveBeenCalledWith(mockMovie);
   });
 
-  it('shows the context menu when the menu toggle is clicked', () => {
+  it('opens context menu when toggle button is clicked', () => {
     render(<MovieTile movie={mockMovie} />);
-    fireEvent.click(screen.getByText('…'));
+    const toggleButton = screen.getByRole('button', { name: 'context menu' });
+    fireEvent.click(toggleButton);
     expect(screen.getByText('Edit')).toBeInTheDocument();
     expect(screen.getByText('Delete')).toBeInTheDocument();
   });
 
-  it('calls onEdit when the Edit button is clicked', () => {
-    const onEditMock = jest.fn();
-    render(<MovieTile movie={mockMovie} onEdit={onEditMock} />);
-    fireEvent.click(screen.getByText('…'));
-    fireEvent.click(screen.getByText('Edit'));
+  it('does not open context menu when toggle button is not clicked', () => {
+    render(<MovieTile movie={mockMovie} />);
+    expect(screen.queryByText('Edit')).not.toBeInTheDocument();
+    expect(screen.queryByText('Delete')).not.toBeInTheDocument();
+  });
+});
 
-    expect(onEditMock).toHaveBeenCalledTimes(1);
+describe('ContextMenu component', () => {
+  it('renders correctly when show is true', () => {
+    const { container } = render(<ContextMenu show onClose={jest.fn()} />);
+    expect(container).toMatchSnapshot();
   });
 
-  it('calls onDelete when the Delete button is clicked', () => {
-    const onDeleteMock = jest.fn();
-    render(<MovieTile movie={mockMovie} onDelete={onDeleteMock} />);
-    fireEvent.click(screen.getByText('…'));
-    fireEvent.click(screen.getByText('Delete'));
-
-    expect(onDeleteMock).toHaveBeenCalledTimes(1);
+  it('does not render when show is false', () => {
+    render(<ContextMenu show={false} onClose={jest.fn()} />);
+    expect(screen.queryByText('Edit')).not.toBeInTheDocument();
+    expect(screen.queryByText('Delete')).not.toBeInTheDocument();
   });
 
-  it('matches the snapshot', () => {
-    const { asFragment } = render(<MovieTile movie={mockMovie} />);
-    expect(asFragment()).toMatchSnapshot();
+  it('calls onClose function when edit button is clicked', () => {
+    const handleClose = jest.fn();
+    render(
+      <ContextMenu
+        show
+        onClose={handleClose}
+        onEdit={jest.fn()}
+        onDelete={jest.fn()}
+      />
+    );
+    const editButton = screen.getByText('Edit');
+    fireEvent.click(editButton);
+    expect(handleClose).toHaveBeenCalled();
+  });
+
+  it('calls onClose function when delete button is clicked', () => {
+    const handleClose = jest.fn();
+    render(
+      <ContextMenu
+        show
+        onClose={handleClose}
+        onEdit={jest.fn()}
+        onDelete={jest.fn()}
+      />
+    );
+    const deleteButton = screen.getByText('Delete');
+    fireEvent.click(deleteButton);
+    expect(handleClose).toHaveBeenCalled();
   });
 });

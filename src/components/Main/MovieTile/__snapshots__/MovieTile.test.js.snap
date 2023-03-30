@@ -1,14 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MovieTile matches the snapshot 1`] = `
-<DocumentFragment>
+exports[`ContextMenu component renders correctly when show is true 1`] = `
+<div>
+  <div
+    class="context-menu"
+  >
+    <button
+      class="context-menu__item"
+    >
+      Edit
+    </button>
+    <button
+      class="context-menu__item"
+    >
+      Delete
+    </button>
+  </div>
+</div>
+`;
+
+exports[`MovieTile component renders correctly 1`] = `
+<div>
   <div
     class="movie-tile"
   >
     <img
-      alt="Test Movie"
+      alt="Mock Movie"
       class="movie-tile__image"
-      src="https://image.tmdb.org/t/p/w185/test_poster.jpg"
+      src="https://image.tmdb.org/t/p/w185/mock-poster.jpg"
     />
     <div
       class="movie-tile__info"
@@ -16,12 +35,12 @@ exports[`MovieTile matches the snapshot 1`] = `
       <h2
         class="movie-tile__title"
       >
-        Test Movie
+        Mock Movie
       </h2>
       <p
         class="movie-tile__year"
       >
-        2022-03-27
+        2022-01-01
       </p>
       <p
         class="movie-tile__genres"
@@ -31,24 +50,32 @@ exports[`MovieTile matches the snapshot 1`] = `
       <p
         class="movie-tile__rating"
       >
-        Rating: 7.5
+        Rating: 
+        7.5
       </p>
       <p
         class="movie-tile__duration"
       >
-        Duration: 120 min
+        Duration: 
+        120
+         min
       </p>
       <p
         class="movie-tile__description"
       >
-        This is a test movie description.
+        This is a mock movie.
       </p>
     </div>
-    <button
-      class="movie-tile__context-menu-toggle"
+    <div
+      class="movie-tile__context-menu-wrapper"
     >
-      …
-    </button>
+      <button
+        aria-label="context menu"
+        class="movie-tile__context-menu-toggle"
+      >
+        …
+      </button>
+    </div>
   </div>
-</DocumentFragment>
+</div>
 `;
