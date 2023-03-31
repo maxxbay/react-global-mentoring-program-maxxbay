@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './App.scss';
 import Header from './components/Header/Header';
-import moviesData from './components/assets/movies.json';
-import { genres } from './components/assets/configmovie';
+import moviesData from './components/MovieTile/movies.json';
+import { genres } from './components/MovieTile/genres';
 import GenreSelect from './components/GenreSelect/GenreSelect';
-import { MovieTile, SortControl } from './components/Main';
+import MovieTile from 'components/MovieTile/MovieTile';
+import SortControl from 'components/SortControl/SortControl';
 
 const App = () => {
   const [selectedGenre, setSelectedGenre] = useState('All');
