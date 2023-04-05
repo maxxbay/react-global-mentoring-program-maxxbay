@@ -8,4 +8,5 @@ export const genres = [
   'Family',
   'Science Fiction',
   'Thriller',
+  'Fantasy',
 ];
