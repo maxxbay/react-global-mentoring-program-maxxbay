@@ -21,7 +21,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test jest --coverage",
     "eject": "react-scripts eject",
-    "lint:js": "eslint src/**/*.{js,jsx}"  },
+    "lint:js": "eslint src/**/*.{js,jsx}",
+    "cypress:open": "cypress open"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
