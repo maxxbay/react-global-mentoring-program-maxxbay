@@ -6,10 +6,6 @@ const GenreSelect = ({ genres, selectedGenre, onSelect }) => {
 
   const handleGenreChange = ({ target: { value } }) => {
     onSelect(value);
-    const event = new CustomEvent('genreSelected', {
-      detail: { genre: value },
-    });
-    document.dispatchEvent(event);
   };
 
   const toggleDropdown = () => {
