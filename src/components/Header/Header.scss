@@ -1,43 +1,54 @@
 .header {
-    background-image: url(../../common/Images/HeaderBackground.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100%;
-
-    .header-container {
+    background-image: url(../assets/HeaderBackground.png);
+        background-size: cover;
+        background-repeat: no-repeat;
         display: flex;
+            flex-direction: column;
+    
+        &.movie-selected {
+            height: auto;
+            width: 90%;
+        }
+    
+        .header-container {
+            display: flex;
             align-items: center;
             justify-content: space-between;
             padding-top: 20px;
-    }
+            flex-shrink: 0;        }
+
+
+        .search-container {
+             width: 100%;
+}
 
     .add-button button {
-            height: 40px;
-            width: 140px;
-            text-transform: uppercase;
-            color: #f65261;
-            background-color: #555555;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+        height: 40px;
+        width: 140px;
+        text-transform: uppercase;
+        color: #f65261;
+        background-color: #555555;
+        cursor: pointer;
+        border-radius: 5px;
+    }
 
     .add {
         font-weight: 600;
-    border: none;
-    &:hover {
+        border: none;
+
+        &:hover {
             background-color: #f65261;
             color: #ffffff;
         }
-    
+
         &:focus {
             box-shadow: 0 0 0 0.2rem #d87880;
         }
-
     }
 }
-
 
 .container {
     width: 90%;
     margin: 0 auto;
+        max-width: 1200px;
 }
