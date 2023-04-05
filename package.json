@@ -30,6 +30,7 @@
       "react-app/jest"
     ],
     "env": {
+
       "cypress/globals": false
     },
     "plugins": [
