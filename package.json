@@ -28,9 +28,7 @@
       "react-app",
       "react-app/jest"
     ],
-    "env": {
-      "cypress/globals": false
-    },
+ 
     "plugins": [
       "cypress"
     ]
