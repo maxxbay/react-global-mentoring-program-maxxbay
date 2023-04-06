@@ -6,11 +6,14 @@ import { genres } from './components/MovieTile/genres';
 import GenreSelect from './components/GenreSelect/GenreSelect';
 import MovieTile from 'components/MovieTile/MovieTile';
 import SortControl from 'components/SortControl/SortControl';
+import Dialog from './components/Dialog/Dialog';
+import MovieForm from './components/MovieForm/MovieForm';
 
 const App = () => {
   const [selectedGenre, setSelectedGenre] = useState('All');
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [sortOption, setSortOption] = useState('release_date');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleGenreSelect = genre => {
     setSelectedGenre(genre);
@@ -26,6 +29,19 @@ const App = () => {
 
   const handleSortChange = option => {
     setSortOption(option);
+  };
+
+  const handleAddMovieClick = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleSubmit = movie => {
+    console.log('Submitted movie:', movie);
+    setIsDialogOpen(false);
   };
 
   const filteredMovies = moviesData.filter(movie =>
@@ -44,7 +60,10 @@ const App = () => {
 
   return (
     <>
-      <Header selectedMovie={selectedMovie} />
+      <Header
+        selectedMovie={selectedMovie}
+        onAddMovie={handleAddMovieClick} // fixed prop name here
+      />
       <main className="container">
         <div className="controls">
           <GenreSelect
@@ -67,6 +86,11 @@ const App = () => {
           ))}
         </div>
       </main>
+      {isDialogOpen && (
+        <Dialog title="Add Movie" onClose={handleDialogClose}>
+          <MovieForm onSubmit={handleSubmit} />
+        </Dialog>
+      )}
     </>
   );
 };

@@ -1,0 +1,60 @@
+.movie-form {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 20px;
+    background-color: #3b3939;
+    border-radius: 5px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.movie-form__field {
+    margin-bottom: 20px;
+}
+
+.movie-form__field label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.movie-form__field input,
+.movie-form__field select {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    background-color: #5e5858;
+    transition: border-color 0.3s ease;
+}
+
+.movie-form__field input:focus,
+.movie-form__field select:focus {
+    outline: none;
+    border-color: #0071eb;
+}           
+
+.movie-form__field select {
+    cursor: pointer;
+}
+
+.movie-form__submit {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #0071eb;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.movie-form__submit:hover {
+    background-color: #005cb2;
+}

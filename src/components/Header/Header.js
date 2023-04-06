@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import NetflixLogo from 'components/Header/Logo/NetflixLogo';
 import './Header.scss';
 import SearchForm from '../SearchForm/SearchForm';
-import MovieDetails from 'components/MovieDetails/MovieDetails';
+import MovieDetails from '../MovieDetails/MovieDetails';
 
-const Header = ({ selectedMovie }) => {
+const Header = ({ selectedMovie, onAddMovie }) => {
   const [searchValue, setSearchValue] = useState('');
 
   const handleSearch = value => {
     setSearchValue(value);
+  };
+
+  const handleAddMovieClick = () => {
+    if (typeof onAddMovie === 'function') {
+      onAddMovie();
+    }
   };
 
   return (
@@ -18,7 +24,9 @@ const Header = ({ selectedMovie }) => {
       <div className="header-container container">
         <NetflixLogo />
         <div className="add-button">
-          <button className="add">+ Add movie</button>
+          <button className="add" onClick={handleAddMovieClick}>
+            + Add movie
+          </button>
         </div>
       </div>
       {selectedMovie ? (
