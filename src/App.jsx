@@ -6,8 +6,8 @@ import { genres } from './components/MovieTile/genres';
 import GenreSelect from './components/GenreSelect/GenreSelect';
 import MovieTile from 'components/MovieTile/MovieTile';
 import SortControl from 'components/SortControl/SortControl';
-import Dialog from './components/Dialog/Dialog';
 import MovieForm from './components/MovieForm/MovieForm';
+import Dialog from './components/Dialog/Dialog';
 
 const App = () => {
   const [selectedGenre, setSelectedGenre] = useState('All');
