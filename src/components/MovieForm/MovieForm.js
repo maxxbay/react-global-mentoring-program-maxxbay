@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './MovieForm.scss';
 import Button from '../Button/Button';
 
-const MovieForm = ({ onSubmit }) => {
+const MovieForm = ({ onSubmit, initialMovie }) => {
   const [title, setTitle] = useState('');
   const [genre, setGenre] = useState('');
   const [rating, setRating] = useState('');
@@ -16,6 +16,14 @@ const MovieForm = ({ onSubmit }) => {
     setGenre('');
     setRating('');
   };
+
+  useEffect(() => {
+    if (initialMovie) {
+      setTitle(initialMovie.title);
+      setGenre(initialMovie.genre);
+      setRating(initialMovie.rating);
+    }
+  }, [initialMovie]);
 
   return (
     <form className="movie-form" onSubmit={handleSubmit}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import SortControl from '../components/Main/SortControl/SortControl';
+import SortControl from '../components/SortControl/SortControl';
 
 export default {
   title: 'Components/SortControl',
