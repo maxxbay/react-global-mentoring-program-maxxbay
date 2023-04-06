@@ -1,5 +1,3 @@
-// MovieForm.js
-
 import React, { useState } from 'react';
 import './MovieForm.scss';
 import Button from '../Button/Button';
