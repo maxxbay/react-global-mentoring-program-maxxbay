@@ -7,7 +7,12 @@ const Dialog = ({ title, children, onClose }) => {
   return (
     <Portal>
       <FocusTrap>
-        <div className="dialog-overlay" onClick={onClose}>
+        <div
+          className="dialog-overlay"
+          onClick={onClose}
+          data-testid="dialog-overlay"
+          tabIndex="-1"
+        >
           <div
             className="dialog"
             onClick={e => e.stopPropagation()}
@@ -16,8 +21,15 @@ const Dialog = ({ title, children, onClose }) => {
             aria-labelledby="dialog-title"
           >
             <header className="dialog-header">
-              <h2 id="dialog-title">{title}</h2>
-              <button className="dialog-close" onClick={onClose}>
+              <h2 id="dialog-title" tabIndex="0">
+                {title}
+              </h2>
+              <button
+                className="dialog-close"
+                onClick={onClose}
+                autoFocus
+                tabIndex="0"
+              >
                 ×
               </button>
             </header>

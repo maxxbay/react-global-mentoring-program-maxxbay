@@ -10,7 +10,9 @@ const MovieForm = ({ onSubmit, initialMovie }) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    onSubmit({ title, genre, rating });
+    if (typeof onSubmit === 'function') {
+      onSubmit({ title, genre, rating });
+    }
 
     setTitle('');
     setGenre('');

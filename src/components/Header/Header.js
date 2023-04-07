@@ -21,7 +21,7 @@ const Header = ({ selectedMovie, onAddMovie }) => {
     <header
       className={`container header ${selectedMovie ? 'movie-selected' : ''}`}
     >
-      <div className="header-container container">
+      <div className="header-container">
         <NetflixLogo />
         <div className="add-button">
           <button className="add" onClick={handleAddMovieClick}>
