@@ -6,13 +6,9 @@ const MovieTile = ({ movie, onClick }) => {
   const { title, release_date, genres, poster_path } = movie;
   const [showContextMenu, setShowContextMenu] = useState(false);
 
-  const closeContextMenu = () => {
-    setShowContextMenu(false);
-  };
-
   const toggleContextMenu = e => {
     e.stopPropagation();
-    setShowContextMenu(!showContextMenu);
+    setShowContextMenu(prevShowContextMenu => !prevShowContextMenu);
   };
 
   const handleEdit = () => {
@@ -32,7 +28,7 @@ const MovieTile = ({ movie, onClick }) => {
   useEffect(() => {
     const handleClickOutside = e => {
       if (showContextMenu) {
-        closeContextMenu();
+        setShowContextMenu(false);
       }
     };
     document.addEventListener('click', handleClickOutside);
@@ -66,7 +62,7 @@ const MovieTile = ({ movie, onClick }) => {
         </button>
         <ContextMenu
           show={showContextMenu}
-          onClose={closeContextMenu}
+          onClose={toggleContextMenu}
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
@@ -74,4 +70,5 @@ const MovieTile = ({ movie, onClick }) => {
     </div>
   );
 };
+
 export default MovieTile;

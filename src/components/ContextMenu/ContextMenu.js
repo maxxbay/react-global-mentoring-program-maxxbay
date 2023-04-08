@@ -5,13 +5,13 @@ const ContextMenu = ({ show, onClose, onEdit, onDelete }) => {
   const handleEdit = e => {
     e.stopPropagation();
     onEdit();
-    onClose();
+    onClose(e);
   };
 
   const handleDelete = e => {
     e.stopPropagation();
     onDelete();
-    onClose();
+    onClose(e);
   };
 
   return (

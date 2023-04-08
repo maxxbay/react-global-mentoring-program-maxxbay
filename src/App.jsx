@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import './App.scss';
+import { genres } from './components/MovieTile/genres';
 import Header from './components/Header/Header';
 import moviesData from './components/MovieTile/movies.json';
-import { genres } from './components/MovieTile/genres';
 import GenreSelect from './components/GenreSelect/GenreSelect';
-import MovieTile from 'components/MovieTile/MovieTile';
 import SortControl from 'components/SortControl/SortControl';
 import MovieForm from './components/MovieForm/MovieForm';
 import Dialog from './components/Dialog/Dialog';
+import MovieList from './components/MovieList/MovieList';
+
+export const RELEASE_DATE = 'release_date';
+export const TITLE = 'title';
 
 const App = () => {
   const [selectedGenre, setSelectedGenre] = useState('All');
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [sortOption, setSortOption] = useState('release_date');
+  const [sortOption, setSortOption] = useState(RELEASE_DATE);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleGenreSelect = genre => {
@@ -20,23 +23,15 @@ const App = () => {
   };
 
   const handleMovieClick = movie => {
-    if (selectedMovie && selectedMovie.id === movie.id) {
-      setSelectedMovie(null);
-    } else {
-      setSelectedMovie(movie);
-    }
+    setSelectedMovie(selectedMovie?.id === movie.id ? null : movie);
   };
 
   const handleSortChange = option => {
     setSortOption(option);
   };
 
-  const handleAddMovieClick = () => {
-    setIsDialogOpen(true);
-  };
-
-  const handleDialogClose = () => {
-    setIsDialogOpen(false);
+  const toggleModal = () => {
+    setIsDialogOpen(prev => !prev);
   };
 
   const handleSubmit = movie => {
@@ -50,7 +45,7 @@ const App = () => {
 
   const sortedMovies = filteredMovies
     .sort((a, b) => {
-      if (sortOption === 'title') {
+      if (sortOption === TITLE) {
         return a.title.localeCompare(b.title);
       } else {
         return new Date(b.release_date) - new Date(a.release_date);
@@ -60,14 +55,11 @@ const App = () => {
 
   return (
     <>
-      <Header
-        selectedMovie={selectedMovie}
-        onAddMovie={handleAddMovieClick} // fixed prop name here
-      />
+      <Header selectedMovie={selectedMovie} onAddMovie={toggleModal} />
       <main className="container">
         <div className="controls">
           <GenreSelect
-            genres={['All', ...genres]}
+            genres={genres}
             selectedGenre={selectedGenre}
             onSelect={handleGenreSelect}
           />
@@ -76,18 +68,10 @@ const App = () => {
             onSelectionChange={handleSortChange}
           />
         </div>
-        <div className="movie-list marg">
-          {sortedMovies.map(movie => (
-            <MovieTile
-              key={movie.id}
-              movie={movie}
-              onClick={handleMovieClick}
-            />
-          ))}
-        </div>
+        <MovieList movies={sortedMovies} onMovieClick={handleMovieClick} />
       </main>
       {isDialogOpen && (
-        <Dialog title="Add Movie" onClose={handleDialogClose}>
+        <Dialog title="Add Movie" onClose={toggleModal}>
           <MovieForm onSubmit={handleSubmit} />
         </Dialog>
       )}
