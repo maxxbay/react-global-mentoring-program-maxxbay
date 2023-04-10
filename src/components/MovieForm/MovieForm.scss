@@ -1,15 +1,47 @@
 .movie-form {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
+    justify-content: space-between;
     margin: 20px;
     padding: 20px;
-    background-color: #3b3939;
+    background-color: #424242;
     border-radius: 5px;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
+.movie-form__column {
+    width: calc(50% - 5px);
+    margin-right: 10px;
+    justify-content: space-between;
+}
+
 .movie-form__field {
     margin-bottom: 20px;
+}
+.movie-form__field textarea {
+    min-width: 470px;
+    border-radius: 5px;
+}
+.movie-form__row--full-width {
+    width: 100%;
+}
+.movie-form__field label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+}
+.movie-form__row {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.movie-form__actions {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
 }
 
 .movie-form__field label {
@@ -17,7 +49,8 @@
     margin-bottom: 10px;
     font-size: 16px;
     font-weight: 600;
-    color: #f65261;}
+    color: #ffffff;
+}
 
 .movie-form__field input,
 .movie-form__field select {
@@ -26,17 +59,22 @@
     padding: 10px;
     font-size: 14px;
     color: #ffffff;
-    border: 1px solid #d9d9d9;
+    border: 1px solid #ffffff;
     border-radius: 5px;
-    background-color: #5e5858;
+    background-color: #333333;
     transition: border-color 0.3s ease;
 }
 
 .movie-form__field input:focus,
 .movie-form__field select:focus {
     outline: none;
-    border-color: #0071eb;
-}           
+    border-color: #f65261;
+}
+
+.movie-form__field input::placeholder,
+.movie-form__field select::placeholder {
+    color: #aaa;
+}
 
 .movie-form__field select {
     cursor: pointer;
