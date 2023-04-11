@@ -72,8 +72,14 @@ const MovieForm = ({ onSubmit }) => {
       <div className="movie-form__row">
         <div className="movie-form__column">
           <div className="movie-form__field">
-            <label htmlFor="genre">Genre</label>
-            <GenreSelect genres={genres} onSelect={handleGenreSelect} />
+            <label id="genre-label" htmlFor="genre">
+              Genre
+            </label>
+            <GenreSelect
+              genres={genres}
+              onSelect={handleGenreSelect}
+              ariaLabelledBy="genre-label"
+            />
           </div>
         </div>
         <div className="movie-form__column">

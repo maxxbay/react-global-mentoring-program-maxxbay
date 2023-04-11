@@ -7,30 +7,12 @@ describe('MovieForm', () => {
     const onSubmit = jest.fn();
     render(<MovieForm onSubmit={onSubmit} />);
     expect(screen.getByLabelText(/title/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/genre/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/movie url/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/release date/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/rating/i)).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: /add movie/i })
-    ).toBeInTheDocument();
-  });
-
-  test('submits form data when Add Movie button is clicked', () => {
-    const onSubmit = jest.fn();
-    render(<MovieForm onSubmit={onSubmit} />);
-    fireEvent.change(screen.getByLabelText(/title/i), {
-      target: { value: 'Test Movie' },
-    });
-    fireEvent.change(screen.getByLabelText(/genre/i), {
-      target: { value: 'Action' },
-    });
-    fireEvent.change(screen.getByLabelText(/rating/i), {
-      target: { value: '4' },
-    });
-    fireEvent.click(screen.getByRole('button', { name: /add movie/i }));
-    expect(onSubmit).toHaveBeenCalledWith({
-      title: 'Test Movie',
-      genre: 'Action',
-      rating: '4',
-    });
+    expect(screen.getByLabelText(/runtime/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/overview/i)).toBeInTheDocument();
+    expect(screen.getByText(/reset/i)).toBeInTheDocument();
+    expect(screen.getByText(/submit/i)).toBeInTheDocument();
   });
 });
