@@ -21,9 +21,7 @@ const Dialog = ({ title, children, onClose }) => {
             aria-labelledby="dialog-title"
           >
             <header className="dialog-header">
-              <h2 id="dialog-title" tabIndex="0">
-                {title}
-              </h2>
+              <h2 id="dialog-title">{title}</h2>
               <button
                 className="dialog-close"
                 onClick={onClose}
