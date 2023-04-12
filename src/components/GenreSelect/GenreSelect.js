@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './GenreSelect.scss';
 
-const GenreSelect = ({ genres, selectedGenre, onSelect }) => {
+const GenreSelect = ({ genres = [], selectedGenre, onSelect }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleGenreChange = ({ target: { value } }) => {
@@ -23,6 +23,8 @@ const GenreSelect = ({ genres, selectedGenre, onSelect }) => {
         onChange={handleGenreChange}
         value={selectedGenre}
       >
+        <option value="All">All</option>
+
         {genres.map(genre => (
           <option value={genre} key={genre}>
             {genre}

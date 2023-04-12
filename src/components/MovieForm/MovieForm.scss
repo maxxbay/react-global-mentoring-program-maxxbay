@@ -1,0 +1,98 @@
+.movie-form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 20px;
+    background-color: #424242;
+    border-radius: 5px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.movie-form__column {
+    width: calc(50% - 5px);
+    margin-right: 10px;
+    justify-content: space-between;
+}
+
+.movie-form__field {
+    margin-bottom: 20px;
+}
+.movie-form__field textarea {
+    min-width: 470px;
+    border-radius: 5px;
+}
+.movie-form__row--full-width {
+    width: 100%;
+}
+.movie-form__field label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+}
+.movie-form__row {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.movie-form__actions {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.movie-form__field label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.movie-form__field input,
+.movie-form__field select {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    background-color: #333333;
+    transition: border-color 0.3s ease;
+}
+
+.movie-form__field input:focus,
+.movie-form__field select:focus {
+    outline: none;
+    border-color: #f65261;
+}
+
+.movie-form__field input::placeholder,
+.movie-form__field select::placeholder {
+    color: #aaa;
+}
+
+.movie-form__field select {
+    cursor: pointer;
+}
+
+.movie-form__submit {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #f65261;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.movie-form__submit:hover {
+    background-color: #d43232;
+}

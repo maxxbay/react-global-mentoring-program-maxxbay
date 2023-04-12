@@ -1,5 +1,5 @@
 import React from 'react';
-import MovieTile from '../components/Main/MovieTile/MovieTile';
+import MovieTile from '../components/MovieTile/MovieTile';
 
 export default {
   title: 'Components/MovieTile',
