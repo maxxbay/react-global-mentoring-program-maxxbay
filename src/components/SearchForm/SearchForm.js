@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import './SearchForm.scss';
 
-const SearchForm = ({ initialSearchQuery, onSearch }) => {
-  const [value, setValue] = useState(initialSearchQuery);
+const SearchForm = ({ searchQuery, setSearchQuery }) => {
+  const [value, setValue] = useState(searchQuery);
 
   const handleForm = event => {
     event.preventDefault();
-    if (typeof onSearch === 'function') {
-      onSearch(value);
-    }
+    setSearchQuery(value);
   };
 
   const handleChange = ({ target: { value } }) => {
@@ -30,6 +29,11 @@ const SearchForm = ({ initialSearchQuery, onSearch }) => {
       </form>
     </div>
   );
+};
+
+SearchForm.propTypes = {
+  searchQuery: PropTypes.string,
+  setSearchQuery: PropTypes.func.isRequired,
 };
 
 export default SearchForm;

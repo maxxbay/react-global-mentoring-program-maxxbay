@@ -23,10 +23,10 @@ body {
 }
 
 .movie-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
 }
 
 .marg {

@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { genres } from './components/MovieTile/genres';
-import Header from './components/Header/Header';
 import moviesData from './components/MovieTile/movies.json';
-import GenreSelect from './components/GenreSelect/GenreSelect';
-import SortControl from 'components/SortControl/SortControl';
 import MovieForm from './components/MovieForm/MovieForm';
+import MovieListPage from 'components/MovieList/MovieListPage';
 import Dialog from './components/Dialog/Dialog';
-import MovieList from './components/MovieList/MovieList';
 
 export const RELEASE_DATE = 'release_date';
 export const TITLE = 'title';
@@ -18,16 +14,8 @@ const App = () => {
   const [sortOption, setSortOption] = useState(RELEASE_DATE);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleGenreSelect = genre => {
-    setSelectedGenre(genre);
-  };
-
   const handleMovieClick = movie => {
     setSelectedMovie(selectedMovie?.id === movie.id ? null : movie);
-  };
-
-  const handleSortChange = option => {
-    setSortOption(option);
   };
 
   const toggleModal = () => {
@@ -55,20 +43,8 @@ const App = () => {
 
   return (
     <>
-      <Header selectedMovie={selectedMovie} onAddMovie={toggleModal} />
       <main className="container">
-        <div className="controls">
-          <GenreSelect
-            genres={genres}
-            selectedGenre={selectedGenre}
-            onSelect={handleGenreSelect}
-          />
-          <SortControl
-            currentSelection={sortOption}
-            onSelectionChange={handleSortChange}
-          />
-        </div>
-        <MovieList movies={sortedMovies} onMovieClick={handleMovieClick} />
+        <MovieListPage movies={sortedMovies} onMovieClick={handleMovieClick} />
       </main>
       {isDialogOpen && (
         <Dialog title="Add Movie" onClose={toggleModal}>

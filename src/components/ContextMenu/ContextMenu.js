@@ -1,5 +1,6 @@
 import React from 'react';
 import './ContextMenu.scss';
+import PropTypes from 'prop-types';
 
 const ContextMenu = ({ show, onClose, onEdit, onDelete }) => {
   const handleEdit = e => {
@@ -25,5 +26,10 @@ const ContextMenu = ({ show, onClose, onEdit, onDelete }) => {
     )
   );
 };
-
+ContextMenu.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
 export default ContextMenu;
