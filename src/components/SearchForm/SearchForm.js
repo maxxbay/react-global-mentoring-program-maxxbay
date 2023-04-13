@@ -3,17 +3,14 @@ import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import './SearchForm.scss';
 
-const SearchForm = ({ searchQuery, setSearchQuery, resetPagination }) => {
-  const [value, setValue] = useState(searchQuery);
+const SearchForm = ({ initialSearchQuery, onSearch }) => {
+  const [value, setValue] = useState(initialSearchQuery);
 
   const handleForm = event => {
     event.preventDefault();
-    setSearchQuery(value);
-    resetPagination();
-  };
-
-  const handleChange = ({ target: { value } }) => {
-    setValue(value);
+    if (typeof onSearch === 'function') {
+      onSearch(value);
+    }
   };
 
   return (
@@ -24,7 +21,7 @@ const SearchForm = ({ searchQuery, setSearchQuery, resetPagination }) => {
           type="text"
           placeholder="What do you want to watch?"
           value={value}
-          onChange={handleChange}
+          onChange={({ target: { value } }) => setValue(value)}
         />
         <Button type="submit">search</Button>
       </form>
@@ -33,9 +30,8 @@ const SearchForm = ({ searchQuery, setSearchQuery, resetPagination }) => {
 };
 
 SearchForm.propTypes = {
-  searchQuery: PropTypes.string,
-  setSearchQuery: PropTypes.func.isRequired,
-  resetPagination: PropTypes.func.isRequired,
+  initialSearchQuery: PropTypes.string,
+  onSearch: PropTypes.func.isRequired,
 };
 
 export default SearchForm;

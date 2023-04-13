@@ -7,9 +7,8 @@ import SearchForm from '../SearchForm/SearchForm';
 const Header = ({
   selectedMovie,
   onAddMovie,
-  searchQuery,
-  setSearchQuery,
-  resetPagination,
+  initialSearchQuery,
+  onSearch,
   children,
 }) => {
   const handleAddMovieClick = () => {
@@ -26,9 +25,8 @@ const Header = ({
         <NetflixLogo />
         <div className="search-container">
           <SearchForm
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            resetPagination={resetPagination}
+            initialSearchQuery={initialSearchQuery}
+            onSearch={onSearch}
           />
         </div>
         <div className="add-button">
@@ -45,9 +43,8 @@ const Header = ({
 Header.propTypes = {
   selectedMovie: PropTypes.object,
   onAddMovie: PropTypes.func,
-  searchQuery: PropTypes.string,
-  setSearchQuery: PropTypes.func.isRequired,
-  resetPagination: PropTypes.func.isRequired,
+  initialSearchQuery: PropTypes.string,
+  onSearch: PropTypes.func.isRequired,
   children: PropTypes.node,
 };
 

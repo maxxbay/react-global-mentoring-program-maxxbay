@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import MovieDetails from '../MovieDetails/MovieDetails';
-import GenreSelect from '../GenreSelect/GenreSelect';
-import SortControl from '../SortControl/SortControl';
-import MovieTile from '../MovieTile/MovieTile';
+import MovieDetails from '../../components/MovieDetails/MovieDetails';
+import GenreSelect from '../../components/GenreSelect/GenreSelect';
+import SortControl from '../../components/SortControl/SortControl';
+import MovieTile from '../../components/MovieTile/MovieTile';
 import Header from 'components/Header/Header';
-import Dialog from '../Dialog/Dialog';
-import MovieForm from '../MovieForm/MovieForm';
+import Dialog from '../../components/Dialog/Dialog';
+import MovieForm from '../../components/MovieForm/MovieForm';
 import usePagination from './usePagination';
 import './MovieListPage.scss';
 
@@ -19,6 +19,7 @@ const MovieListPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const itemsPerPage = 6;
+
   const {
     currentData,
     nextPage,
@@ -51,8 +52,6 @@ const MovieListPage = () => {
         });
 
         setMovies(response.data.data);
-        setCurrentPage(response.data.currentPage);
-        setMaxPages(Math.ceil(response.data.total / itemsPerPage));
       } catch (error) {
         if (axios.isCancel(error)) {
           console.log('Request canceled', error.message);
@@ -96,7 +95,10 @@ const MovieListPage = () => {
     console.log('Submitted movie:', movie);
     setIsDialogOpen(false);
   };
-
+  const handleSearchQueryChange = value => {
+    setSearchQuery(value);
+    resetPagination();
+  };
   return (
     <>
       {selectedMovie ? (
@@ -104,11 +106,8 @@ const MovieListPage = () => {
       ) : (
         <Header
           onAddMovie={toggleModal}
-          searchQuery={searchQuery}
-          setSearchQuery={value => {
-            setSearchQuery(value);
-            resetPagination();
-          }}
+          initialSearchQuery={searchQuery}
+          onSearch={handleSearchQueryChange}
         >
           <div className="genre-sort-controls">
             <GenreSelect
