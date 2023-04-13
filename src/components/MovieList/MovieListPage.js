@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import GenreSelect from '../GenreSelect/GenreSelect';
@@ -28,14 +28,14 @@ const MovieListPage = () => {
     setCurrentPage,
   } = usePagination(movies, itemsPerPage);
 
-  const resetPagination = () => {
+  const resetPagination = useCallback(() => {
     setCurrentPage(1);
-  };
+  }, [setCurrentPage]);
 
   useEffect(() => {
     const source = axios.CancelToken.source();
 
-    const fetchMovies = async () => {
+    const fetchMovies = async page => {
       try {
         const response = await axios.get('http://localhost:4000/movies', {
           params: {
@@ -44,13 +44,15 @@ const MovieListPage = () => {
             search: searchQuery,
             searchBy: 'title',
             filter: activeGenre,
-            offset: 0,
-            limit: 1000,
+            offset: (page - 1) * itemsPerPage,
+            limit: itemsPerPage + 100,
           },
           cancelToken: source.token,
         });
 
         setMovies(response.data.data);
+        setCurrentPage(response.data.currentPage);
+        setMaxPages(Math.ceil(response.data.total / itemsPerPage));
       } catch (error) {
         if (axios.isCancel(error)) {
           console.log('Request canceled', error.message);
@@ -60,12 +62,19 @@ const MovieListPage = () => {
       }
     };
 
-    fetchMovies();
+    fetchMovies(currentPage);
 
     return () => {
       source.cancel('Operation canceled by the user.');
     };
-  }, [searchQuery, sortCriterion, activeGenre]);
+  }, [
+    searchQuery,
+    sortCriterion,
+    activeGenre,
+    currentPage,
+    setCurrentPage,
+    resetPagination,
+  ]);
 
   const handleMovieClick = movie => {
     setSelectedMovie(prevSelectedMovie => {
@@ -96,7 +105,10 @@ const MovieListPage = () => {
         <Header
           onAddMovie={toggleModal}
           searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
+          setSearchQuery={value => {
+            setSearchQuery(value);
+            resetPagination();
+          }}
         >
           <div className="genre-sort-controls">
             <GenreSelect

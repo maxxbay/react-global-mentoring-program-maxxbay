@@ -18,11 +18,6 @@ const Header = ({
     }
   };
 
-  const handleSearchSubmit = value => {
-    setSearchQuery(value);
-    resetPagination();
-  };
-
   return (
     <header
       className={`container header ${selectedMovie ? 'movie-selected' : ''}`}
@@ -32,7 +27,7 @@ const Header = ({
         <div className="search-container">
           <SearchForm
             searchQuery={searchQuery}
-            setSearchQuery={handleSearchSubmit}
+            setSearchQuery={setSearchQuery}
             resetPagination={resetPagination}
           />
         </div>
@@ -52,8 +47,8 @@ Header.propTypes = {
   onAddMovie: PropTypes.func,
   searchQuery: PropTypes.string,
   setSearchQuery: PropTypes.func.isRequired,
+  resetPagination: PropTypes.func.isRequired,
   children: PropTypes.node,
-  resetPagination: PropTypes.func,
 };
 
 export default Header;
