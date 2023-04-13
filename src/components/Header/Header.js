@@ -3,19 +3,24 @@ import PropTypes from 'prop-types';
 import NetflixLogo from 'components/Header/Logo/NetflixLogo';
 import './Header.scss';
 import SearchForm from '../SearchForm/SearchForm';
-import MovieDetails from '../MovieDetails/MovieDetails';
 
 const Header = ({
   selectedMovie,
   onAddMovie,
   searchQuery,
   setSearchQuery,
+  resetPagination,
   children,
 }) => {
   const handleAddMovieClick = () => {
     if (typeof onAddMovie === 'function') {
       onAddMovie();
     }
+  };
+
+  const handleSearchSubmit = value => {
+    setSearchQuery(value);
+    resetPagination();
   };
 
   return (
@@ -27,7 +32,8 @@ const Header = ({
         <div className="search-container">
           <SearchForm
             searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
+            setSearchQuery={handleSearchSubmit}
+            resetPagination={resetPagination}
           />
         </div>
         <div className="add-button">
@@ -47,6 +53,7 @@ Header.propTypes = {
   searchQuery: PropTypes.string,
   setSearchQuery: PropTypes.func.isRequired,
   children: PropTypes.node,
+  resetPagination: PropTypes.func,
 };
 
 export default Header;

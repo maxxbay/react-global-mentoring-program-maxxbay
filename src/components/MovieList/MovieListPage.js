@@ -7,6 +7,7 @@ import MovieTile from '../MovieTile/MovieTile';
 import Header from 'components/Header/Header';
 import Dialog from '../Dialog/Dialog';
 import MovieForm from '../MovieForm/MovieForm';
+import usePagination from './usePagination';
 import './MovieListPage.scss';
 
 const MovieListPage = () => {
@@ -16,6 +17,20 @@ const MovieListPage = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const itemsPerPage = 6;
+  const {
+    currentData,
+    nextPage,
+    prevPage,
+    currentPage,
+    maxPages,
+    setCurrentPage,
+  } = usePagination(movies, itemsPerPage);
+
+  const resetPagination = () => {
+    setCurrentPage(1);
+  };
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -29,6 +44,8 @@ const MovieListPage = () => {
             search: searchQuery,
             searchBy: 'title',
             filter: activeGenre,
+            offset: 0,
+            limit: 1000,
           },
           cancelToken: source.token,
         });
@@ -81,7 +98,6 @@ const MovieListPage = () => {
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
         >
-          {/* Wrap GenreSelect and SortControl with div having genre-sort-controls class */}
           <div className="genre-sort-controls">
             <GenreSelect
               selectedGenre={activeGenre}
@@ -96,13 +112,24 @@ const MovieListPage = () => {
       )}
       <div className="movie-list-page">
         <div className="movie-list">
-          {movies.map(movie => (
+          {currentData().map(movie => (
             <MovieTile
               key={movie.id}
               movie={movie}
               onClick={() => handleMovieClick(movie)}
             />
           ))}
+        </div>
+        <div className="pagination">
+          <button onClick={prevPage} disabled={currentPage === 1}>
+            Previous
+          </button>
+          <span>
+            Page {currentPage} of {maxPages}
+          </span>
+          <button onClick={nextPage} disabled={currentPage === maxPages}>
+            Next
+          </button>
         </div>
       </div>
       {isDialogOpen && (

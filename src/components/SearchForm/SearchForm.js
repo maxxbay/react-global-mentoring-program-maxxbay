@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import './SearchForm.scss';
 
-const SearchForm = ({ searchQuery, setSearchQuery }) => {
+const SearchForm = ({ searchQuery, setSearchQuery, resetPagination }) => {
   const [value, setValue] = useState(searchQuery);
 
   const handleForm = event => {
     event.preventDefault();
     setSearchQuery(value);
+    resetPagination();
   };
 
   const handleChange = ({ target: { value } }) => {
@@ -34,6 +35,7 @@ const SearchForm = ({ searchQuery, setSearchQuery }) => {
 SearchForm.propTypes = {
   searchQuery: PropTypes.string,
   setSearchQuery: PropTypes.func.isRequired,
+  resetPagination: PropTypes.func.isRequired,
 };
 
 export default SearchForm;
