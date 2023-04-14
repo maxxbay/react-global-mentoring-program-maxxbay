@@ -8,6 +8,7 @@ import Header from 'components/Header/Header';
 import Dialog from '../../components/Dialog/Dialog';
 import MovieForm from '../../components/MovieForm/MovieForm';
 import usePagination from './usePagination';
+import useFetch from './useFetch';
 import './MovieListPage.scss';
 
 const MovieListPage = () => {
@@ -33,51 +34,26 @@ const MovieListPage = () => {
     setCurrentPage(1);
   }, [setCurrentPage]);
 
+  const url = 'http://localhost:4000/movies';
+  const params = {
+    sortBy: sortCriterion,
+    sortOrder: 'desc',
+    search: searchQuery,
+    searchBy: 'title',
+    filter: activeGenre,
+    offset: (currentPage - 1) * itemsPerPage,
+    limit: itemsPerPage + 100,
+  };
+
+  const { data, loading, error } = useFetch(url, params);
+
   useEffect(() => {
-    const source = axios.CancelToken.source();
-
-    const fetchMovies = async page => {
-      try {
-        const response = await axios.get('http://localhost:4000/movies', {
-          params: {
-            sortBy: sortCriterion,
-            sortOrder: 'desc',
-            search: searchQuery,
-            searchBy: 'title',
-            filter: activeGenre,
-            offset: (page - 1) * itemsPerPage,
-            limit: itemsPerPage + 100,
-          },
-          cancelToken: source.token,
-        });
-
-        setMovies(response.data.data);
-      } catch (error) {
-        if (axios.isCancel(error)) {
-          console.log('Request canceled', error.message);
-        } else {
-          console.error(error);
-        }
-      }
-    };
-
-    fetchMovies(currentPage);
-
-    return () => {
-      source.cancel('Operation canceled by the user.');
-    };
-  }, [
-    searchQuery,
-    sortCriterion,
-    activeGenre,
-    currentPage,
-    setCurrentPage,
-    resetPagination,
-  ]);
+    setMovies(data);
+  }, [data]);
 
   const handleMovieClick = movie => {
     setSelectedMovie(prevSelectedMovie => {
-      if (prevSelectedMovie === movie) {
+      if (prevSelectedMovie && prevSelectedMovie.id === movie.id) {
         return null;
       } else {
         return movie;
@@ -123,13 +99,17 @@ const MovieListPage = () => {
       )}
       <div className="movie-list-page">
         <div className="movie-list">
-          {currentData().map(movie => (
-            <MovieTile
-              key={movie.id}
-              movie={movie}
-              onClick={() => handleMovieClick(movie)}
-            />
-          ))}
+          {loading && <div>Loading...</div>}
+          {error && <div>Error: {error}</div>}
+          {currentData()
+            .slice(0, itemsPerPage) // Limit the number of displayed items to 6
+            .map(movie => (
+              <MovieTile
+                key={movie.id}
+                movie={movie}
+                onClick={() => handleMovieClick(movie)}
+              />
+            ))}
         </div>
         <div className="pagination">
           <button onClick={prevPage} disabled={currentPage === 1}>
