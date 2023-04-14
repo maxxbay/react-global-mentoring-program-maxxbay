@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const useFetch = (url, params) => {
+const useFetch = (url, params, updateData) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -17,6 +17,7 @@ const useFetch = (url, params) => {
         });
 
         setData(response.data.data);
+        updateData(response.data.data);
         setLoading(false);
       } catch (error) {
         if (axios.isCancel(error)) {
@@ -33,7 +34,7 @@ const useFetch = (url, params) => {
     return () => {
       source.cancel('Operation canceled by the user.');
     };
-  }, [url, params]);
+  }, [url, params, updateData]);
 
   return { data, loading, error };
 };

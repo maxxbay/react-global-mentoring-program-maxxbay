@@ -6,8 +6,8 @@ import MovieTile from '../../components/MovieTile/MovieTile';
 import Header from 'components/Header/Header';
 import Dialog from '../../components/Dialog/Dialog';
 import MovieForm from '../../components/MovieForm/MovieForm';
-import usePagination from './usePagination';
-import useFetch from './useFetch';
+import usePagination from '../../Hooks/usePagination';
+import useFetch from '../../Hooks/useFetch';
 import './MovieListPage.scss';
 
 const MovieListPage = () => {
@@ -44,13 +44,9 @@ const MovieListPage = () => {
     limit: itemsPerPage + 100,
   };
 
-  const { data, loading, error } = useFetch(url, params);
+  const { loading, error } = useFetch(url, params, setMovies);
 
-  useEffect(() => {
-    setMovies(data);
-  }, [data]);
-
-  const handleMovieClick = movie => {
+  const handleMovieClick = useCallback(movie => {
     setSelectedMovie(prevSelectedMovie => {
       if (prevSelectedMovie && prevSelectedMovie.id === movie.id) {
         return null;
@@ -58,7 +54,7 @@ const MovieListPage = () => {
         return movie;
       }
     });
-  };
+  }, []);
   const handleBackClick = () => {
     setSelectedMovie(null);
   };
@@ -91,7 +87,7 @@ const MovieListPage = () => {
             />
             <SortControl
               sortCriterion={sortCriterion}
-              setSortCriterion={setSortCriterion}
+              onSortCriterion={setSortCriterion}
             />
           </div>
         </Header>
@@ -106,7 +102,7 @@ const MovieListPage = () => {
               <MovieTile
                 key={movie.id}
                 movie={movie}
-                onClick={() => handleMovieClick(movie)}
+                onClick={handleMovieClick}
               />
             ))}
         </div>

@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './SortControl.scss';
 
-const SortControl = ({ sortCriterion, setSortCriterion }) => {
+const SortControl = ({ sortCriterion, onSortCriterion }) => {
   const handleSortChange = ({ target: { value } }) => {
-    setSortCriterion(value);
+    onSortCriterion(value);
   };
 
   return (
-    <div className="sort-control">
+    <div className="sort-control" data-testid="sort-control">
       <label htmlFor="sort-by" className="sort-control__label">
         SORT BY:
       </label>
@@ -28,7 +28,7 @@ const SortControl = ({ sortCriterion, setSortCriterion }) => {
 
 SortControl.propTypes = {
   sortCriterion: PropTypes.string.isRequired,
-  setSortCriterion: PropTypes.func.isRequired,
+  onSortCriterion: PropTypes.func.isRequired,
 };
 
 export default SortControl;

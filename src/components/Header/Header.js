@@ -41,7 +41,11 @@ const Header = ({
 };
 
 Header.propTypes = {
-  selectedMovie: PropTypes.object,
+  selectedMovie: PropTypes.shape({
+    user: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+  }),
   onAddMovie: PropTypes.func,
   initialSearchQuery: PropTypes.string,
   onSearch: PropTypes.func.isRequired,
