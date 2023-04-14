@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
 import MovieDetails from '../../components/MovieDetails/MovieDetails';
 import GenreSelect from '../../components/GenreSelect/GenreSelect';
 import SortControl from '../../components/SortControl/SortControl';
@@ -102,7 +101,7 @@ const MovieListPage = () => {
           {loading && <div>Loading...</div>}
           {error && <div>Error: {error}</div>}
           {currentData()
-            .slice(0, itemsPerPage) // Limit the number of displayed items to 6
+            .slice(0, itemsPerPage)
             .map(movie => (
               <MovieTile
                 key={movie.id}
