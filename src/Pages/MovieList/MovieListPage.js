@@ -26,12 +26,8 @@ const MovieListPage = () => {
     prevPage,
     currentPage,
     maxPages,
-    setCurrentPage,
+    resetPagination,
   } = usePagination(movies, itemsPerPage);
-
-  const resetPagination = useCallback(() => {
-    setCurrentPage(1);
-  }, [setCurrentPage]);
 
   const url = 'http://localhost:4000/movies';
   const params = {
@@ -44,7 +40,11 @@ const MovieListPage = () => {
     limit: itemsPerPage + 100,
   };
 
-  const { loading, error } = useFetch(url, params, setMovies);
+  const { loading, error, data: fetchedMovies } = useFetch(url, params);
+
+  useEffect(() => {
+    setMovies(fetchedMovies);
+  }, [fetchedMovies]);
 
   const handleMovieClick = useCallback(movie => {
     setSelectedMovie(prevSelectedMovie => {
