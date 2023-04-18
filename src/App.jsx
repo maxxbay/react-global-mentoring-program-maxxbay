@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.scss';
 import MovieListPage from 'Pages/MovieList/MovieListPage';
 
 const App = () => {
   return (
     <>
-      <main className="container">
-        <MovieListPage />
-      </main>
+      <Router>
+        <main className="container">
+          <Routes>
+            <Route path="/" element={<MovieListPage />} />
+          </Routes>
+        </main>
+      </Router>
     </>
   );
 };
