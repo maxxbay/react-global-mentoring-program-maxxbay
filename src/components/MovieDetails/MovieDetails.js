@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './MovieDetails.scss';
 
 const MovieDetails = ({ movie }) => {
@@ -32,5 +33,14 @@ const MovieDetails = ({ movie }) => {
     </div>
   );
 };
-
+MovieDetails.propTypes = {
+  movie: PropTypes.shape({
+    poster_path: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    release_date: PropTypes.string.isRequired,
+    vote_average: PropTypes.number.isRequired,
+    runtime: PropTypes.number,
+    overview: PropTypes.string.isRequired,
+  }),
+};
 export default MovieDetails;

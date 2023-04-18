@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Portal } from 'react-portal';
 import FocusTrap from 'focus-trap-react';
 import './Dialog.scss';
@@ -37,6 +38,11 @@ const Dialog = ({ title, children, onClose }) => {
       </FocusTrap>
     </Portal>
   );
+};
+Dialog.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default Dialog;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './MovieForm.scss';
 import Button from '../Button/Button';
 import GenreSelect from '../GenreSelect/GenreSelect';
@@ -109,5 +110,7 @@ const MovieForm = ({ onSubmit }) => {
     </form>
   );
 };
-
+MovieForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 export default MovieForm;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import './MovieTile.scss';
 import ContextMenu from '../ContextMenu/ContextMenu';
 
@@ -70,5 +71,16 @@ const MovieTile = ({ movie, onClick }) => {
     </div>
   );
 };
-
+MovieTile.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    release_date: PropTypes.string.isRequired,
+    genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+    poster_path: PropTypes.string.isRequired,
+    vote_average: PropTypes.number.isRequired,
+    runtime: PropTypes.number.isRequired,
+    overview: PropTypes.string.isRequired,
+  }).isRequired,
+  onClick: PropTypes.func,
+};
 export default MovieTile;

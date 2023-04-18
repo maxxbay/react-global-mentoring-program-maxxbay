@@ -1,42 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import './SortControl.scss';
 
-const SortControl = ({ currentSelection, onSelectionChange }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const handleSelectionChange = event => {
-    const { value } = event.target;
-
-    if (typeof onSelectionChange === 'function') {
-      onSelectionChange(value);
-    }
-  };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+const SortControl = ({ sortCriterion, onSortCriterion }) => {
+  const handleSortChange = ({ target: { value } }) => {
+    onSortCriterion(value);
   };
 
   return (
-    <div
-      data-testid="sort-control"
-      className={`sort-control ${isDropdownOpen ? 'open' : ''}`}
-      onClick={toggleDropdown}
-    >
-      <label className="sort-control__label" htmlFor="sort-by">
-        SORT BY
+    <div className="sort-control" data-testid="sort-control">
+      <label htmlFor="sort-by" className="sort-control__label">
+        SORT BY:
       </label>
       <select
         className="sort-control__select"
+        name="sort-by"
         id="sort-by"
-        value={currentSelection}
-        onChange={handleSelectionChange}
+        onChange={handleSortChange}
+        value={sortCriterion}
       >
-        <option value="">Select an option</option>
-        <option value="releaseDate">Release Date</option>
-        <option value="title">Title</option>
+        <option value="release_date">RELEASE DATE</option>
+        <option value="title">TITLE</option>
       </select>
     </div>
   );
+};
+
+SortControl.propTypes = {
+  sortCriterion: PropTypes.string.isRequired,
+  onSortCriterion: PropTypes.func.isRequired,
 };
 
 export default SortControl;
