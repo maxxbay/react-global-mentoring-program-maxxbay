@@ -58,6 +58,7 @@ const MovieListPage = () => {
   const handleBackClick = () => {
     setSelectedMovie(null);
   };
+
   const toggleModal = () => {
     setIsDialogOpen(prev => !prev);
   };
@@ -70,6 +71,7 @@ const MovieListPage = () => {
     setSearchQuery(value);
     resetPagination();
   };
+
   return (
     <>
       {selectedMovie ? (
