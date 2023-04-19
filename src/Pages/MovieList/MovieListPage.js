@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Outlet, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import MovieDetails from '../../components/MovieDetails/MovieDetails';
 import GenreSelect from '../../components/GenreSelect/GenreSelect';
 import SortControl from '../../components/SortControl/SortControl';
@@ -150,7 +150,6 @@ const MovieListPage = () => {
           <MovieForm onSubmit={handleSubmit} />
         </Dialog>
       )}
-      <Outlet />
     </>
   );
 };
