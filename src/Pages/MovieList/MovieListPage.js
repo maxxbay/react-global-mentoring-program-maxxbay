@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Outlet, useSearchParams } from 'react-router-dom';
 import MovieDetails from '../../components/MovieDetails/MovieDetails';
 import GenreSelect from '../../components/GenreSelect/GenreSelect';
 import SortControl from '../../components/SortControl/SortControl';
@@ -11,9 +12,12 @@ import useFetch from '../../Hooks/useFetch';
 import './MovieListPage.scss';
 
 const MovieListPage = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortCriterion, setSortCriterion] = useState('');
-  const [activeGenre, setActiveGenre] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchQuery = searchParams.get('query') || '';
+  const sortCriterion = searchParams.get('sortBy') || '';
+  const activeGenre = searchParams.get('genre') || '';
+
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -55,29 +59,50 @@ const MovieListPage = () => {
       }
     });
   }, []);
-  const handleBackClick = () => {
+
+  const handleBackClick = useCallback(() => {
     setSelectedMovie(null);
-  };
+  }, []);
 
-  const toggleModal = () => {
+  const toggleModal = useCallback(() => {
     setIsDialogOpen(prev => !prev);
-  };
+  }, []);
 
-  const handleSubmit = movie => {
+  const handleSubmit = useCallback(movie => {
     console.log('Submitted movie:', movie);
     setIsDialogOpen(false);
-  };
-  const handleSearchQueryChange = value => {
-    setSearchQuery(value);
-    resetPagination();
-  };
+  }, []);
+
+  const handleSearchQueryChange = useCallback(
+    value => {
+      setSearchParams({ query: value });
+      resetPagination();
+    },
+    [setSearchParams, resetPagination]
+  );
+
+  const handleSortCriterionChange = useCallback(
+    value => {
+      setSearchParams({ sortBy: value });
+    },
+    [setSearchParams]
+  );
+
+  const handleActiveGenreChange = useCallback(
+    value => {
+      setSearchParams({ genre: value });
+    },
+    [setSearchParams]
+  );
 
   return (
     <>
       {selectedMovie ? (
-        <MovieDetails movie={selectedMovie} onBackClick={handleBackClick} />
+        <MovieDetails movie={selectedMovie} onClose={handleBackClick} />
       ) : (
         <Header
+          selectedMovie={selectedMovie}
+          onClose={handleBackClick}
           onAddMovie={toggleModal}
           initialSearchQuery={searchQuery}
           onSearch={handleSearchQueryChange}
@@ -85,11 +110,11 @@ const MovieListPage = () => {
           <div className="genre-sort-controls">
             <GenreSelect
               selectedGenre={activeGenre}
-              onSelect={setActiveGenre}
+              onSelect={handleActiveGenreChange}
             />
             <SortControl
               sortCriterion={sortCriterion}
-              onSortCriterion={setSortCriterion}
+              onSortCriterion={handleSortCriterionChange}
             />
           </div>
         </Header>
@@ -125,6 +150,7 @@ const MovieListPage = () => {
           <MovieForm onSubmit={handleSubmit} />
         </Dialog>
       )}
+      <Outlet />
     </>
   );
 };

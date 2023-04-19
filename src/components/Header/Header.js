@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import NetflixLogo from 'components/Header/Logo/NetflixLogo';
 import './Header.scss';
@@ -17,6 +17,15 @@ const Header = ({
     }
   };
 
+  const handleSearch = useCallback(
+    searchQuery => {
+      if (typeof onSearch === 'function') {
+        onSearch(searchQuery);
+      }
+    },
+    [onSearch]
+  );
+
   return (
     <header
       className={`container header ${selectedMovie ? 'movie-selected' : ''}`}
@@ -26,7 +35,7 @@ const Header = ({
         <div className="search-container">
           <SearchForm
             initialSearchQuery={initialSearchQuery}
-            onSearch={onSearch}
+            onSearch={handleSearch}
           />
         </div>
         <div className="add-button">

@@ -2,11 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './MovieDetails.scss';
 
-const MovieDetails = ({ movie }) => {
+const MovieDetails = ({ movie, onClose }) => {
   if (!movie) {
     return <div className="movie-details">Movie not found</div>;
   }
-
+  const handleMovieDetailsClick = event => {
+    event.stopPropagation();
+    if (onClose) {
+      onClose();
+    }
+  };
   const {
     poster_path: imageUrl,
     title: movieName,
@@ -17,7 +22,7 @@ const MovieDetails = ({ movie }) => {
   } = movie;
 
   return (
-    <div className="movie-details">
+    <div className="movie-details" onClick={handleMovieDetailsClick}>
       <img
         className="movie-details__image"
         src={`https://image.tmdb.org/t/p/w185${imageUrl}`}
@@ -42,5 +47,6 @@ MovieDetails.propTypes = {
     runtime: PropTypes.number,
     overview: PropTypes.string.isRequired,
   }),
+  onClose: PropTypes.func,
 };
 export default MovieDetails;

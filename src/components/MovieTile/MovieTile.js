@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './MovieTile.scss';
 import ContextMenu from '../ContextMenu/ContextMenu';
 
 const MovieTile = ({ movie, onClick }) => {
+  const navigate = useNavigate();
+
   const { title, release_date, genres, poster_path } = movie;
   const [showContextMenu, setShowContextMenu] = useState(false);
 
@@ -21,6 +24,7 @@ const MovieTile = ({ movie, onClick }) => {
   };
 
   const handleTileClick = () => {
+    navigate(`/${movie.id}`);
     if (typeof onClick === 'function') {
       onClick(movie);
     }
@@ -74,6 +78,7 @@ const MovieTile = ({ movie, onClick }) => {
 MovieTile.propTypes = {
   movie: PropTypes.shape({
     title: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     release_date: PropTypes.string.isRequired,
     genres: PropTypes.arrayOf(PropTypes.string).isRequired,
     poster_path: PropTypes.string.isRequired,
