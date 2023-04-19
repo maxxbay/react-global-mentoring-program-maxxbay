@@ -21,6 +21,7 @@ const MovieListPage = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const sortOrder = sortCriterion === 'title' ? 'asc' : 'desc';
 
   const itemsPerPage = 6;
 
@@ -36,7 +37,7 @@ const MovieListPage = () => {
   const url = 'http://localhost:4000/movies';
   const params = {
     sortBy: sortCriterion,
-    sortOrder: 'desc',
+    sortOrder: sortOrder,
     search: searchQuery,
     searchBy: 'title',
     filter: activeGenre,
@@ -75,22 +76,30 @@ const MovieListPage = () => {
 
   const handleSearchQueryChange = useCallback(
     value => {
-      setSearchParams({ query: value });
+      setSearchParams(new URLSearchParams({ ...searchParams, query: value }));
       resetPagination();
     },
-    [setSearchParams, resetPagination]
+    [setSearchParams, resetPagination, searchParams]
   );
 
   const handleSortCriterionChange = useCallback(
     value => {
-      setSearchParams({ sortBy: value });
+      setSearchParams(prev => {
+        const newParams = new URLSearchParams(prev);
+        newParams.set('sortBy', value);
+        return newParams;
+      });
     },
     [setSearchParams]
   );
 
   const handleActiveGenreChange = useCallback(
     value => {
-      setSearchParams({ genre: value });
+      setSearchParams(prev => {
+        const newParams = new URLSearchParams(prev);
+        newParams.set('genre', value);
+        return newParams;
+      });
     },
     [setSearchParams]
   );
