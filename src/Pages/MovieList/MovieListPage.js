@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import MovieDetails from '../../components/MovieDetails/MovieDetails';
+import React, { useState, useEffect } from 'react';
+import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
 import GenreSelect from '../../components/GenreSelect/GenreSelect';
 import SortControl from '../../components/SortControl/SortControl';
 import MovieTile from '../../components/MovieTile/MovieTile';
@@ -9,6 +8,7 @@ import Dialog from '../../components/Dialog/Dialog';
 import MovieForm from '../../components/MovieForm/MovieForm';
 import usePagination from '../../Hooks/usePagination';
 import useFetch from '../../Hooks/useFetch';
+import { API_URL } from '../../constants';
 import './MovieListPage.scss';
 
 const MovieListPage = () => {
@@ -24,6 +24,8 @@ const MovieListPage = () => {
   const sortOrder = sortCriterion === 'title' ? 'asc' : 'desc';
 
   const itemsPerPage = 6;
+  const url = API_URL;
+  const navigate = useNavigate();
 
   const {
     currentData,
@@ -34,7 +36,6 @@ const MovieListPage = () => {
     resetPagination,
   } = usePagination(movies, itemsPerPage);
 
-  const url = 'http://localhost:4000/movies';
   const params = {
     sortBy: sortCriterion,
     sortOrder: sortOrder,
@@ -51,84 +52,64 @@ const MovieListPage = () => {
     setMovies(fetchedMovies);
   }, [fetchedMovies]);
 
-  const handleMovieClick = useCallback(movie => {
-    setSelectedMovie(prevSelectedMovie => {
-      if (prevSelectedMovie && prevSelectedMovie.id === movie.id) {
-        return null;
-      } else {
-        return movie;
-      }
+  const handleMovieClick = movie => {
+    navigate(`/movies/${movie.id}`, {
+      state: { searchParams: searchParams.toString() },
     });
-  }, []);
+  };
 
-  const handleBackClick = useCallback(() => {
-    setSelectedMovie(null);
-  }, []);
-
-  const toggleModal = useCallback(() => {
+  const toggleModal = () => {
     setIsDialogOpen(prev => !prev);
-  }, []);
+  };
 
-  const handleSubmit = useCallback(movie => {
+  const handleSubmit = movie => {
     console.log('Submitted movie:', movie);
     setIsDialogOpen(false);
-  }, []);
+  };
 
-  const handleSearchQueryChange = useCallback(
-    value => {
-      setSearchParams(new URLSearchParams({ ...searchParams, query: value }));
-      resetPagination();
-    },
-    [setSearchParams, resetPagination, searchParams]
-  );
+  const handleSearchQueryChange = value => {
+    setSearchParams(new URLSearchParams({ ...searchParams, query: value }));
+    resetPagination();
+  };
 
-  const handleSortCriterionChange = useCallback(
-    value => {
-      setSearchParams(prev => {
-        const newParams = new URLSearchParams(prev);
-        newParams.set('sortBy', value);
-        return newParams;
-      });
-    },
-    [setSearchParams]
-  );
+  const handleSortCriterionChange = value => {
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev);
+      newParams.set('sortBy', value);
+      return newParams;
+    });
+  };
 
-  const handleActiveGenreChange = useCallback(
-    value => {
-      setSearchParams(prev => {
-        const newParams = new URLSearchParams(prev);
-        newParams.set('genre', value);
-        return newParams;
-      });
-    },
-    [setSearchParams]
-  );
+  const handleActiveGenreChange = value => {
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev);
+      newParams.set('genre', value);
+      return newParams;
+    });
+  };
 
   return (
     <>
-      {selectedMovie ? (
-        <MovieDetails movie={selectedMovie} onClose={handleBackClick} />
-      ) : (
-        <Header
-          selectedMovie={selectedMovie}
-          onClose={handleBackClick}
-          onAddMovie={toggleModal}
-          initialSearchQuery={searchQuery}
-          onSearch={handleSearchQueryChange}
-        >
-          <div className="genre-sort-controls">
-            <GenreSelect
-              selectedGenre={activeGenre}
-              onSelect={handleActiveGenreChange}
-            />
-            <SortControl
-              sortCriterion={sortCriterion}
-              onSortCriterion={handleSortCriterionChange}
-            />
-          </div>
-        </Header>
-      )}
-      <div className="movie-list-page">
+      <Header
+        onAddMovie={toggleModal}
+        initialSearchQuery={searchQuery}
+        onSearch={handleSearchQueryChange}
+      >
+        <div className="genre-sort-controls">
+          <GenreSelect
+            selectedGenre={activeGenre}
+            onSelect={handleActiveGenreChange}
+          />
+          <SortControl
+            sortCriterion={sortCriterion}
+            onSortCriterion={handleSortCriterionChange}
+          />
+        </div>
+      </Header>
+
+      <main className="container">
+        <Outlet />
+
         <div className="movie-list">
           {loading && <div>Loading...</div>}
           {error && <div>Error: {error}</div>}
@@ -153,7 +134,7 @@ const MovieListPage = () => {
             Next
           </button>
         </div>
-      </div>
+      </main>
       {isDialogOpen && (
         <Dialog title="Add Movie" onClose={toggleModal}>
           <MovieForm onSubmit={handleSubmit} />

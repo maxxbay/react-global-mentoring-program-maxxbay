@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import NetflixLogo from 'components/Header/Logo/NetflixLogo';
 import './Header.scss';
@@ -17,14 +17,11 @@ const Header = ({
     }
   };
 
-  const handleSearch = useCallback(
-    searchQuery => {
-      if (typeof onSearch === 'function') {
-        onSearch(searchQuery);
-      }
-    },
-    [onSearch]
-  );
+  const handleSearch = searchQuery => {
+    if (typeof onSearch === 'function') {
+      onSearch(searchQuery);
+    }
+  };
 
   return (
     <header

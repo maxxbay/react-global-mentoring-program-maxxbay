@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useFetch from '../../Hooks/useFetch';
 import MovieDetails from '../MovieDetails/MovieDetails';
@@ -7,26 +7,31 @@ import './MovieDetailsWrapper.scss';
 const MovieDetailsWrapper = () => {
   const { movieId } = useParams();
   const navigate = useNavigate();
-  const [movie, setMovie] = useState(null);
 
   const url = `http://localhost:4000/movies/${movieId}`;
-  const params = useMemo(() => {
-    return {};
-  }, []);
-
-  const { data: fetchedMovie } = useFetch(url, params);
-
-  useEffect(() => {
-    if (!Array.isArray(fetchedMovie)) {
-      setMovie(fetchedMovie);
-    }
-  }, [fetchedMovie]);
+  const { loading, error, data: movie } = useFetch(url);
 
   const handleMovieDetailsClose = () => {
     navigate('/');
   };
 
-  return <MovieDetails movie={movie} onClose={handleMovieDetailsClose} />;
+  if (loading) {
+    return <div className="movie-details">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="movie-details">Error: {error}</div>;
+  }
+
+  if (!movie) {
+    return <div className="movie-details">Movie not found</div>;
+  }
+
+  return (
+    <div className="movie-details-wrapper" onClick={handleMovieDetailsClose}>
+      <MovieDetails movie={movie} />
+    </div>
+  );
 };
 
 export default MovieDetailsWrapper;

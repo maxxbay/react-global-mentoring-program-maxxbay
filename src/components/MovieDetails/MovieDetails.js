@@ -1,17 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '../Button/Button';
 import './MovieDetails.scss';
 
 const MovieDetails = ({ movie, onClose }) => {
-  if (!movie) {
-    return <div className="movie-details">Movie not found</div>;
-  }
-  const handleMovieDetailsClick = event => {
-    event.stopPropagation();
-    if (onClose) {
-      onClose();
-    }
-  };
   const {
     poster_path: imageUrl,
     title: movieName,
@@ -21,11 +13,24 @@ const MovieDetails = ({ movie, onClose }) => {
     overview: description,
   } = movie;
 
+  const imageBaseUrl = 'https://image.tmdb.org/t/p/';
+  const imageWidth = 'w185';
+
+  const handleCloseClick = e => {
+    e.stopPropagation();
+    if (typeof onClose === 'function') {
+      onClose();
+    }
+  };
+
   return (
-    <div className="movie-details" onClick={handleMovieDetailsClick}>
+    <div className="movie-details">
+      <Button className="movie-details__close" onClick={handleCloseClick}>
+        &times;
+      </Button>
       <img
         className="movie-details__image"
-        src={`https://image.tmdb.org/t/p/w185${imageUrl}`}
+        src={`${imageBaseUrl}${imageWidth}${imageUrl}`}
         alt={movieName}
       />
       <div className="movie-details__info">
@@ -49,4 +54,5 @@ MovieDetails.propTypes = {
   }),
   onClose: PropTypes.func,
 };
+
 export default MovieDetails;

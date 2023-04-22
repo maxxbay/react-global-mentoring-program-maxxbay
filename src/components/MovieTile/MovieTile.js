@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './MovieTile.scss';
 import ContextMenu from '../ContextMenu/ContextMenu';
 
-const MovieTile = ({ movie, onClick }) => {
+const MovieTile = ({ movie }) => {
   const navigate = useNavigate();
 
   const { title, release_date, genres, poster_path } = movie;
@@ -24,10 +24,7 @@ const MovieTile = ({ movie, onClick }) => {
   };
 
   const handleTileClick = () => {
-    navigate(`/${movie.id}`);
-    if (typeof onClick === 'function') {
-      onClick(movie);
-    }
+    navigate(`movies/${movie.id}`);
   };
 
   useEffect(() => {
@@ -86,6 +83,5 @@ MovieTile.propTypes = {
     runtime: PropTypes.number.isRequired,
     overview: PropTypes.string.isRequired,
   }).isRequired,
-  onClick: PropTypes.func,
 };
 export default MovieTile;
