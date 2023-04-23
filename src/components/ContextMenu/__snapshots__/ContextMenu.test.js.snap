@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContextMenu component renders correctly when show is true 1`] = `
+<div>
+  <div
+    class="context-menu"
+  >
+    <button
+      class="context-menu__item"
+    >
+      Edit
+    </button>
+    <button
+      class="context-menu__item"
+    >
+      Delete
+    </button>
+  </div>
+</div>
+`;
