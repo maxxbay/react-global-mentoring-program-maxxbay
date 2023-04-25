@@ -9,7 +9,8 @@ const MovieDetailsWrapper = () => {
   const navigate = useNavigate();
 
   const url = `http://localhost:4000/movies/${movieId}`;
-  const { loading, error, data: movie } = useFetch(url);
+  const { loading, error, data: movieData } = useFetch(url);
+  const movie = Array.isArray(movieData) ? movieData[0] : movieData;
 
   const handleMovieDetailsClose = () => {
     navigate('/');

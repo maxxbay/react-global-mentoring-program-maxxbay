@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
 import GenreSelect from '../../components/GenreSelect/GenreSelect';
 import SortControl from '../../components/SortControl/SortControl';
@@ -36,15 +36,24 @@ const MovieListPage = () => {
     resetPagination,
   } = usePagination(movies, itemsPerPage);
 
-  const params = {
-    sortBy: sortCriterion,
-    sortOrder: sortOrder,
-    search: searchQuery,
-    searchBy: 'title',
-    filter: activeGenre,
-    offset: (currentPage - 1) * itemsPerPage,
-    limit: itemsPerPage + 100,
-  };
+  const params = useMemo(() => {
+    return {
+      sortBy: sortCriterion,
+      sortOrder: sortOrder,
+      search: searchQuery,
+      searchBy: 'title',
+      filter: activeGenre,
+      offset: (currentPage - 1) * itemsPerPage,
+      limit: itemsPerPage + 100,
+    };
+  }, [
+    sortCriterion,
+    sortOrder,
+    searchQuery,
+    activeGenre,
+    currentPage,
+    itemsPerPage,
+  ]);
 
   const { loading, error, data: fetchedMovies } = useFetch(url, params);
 
