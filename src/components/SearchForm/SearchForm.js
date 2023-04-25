@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import SearchContext from '../../Pages/MovieList/SearchContext';
 import Button from '../Button/Button';
 import './SearchForm.scss';
 
-const SearchForm = ({ initialSearchQuery, onSearch }) => {
+const SearchForm = ({ initialSearchQuery }) => {
   const [value, setValue] = useState(initialSearchQuery);
+  const { searchQuery, handleSearchQueryChange } = useContext(SearchContext);
 
   const handleForm = event => {
     event.preventDefault();
-    if (typeof onSearch === 'function') {
-      onSearch(value);
-    }
+    handleSearchQueryChange(value);
   };
 
   return (
@@ -31,7 +31,6 @@ const SearchForm = ({ initialSearchQuery, onSearch }) => {
 
 SearchForm.propTypes = {
   initialSearchQuery: PropTypes.string,
-  onSearch: PropTypes.func.isRequired,
 };
 
 export default SearchForm;

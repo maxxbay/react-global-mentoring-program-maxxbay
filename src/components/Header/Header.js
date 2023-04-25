@@ -1,25 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import NetflixLogo from 'components/Header/Logo/NetflixLogo';
 import './Header.scss';
 import SearchForm from '../SearchForm/SearchForm';
+import SearchContext from '../../Pages/MovieList/SearchContext';
 
-const Header = ({
-  selectedMovie,
-  onAddMovie,
-  initialSearchQuery,
-  onSearch,
-  children,
-}) => {
+const Header = ({ selectedMovie, onAddMovie, children }) => {
+  const { searchQuery, handleSearchQueryChange } = useContext(SearchContext);
+
   const handleAddMovieClick = () => {
     if (typeof onAddMovie === 'function') {
       onAddMovie();
-    }
-  };
-
-  const handleSearch = searchQuery => {
-    if (typeof onSearch === 'function') {
-      onSearch(searchQuery);
     }
   };
 
@@ -31,8 +22,8 @@ const Header = ({
         <NetflixLogo />
         <div className="search-container">
           <SearchForm
-            initialSearchQuery={initialSearchQuery}
-            onSearch={handleSearch}
+            initialSearchQuery={searchQuery}
+            onSearch={handleSearchQueryChange}
           />
         </div>
         <div className="add-button">
@@ -53,8 +44,6 @@ Header.propTypes = {
     }).isRequired,
   }),
   onAddMovie: PropTypes.func,
-  initialSearchQuery: PropTypes.string,
-  onSearch: PropTypes.func.isRequired,
   children: PropTypes.node,
 };
 

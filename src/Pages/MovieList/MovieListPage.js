@@ -8,6 +8,7 @@ import Dialog from '../../components/Dialog/Dialog';
 import MovieForm from '../../components/MovieForm/MovieForm';
 import usePagination from '../../Hooks/usePagination';
 import useFetch from '../../Hooks/useFetch';
+import SearchContext from './SearchContext';
 import { API_URL } from '../../constants';
 import './MovieListPage.scss';
 
@@ -19,7 +20,6 @@ const MovieListPage = () => {
   const activeGenre = searchParams.get('genre') || '';
 
   const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const sortOrder = sortCriterion === 'title' ? 'asc' : 'desc';
 
@@ -98,58 +98,65 @@ const MovieListPage = () => {
   };
 
   return (
-    <>
-      <Header
-        onAddMovie={toggleModal}
-        initialSearchQuery={searchQuery}
-        onSearch={handleSearchQueryChange}
-      >
-        <div className="genre-sort-controls">
-          <GenreSelect
-            selectedGenre={activeGenre}
-            onSelect={handleActiveGenreChange}
-          />
-          <SortControl
-            sortCriterion={sortCriterion}
-            onSortCriterion={handleSortCriterionChange}
-          />
-        </div>
-      </Header>
+    <SearchContext.Provider
+      value={{
+        searchQuery,
+        handleSearchQueryChange,
+      }}
+    >
+      <>
+        <Header
+          onAddMovie={toggleModal}
+          initialSearchQuery={searchQuery}
+          onSearch={handleSearchQueryChange}
+        >
+          <div className="genre-sort-controls">
+            <GenreSelect
+              selectedGenre={activeGenre}
+              onSelect={handleActiveGenreChange}
+            />
+            <SortControl
+              sortCriterion={sortCriterion}
+              onSortCriterion={handleSortCriterionChange}
+            />
+          </div>
+        </Header>
 
-      <main className="container">
-        <Outlet />
+        <main className="container">
+          <Outlet context={[searchQuery, handleSearchQueryChange]} />
 
-        <div className="movie-list">
-          {loading && <div>Loading...</div>}
-          {error && <div>Error: {error}</div>}
-          {currentData()
-            .slice(0, itemsPerPage)
-            .map(movie => (
-              <MovieTile
-                key={movie.id}
-                movie={movie}
-                onClick={handleMovieClick}
-              />
-            ))}
-        </div>
-        <div className="pagination">
-          <button onClick={prevPage} disabled={currentPage === 1}>
-            Previous
-          </button>
-          <span>
-            Page {currentPage} of {maxPages}
-          </span>
-          <button onClick={nextPage} disabled={currentPage === maxPages}>
-            Next
-          </button>
-        </div>
-      </main>
-      {isDialogOpen && (
-        <Dialog title="Add Movie" onClose={toggleModal}>
-          <MovieForm onSubmit={handleSubmit} />
-        </Dialog>
-      )}
-    </>
+          <div className="movie-list">
+            {loading && <div>Loading...</div>}
+            {error && <div>Error: {error}</div>}
+            {currentData()
+              .slice(0, itemsPerPage)
+              .map(movie => (
+                <MovieTile
+                  key={movie.id}
+                  movie={movie}
+                  onClick={handleMovieClick}
+                />
+              ))}
+          </div>
+          <div className="pagination">
+            <button onClick={prevPage} disabled={currentPage === 1}>
+              Previous
+            </button>
+            <span>
+              Page {currentPage} of {maxPages}
+            </span>
+            <button onClick={nextPage} disabled={currentPage === maxPages}>
+              Next
+            </button>
+          </div>
+        </main>
+        {isDialogOpen && (
+          <Dialog title="Add Movie" onClose={toggleModal}>
+            <MovieForm onSubmit={handleSubmit} />
+          </Dialog>
+        )}
+      </>
+    </SearchContext.Provider>
   );
 };
 
