@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import GenreSelect from '../../components/GenreSelect/GenreSelect';
 import SortControl from '../../components/SortControl/SortControl';
 import MovieTile from '../../components/MovieTile/MovieTile';
@@ -105,11 +105,7 @@ const MovieListPage = () => {
       }}
     >
       <>
-        <Header
-          onAddMovie={toggleModal}
-          initialSearchQuery={searchQuery}
-          onSearch={handleSearchQueryChange}
-        >
+        <Header onAddMovie={toggleModal} initialSearchQuery={searchQuery}>
           <div className="genre-sort-controls">
             <GenreSelect
               selectedGenre={activeGenre}
@@ -123,8 +119,6 @@ const MovieListPage = () => {
         </Header>
 
         <main className="container">
-          <Outlet context={[searchQuery, handleSearchQueryChange]} />
-
           <div className="movie-list">
             {loading && <div>Loading...</div>}
             {error && <div>Error: {error}</div>}

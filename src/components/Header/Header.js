@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import NetflixLogo from 'components/Header/Logo/NetflixLogo';
 import './Header.scss';
-import SearchForm from '../SearchForm/SearchForm';
 import SearchContext from '../../Pages/MovieList/SearchContext';
+import { Outlet } from 'react-router';
 
 const Header = ({ selectedMovie, onAddMovie, children }) => {
   const { searchQuery, handleSearchQueryChange } = useContext(SearchContext);
@@ -20,12 +20,7 @@ const Header = ({ selectedMovie, onAddMovie, children }) => {
     >
       <div className="header-container">
         <NetflixLogo />
-        <div className="search-container">
-          <SearchForm
-            initialSearchQuery={searchQuery}
-            onSearch={handleSearchQueryChange}
-          />
-        </div>
+        <Outlet context={[searchQuery, handleSearchQueryChange]} />
         <div className="add-button">
           <button className="add" onClick={handleAddMovieClick}>
             + Add movie
