@@ -7,34 +7,28 @@ import { useForm, Controller } from 'react-hook-form';
 import { genres } from '../MovieTile/genres';
 
 const MovieForm = ({ onSubmit, movie }) => {
-  const defaultValues = movie
-    ? {
-        title: movie.title || '',
-        poster_path: movie.poster_path || 'https://via.placeholder.com/150',
-        release_date: movie.release_date || '',
-        rating: movie.vote_average || '',
-        runtime: movie.runtime || '',
-        genre: movie.genres[0] || 'All',
-      }
-    : {
-        title: '',
-        poster_path: 'https://via.placeholder.com/150',
-        release_date: '',
-        rating: '',
-        runtime: '',
-        genre: 'All',
-      };
+  const defaultValues = {
+    title: '',
+    poster_path: '',
+    release_date: '',
+    rating: '',
+    vote_average: '',
+    runtime: '',
+    genre: 'All',
+    overview: '',
+  };
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({ defaultValues });
+  } = useForm({ defaultValues: movie || defaultValues });
 
   const rules = {
     title: { required: true },
     poster_path: { required: true },
     release_date: { required: true },
+    rating: { required: true },
     vote_average: { required: true, min: 0 },
     runtime: { required: true, min: 0 },
     genres: { required: true },
@@ -195,6 +189,5 @@ const MovieForm = ({ onSubmit, movie }) => {
 MovieForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   movie: PropTypes.object,
-  onSelect: PropTypes.func,
 };
 export default MovieForm;

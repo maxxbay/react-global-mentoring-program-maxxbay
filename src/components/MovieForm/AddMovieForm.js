@@ -8,23 +8,18 @@ import { useNavigate } from 'react-router-dom';
 
 const AddMovieForm = () => {
   const navigate = useNavigate();
-  const { handleSubmit, errors } = useForm();
 
   const onSubmit = async data => {
     console.log('Submitting:', data);
     try {
       const formattedData = {
         title: data.title || 'Untitled',
-        tagline: data.tagline || 'No tagline',
         poster_path: data.poster_path || 'https://via.placeholder.com/150',
-        release_date: data.releaseDate || '1970-01-01',
-        vote_count: 0,
+        release_date: data.release_date || '1970-01-01',
         vote_average: data.vote_average ? parseFloat(data.vote_average) : 0,
         runtime: data.runtime ? parseInt(data.runtime, 10) : 0,
         genres: [data.genre || 'Other'],
         overview: data.overview || 'No overview',
-        budget: 0,
-        revenue: 0,
       };
       console.log('Formatted data:', formattedData);
 
@@ -52,7 +47,7 @@ const AddMovieForm = () => {
 
   return (
     <Dialog title="Add Movie" onClose={handleClose}>
-      <MovieForm onSubmit={handleSubmit(onSubmit)} errors={errors} />
+      <MovieForm onSubmit={onSubmit} />
     </Dialog>
   );
 };
