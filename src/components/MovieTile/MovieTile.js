@@ -16,7 +16,7 @@ const MovieTile = ({ movie }) => {
   };
 
   const handleEdit = () => {
-    console.log('Edit action for movie:', movie);
+    navigate(`/movies/${movie.id}/edit`);
   };
 
   const handleDelete = () => {

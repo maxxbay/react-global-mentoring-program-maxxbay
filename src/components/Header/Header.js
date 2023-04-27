@@ -4,14 +4,14 @@ import NetflixLogo from 'components/Header/Logo/NetflixLogo';
 import './Header.scss';
 import SearchContext from '../../Pages/MovieList/SearchContext';
 import { Outlet } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({ selectedMovie, onAddMovie, children }) => {
   const { searchQuery, handleSearchQueryChange } = useContext(SearchContext);
+  const navigate = useNavigate();
 
   const handleAddMovieClick = () => {
-    if (typeof onAddMovie === 'function') {
-      onAddMovie();
-    }
+    navigate('/new');
   };
 
   return (
