@@ -29,7 +29,7 @@ const MovieForm = ({ onSubmit, movie }) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues });
 
   const rules = {
     title: { required: true },

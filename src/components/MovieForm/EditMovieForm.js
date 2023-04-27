@@ -24,7 +24,7 @@ const EditMovieForm = () => {
 
   const onSubmit = async data => {
     try {
-      await axios.put(`${API_URL}`, { ...data, id: movieId });
+      await axios.put(`${API_URL}/${movieId}`, data);
       navigate('/');
     } catch (error) {
       console.error('Error updating movie:', error.response || error);

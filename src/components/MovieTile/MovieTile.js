@@ -16,7 +16,7 @@ const MovieTile = ({ movie }) => {
   };
 
   const handleEdit = () => {
-    navigate(`/movies/${movie.id}/edit`);
+    navigate(`/movies/${movie.id}/edit`, { state: { movie } });
   };
 
   const handleDelete = () => {
