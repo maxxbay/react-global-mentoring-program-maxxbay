@@ -14,15 +14,15 @@ const AddMovieForm = () => {
     console.log('Submitting:', data);
     try {
       const formattedData = {
-        title: data.title,
-        tagline: '',
-        poster_path: data.movieUrl,
-        release_date: data.releaseDate,
+        title: data.title || 'Untitled',
+        tagline: data.tagline || 'No tagline',
+        poster_path: data.poster_path || 'https://via.placeholder.com/150',
+        release_date: data.releaseDate || '1970-01-01',
         vote_count: 0,
-        vote_average: parseFloat(data.rating),
-        runtime: parseInt(data.runtime, 10),
-        genres: [data.genre],
-        overview: data.overview,
+        vote_average: data.vote_average ? parseFloat(data.vote_average) : 0,
+        runtime: data.runtime ? parseInt(data.runtime, 10) : 0,
+        genres: [data.genre || 'Other'],
+        overview: data.overview || 'No overview',
         budget: 0,
         revenue: 0,
       };
@@ -40,6 +40,9 @@ const AddMovieForm = () => {
     } catch (error) {
       console.error('Error adding movie:', error);
       console.error('Server response:', error.response);
+      if (error.response.status === 400) {
+        alert('Bad Request: ' + error.response.data.messages.join(', '));
+      }
     }
   };
 

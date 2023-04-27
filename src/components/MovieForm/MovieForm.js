@@ -9,17 +9,17 @@ import { genres } from '../MovieTile/genres';
 const MovieForm = ({ onSubmit, movie }) => {
   const defaultValues = movie
     ? {
-        title: movie.title,
-        movieUrl: movie.movieUrl,
-        releaseDate: movie.release_date,
-        rating: movie.vote_average,
-        runtime: movie.runtime,
-        genre: movie.genre || 'All',
+        title: movie.title || '',
+        poster_path: movie.poster_path || 'https://via.placeholder.com/150',
+        release_date: movie.release_date || '',
+        rating: movie.vote_average || '',
+        runtime: movie.runtime || '',
+        genre: movie.genres[0] || 'All',
       }
     : {
         title: '',
-        movieUrl: '',
-        releaseDate: '',
+        poster_path: 'https://via.placeholder.com/150',
+        release_date: '',
         rating: '',
         runtime: '',
         genre: 'All',
@@ -29,7 +29,7 @@ const MovieForm = ({ onSubmit, movie }) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({ defaultValues });
+  } = useForm();
 
   const rules = {
     title: { required: true },
@@ -61,7 +61,6 @@ const MovieForm = ({ onSubmit, movie }) => {
             <Controller
               name="title"
               control={control}
-              defaultValue=""
               rules={rules.title}
               render={({ field }) => (
                 <input id="title" type="text" {...field} />
@@ -70,36 +69,36 @@ const MovieForm = ({ onSubmit, movie }) => {
             {errors.title && <p>Title is required</p>}
           </div>
           <div className="movie-form__field">
-            <label htmlFor="movieUrl">Movie URL</label>
+            <label htmlFor="poster_path">Movie URL</label>
             <Controller
-              name="movieUrl"
+              name="poster_path"
               control={control}
-              defaultValue={defaultValues.movieUrl || ''}
-              rules={{ required: false }}
+              rules={rules.poster_path}
               render={({ field }) => (
                 <input
-                  id="movieUrl"
-                  type="url"
-                  name="movieUrl"
-                  placeholder="HTTPS://"
+                  id="poster_path"
+                  type="text"
+                  name="poster_path"
+                  placeholder="Enter URL of poster image"
                   {...field}
                 />
               )}
             />
+            {errors.poster_path && <p>Poster Path is required</p>}
           </div>
         </div>
         <div className="movie-form__column">
           <div className="movie-form__field">
             <label htmlFor="releaseDate">Release Date</label>
             <Controller
-              name="releaseDate"
+              name="release_date"
               control={control}
               rules={rules.release_date}
               render={({ field }) => (
                 <input
-                  id="releaseDate"
+                  id="release_date"
                   type="date"
-                  name="releaseDate"
+                  name="release_date"
                   placeholder="Select date"
                   {...field}
                 />
@@ -107,6 +106,7 @@ const MovieForm = ({ onSubmit, movie }) => {
             />
             {errors.releaseDate && <p>Release Date is required</p>}
           </div>
+
           <div className="movie-form__field">
             <label htmlFor="rating">Rating</label>
             <Controller
@@ -170,11 +170,17 @@ const MovieForm = ({ onSubmit, movie }) => {
           <Controller
             name="overview"
             control={control}
-            defaultValue=""
+            rules={rules.overview}
             render={({ field }) => (
-              <textarea id="overview" name="overview" {...field}></textarea>
+              <textarea
+                id="overview"
+                name="overview"
+                placeholder="Enter a brief overview of the movie"
+                {...field}
+              />
             )}
           />
+          {errors.overview && <p>Overview is required</p>}
         </div>
       </div>
       <div className="movie-form__actions">

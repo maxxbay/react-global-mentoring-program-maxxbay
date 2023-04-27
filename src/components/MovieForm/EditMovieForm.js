@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Dialog from '../Dialog/Dialog';
 import MovieForm from './MovieForm';
 import axios from 'axios';
-import { API_EDIT_URL } from '../../constants';
+import { API_URL } from '../../constants';
 
 const EditMovieForm = () => {
   const { movieId } = useParams();
@@ -13,7 +13,7 @@ const EditMovieForm = () => {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const response = await axios.get(`${API_EDIT_URL}/movies/${movieId}`);
+        const response = await axios.get(`${API_URL}/${movieId}`);
         setMovie(response.data);
       } catch (error) {
         console.error('Error fetching movie:', error.response || error);
@@ -24,7 +24,7 @@ const EditMovieForm = () => {
 
   const onSubmit = async data => {
     try {
-      await axios.put(`${API_EDIT_URL}/movies`, { ...data, id: movieId });
+      await axios.put(`${API_URL}`, { ...data, id: movieId });
       navigate('/');
     } catch (error) {
       console.error('Error updating movie:', error.response || error);
