@@ -40,6 +40,10 @@
         display: flex;
         flex-direction: column;
     }
+    &__button {
+        background-color: #201f1f;
+        border: none;
+    }
 
     &__title {
         font-size: 18px;
@@ -69,7 +73,7 @@
 
     &__description {
         font-size: 14px;
-        color: #808080;
+        color: #999797;
         text-align: justify;
     }
 

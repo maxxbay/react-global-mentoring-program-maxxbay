@@ -2,8 +2,16 @@ import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import MovieTile from './MovieTile';
 import ContextMenu from '../ContextMenu/ContextMenu';
+import { useNavigate } from 'react-router-dom';
+import '@testing-library/jest-dom';
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => jest.fn(),
+}));
 
 const mockMovie = {
+  id: 1,
   title: 'Mock Movie',
   release_date: '2022-01-01',
   genres: ['Action', 'Adventure'],
@@ -61,12 +69,29 @@ describe('MovieTile component', () => {
 
 describe('ContextMenu component', () => {
   it('renders correctly when show is true', () => {
-    const { container } = render(<ContextMenu show onClose={jest.fn()} />);
+    const { container } = render(
+      <ContextMenu
+        show
+        onClose={jest.fn()}
+        onEdit={jest.fn()}
+        onDelete={jest.fn()}
+      />
+    );
     expect(container).toMatchSnapshot();
   });
 
   it('does not render when show is false', () => {
-    render(<ContextMenu show={false} onClose={jest.fn()} />);
+    const onClose = jest.fn();
+
+    render(
+      <ContextMenu
+        show={false}
+        onClose={onClose}
+        onEdit={jest.fn()}
+        onDelete={jest.fn()}
+      />
+    );
+
     expect(screen.queryByText('Edit')).not.toBeInTheDocument();
     expect(screen.queryByText('Delete')).not.toBeInTheDocument();
   });

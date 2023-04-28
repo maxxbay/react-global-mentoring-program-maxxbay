@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import useDeepCompareEffect from 'use-deep-compare-effect';
 
-const useFetch = (url, params) => {
+const useFetch = (url, params = {}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useDeepCompareEffect(() => {
+  useEffect(() => {
     const source = axios.CancelToken.source();
     const fetchData = async () => {
       try {
@@ -16,7 +15,7 @@ const useFetch = (url, params) => {
           cancelToken: source.token,
         });
 
-        setData(response.data.data);
+        setData(response.data.data || response.data);
         setLoading(false);
       } catch (error) {
         if (axios.isCancel(error)) {

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import MovieDetails from '../../components/MovieDetails/MovieDetails';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import GenreSelect from '../../components/GenreSelect/GenreSelect';
 import SortControl from '../../components/SortControl/SortControl';
 import MovieTile from '../../components/MovieTile/MovieTile';
@@ -8,17 +8,24 @@ import Dialog from '../../components/Dialog/Dialog';
 import MovieForm from '../../components/MovieForm/MovieForm';
 import usePagination from '../../Hooks/usePagination';
 import useFetch from '../../Hooks/useFetch';
+import SearchContext from './SearchContext';
+import { API_URL } from '../../constants';
 import './MovieListPage.scss';
 
 const MovieListPage = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortCriterion, setSortCriterion] = useState('');
-  const [activeGenre, setActiveGenre] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchQuery = searchParams.get('query') || '';
+  const sortCriterion = searchParams.get('sortBy') || '';
+  const activeGenre = searchParams.get('genre') || '';
+
   const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const sortOrder = sortCriterion === 'title' ? 'asc' : 'desc';
 
   const itemsPerPage = 6;
+  const url = API_URL;
+  const navigate = useNavigate();
 
   const {
     currentData,
@@ -29,16 +36,24 @@ const MovieListPage = () => {
     resetPagination,
   } = usePagination(movies, itemsPerPage);
 
-  const url = 'http://localhost:4000/movies';
-  const params = {
-    sortBy: sortCriterion,
-    sortOrder: 'desc',
-    search: searchQuery,
-    searchBy: 'title',
-    filter: activeGenre,
-    offset: (currentPage - 1) * itemsPerPage,
-    limit: itemsPerPage + 100,
-  };
+  const params = useMemo(() => {
+    return {
+      sortBy: sortCriterion,
+      sortOrder: sortOrder,
+      search: searchQuery,
+      searchBy: 'title',
+      filter: activeGenre,
+      offset: (currentPage - 1) * itemsPerPage,
+      limit: itemsPerPage + 100,
+    };
+  }, [
+    sortCriterion,
+    sortOrder,
+    searchQuery,
+    activeGenre,
+    currentPage,
+    itemsPerPage,
+  ]);
 
   const { loading, error, data: fetchedMovies } = useFetch(url, params);
 
@@ -46,17 +61,10 @@ const MovieListPage = () => {
     setMovies(fetchedMovies);
   }, [fetchedMovies]);
 
-  const handleMovieClick = useCallback(movie => {
-    setSelectedMovie(prevSelectedMovie => {
-      if (prevSelectedMovie && prevSelectedMovie.id === movie.id) {
-        return null;
-      } else {
-        return movie;
-      }
+  const handleMovieClick = movie => {
+    navigate(`/movies/${movie.id}`, {
+      state: { searchParams: searchParams.toString() },
     });
-  }, []);
-  const handleBackClick = () => {
-    setSelectedMovie(null);
   };
 
   const toggleModal = () => {
@@ -67,65 +75,82 @@ const MovieListPage = () => {
     console.log('Submitted movie:', movie);
     setIsDialogOpen(false);
   };
+
   const handleSearchQueryChange = value => {
-    setSearchQuery(value);
+    setSearchParams(new URLSearchParams({ ...searchParams, query: value }));
     resetPagination();
   };
 
+  const handleSortCriterionChange = value => {
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev);
+      newParams.set('sortBy', value);
+      return newParams;
+    });
+  };
+
+  const handleActiveGenreChange = value => {
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev);
+      newParams.set('genre', value);
+      return newParams;
+    });
+  };
+
   return (
-    <>
-      {selectedMovie ? (
-        <MovieDetails movie={selectedMovie} onBackClick={handleBackClick} />
-      ) : (
-        <Header
-          onAddMovie={toggleModal}
-          initialSearchQuery={searchQuery}
-          onSearch={handleSearchQueryChange}
-        >
+    <SearchContext.Provider
+      value={{
+        searchQuery,
+        handleSearchQueryChange,
+      }}
+    >
+      <>
+        <Header onAddMovie={toggleModal} initialSearchQuery={searchQuery}>
           <div className="genre-sort-controls">
             <GenreSelect
               selectedGenre={activeGenre}
-              onSelect={setActiveGenre}
+              onSelect={handleActiveGenreChange}
             />
             <SortControl
               sortCriterion={sortCriterion}
-              onSortCriterion={setSortCriterion}
+              onSortCriterion={handleSortCriterionChange}
             />
           </div>
         </Header>
-      )}
-      <div className="movie-list-page">
-        <div className="movie-list">
-          {loading && <div>Loading...</div>}
-          {error && <div>Error: {error}</div>}
-          {currentData()
-            .slice(0, itemsPerPage)
-            .map(movie => (
-              <MovieTile
-                key={movie.id}
-                movie={movie}
-                onClick={handleMovieClick}
-              />
-            ))}
-        </div>
-        <div className="pagination">
-          <button onClick={prevPage} disabled={currentPage === 1}>
-            Previous
-          </button>
-          <span>
-            Page {currentPage} of {maxPages}
-          </span>
-          <button onClick={nextPage} disabled={currentPage === maxPages}>
-            Next
-          </button>
-        </div>
-      </div>
-      {isDialogOpen && (
-        <Dialog title="Add Movie" onClose={toggleModal}>
-          <MovieForm onSubmit={handleSubmit} />
-        </Dialog>
-      )}
-    </>
+
+        <main className="container">
+          <div className="movie-list">
+            {loading && <div>Loading...</div>}
+            {error && <div>Error: {error}</div>}
+            {currentData()
+              .slice(0, itemsPerPage)
+              .map(movie => (
+                <MovieTile
+                  key={movie.id}
+                  movie={movie}
+                  onClick={handleMovieClick}
+                />
+              ))}
+          </div>
+          <div className="pagination">
+            <button onClick={prevPage} disabled={currentPage === 1}>
+              Previous
+            </button>
+            <span>
+              Page {currentPage} of {maxPages}
+            </span>
+            <button onClick={nextPage} disabled={currentPage === maxPages}>
+              Next
+            </button>
+          </div>
+        </main>
+        {isDialogOpen && (
+          <Dialog title="Add Movie" onClose={toggleModal}>
+            <MovieForm onSubmit={handleSubmit} />
+          </Dialog>
+        )}
+      </>
+    </SearchContext.Provider>
   );
 };
 

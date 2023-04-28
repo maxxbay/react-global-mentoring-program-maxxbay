@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { genres } from '../MovieTile/genres';
 import './GenreSelect.scss';
 
-const GenreSelect = ({ selectedGenre = 'All', onSelect }) => {
+const GenreSelect = ({ value, onSelect }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const handleGenreChange = ({ target: { value } }) => {
-    onSelect(value);
+  const handleGenreChange = event => {
+    onSelect(event);
   };
 
   const toggleDropdown = () => {
@@ -23,7 +23,7 @@ const GenreSelect = ({ selectedGenre = 'All', onSelect }) => {
         title="Genre"
         name="genre"
         onChange={handleGenreChange}
-        value={selectedGenre}
+        value={value}
       >
         <option value="All">All</option>
 
@@ -38,7 +38,8 @@ const GenreSelect = ({ selectedGenre = 'All', onSelect }) => {
 };
 GenreSelect.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string),
-  selectedGenre: PropTypes.string,
+  value: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
 };
+
 export default GenreSelect;
