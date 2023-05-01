@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Dialog from '../Dialog/Dialog';
 import MovieForm from './MovieForm';
@@ -8,7 +8,17 @@ import useFetch from '../../Hooks/useFetch';
 const EditMovieForm = () => {
   const { movieId } = useParams();
   const navigate = useNavigate();
-  const { data, loading, error, put } = useFetch(`${API_URL}/${movieId}`);
+  const {
+    data,
+    loading,
+    error,
+    get: getData,
+    put,
+  } = useFetch(`${API_URL}/${movieId}`);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   const onSubmit = async data => {
     try {

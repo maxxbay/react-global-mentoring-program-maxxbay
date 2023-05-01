@@ -1,41 +1,47 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 
 const useFetch = (url, params = {}) => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const stringifiedParams = JSON.stringify(params);
 
+  const paramsRef = useRef(params);
   useEffect(() => {
-    console.log('useEffect called with params:', params);
+    if (JSON.stringify(paramsRef.current) !== JSON.stringify(params)) {
+      paramsRef.current = params;
+    }
+  }, [params]);
+
+  const getData = useCallback(async () => {
+    console.log('getData called with params:', params);
     const source = axios.CancelToken.source();
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(url, {
-          params: params,
-          cancelToken: source.token,
-        });
+    try {
+      const response = await axios.get(url, {
+        params: params,
+        cancelToken: source.token,
+      });
 
-        setData(response.data.data || response.data);
-        setLoading(false);
-      } catch (error) {
-        if (axios.isCancel(error)) {
-          console.log('Request canceled', error.message);
-        } else {
-          setError(error.message);
-        }
-        setLoading(false);
+      setData(response.data.data || response.data);
+      setLoading(false);
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        console.log('Request canceled', error.message);
+      } else {
+        setError(error.message);
       }
-    };
-
-    fetchData();
+      setLoading(false);
+    }
 
     return () => {
       source.cancel('Operation canceled by the user.');
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url, stringifiedParams]);
+    // eslint-disable-next-line
+  }, [url]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   const postData = async data => {
     setLoading(true);
@@ -71,7 +77,7 @@ const useFetch = (url, params = {}) => {
     }
   };
 
-  return { data, loading, error, post: postData, put: putData };
+  return { data, loading, error, get: getData, post: postData, put: putData };
 };
 
 export default useFetch;
