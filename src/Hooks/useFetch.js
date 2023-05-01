@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import axios from 'axios';
 
 const useFetch = (url, params = {}) => {
@@ -6,19 +6,13 @@ const useFetch = (url, params = {}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const paramsRef = useRef(params);
-  useEffect(() => {
-    if (JSON.stringify(paramsRef.current) !== JSON.stringify(params)) {
-      paramsRef.current = params;
-    }
-  }, [params]);
+  const memoizedParams = useMemo(() => params, [params]);
 
   const getData = useCallback(async () => {
-    console.log('getData called with params:', params);
     const source = axios.CancelToken.source();
     try {
       const response = await axios.get(url, {
-        params: params,
+        params: memoizedParams,
         cancelToken: source.token,
       });
 
@@ -37,7 +31,7 @@ const useFetch = (url, params = {}) => {
       source.cancel('Operation canceled by the user.');
     };
     // eslint-disable-next-line
-  }, [url]);
+  }, [url, memoizedParams]);
 
   useEffect(() => {
     getData();
