@@ -11,6 +11,7 @@ import useFetch from '../../Hooks/useFetch';
 import SearchContext from './SearchContext';
 import { API_URL } from '../../constants';
 import './MovieListPage.scss';
+import { OutletContext } from 'react-router-dom';
 
 const MovieListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -89,7 +90,7 @@ const MovieListPage = () => {
     });
   };
 
-  const handleActiveGenreChange = value => {
+  const handleActiveGenreChange = ({ target: { value } }) => {
     setSearchParams(prev => {
       const newParams = new URLSearchParams(prev);
       newParams.set('genre', value);

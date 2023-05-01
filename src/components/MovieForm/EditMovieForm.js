@@ -1,30 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Dialog from '../Dialog/Dialog';
 import MovieForm from './MovieForm';
-import axios from 'axios';
 import { API_URL } from '../../constants';
+import useFetch from '../../Hooks/useFetch';
 
 const EditMovieForm = () => {
   const { movieId } = useParams();
   const navigate = useNavigate();
-  const [movie, setMovie] = useState(null);
-
-  useEffect(() => {
-    const fetchMovie = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/${movieId}`);
-        setMovie(response.data);
-      } catch (error) {
-        console.error('Error fetching movie:', error.response || error);
-      }
-    };
-    fetchMovie();
-  }, [movieId]);
+  const { data, loading, error, put } = useFetch(`${API_URL}/${movieId}`);
 
   const onSubmit = async data => {
     try {
-      await axios.put(`${API_URL}/${movieId}`, data);
+      await put({ ...data, id: movieId });
       navigate('/');
     } catch (error) {
       console.error('Error updating movie:', error.response || error);
@@ -35,10 +23,15 @@ const EditMovieForm = () => {
     navigate('/');
   };
 
-  if (!movie) {
+  if (loading) {
     return <div>Loading...</div>;
   }
 
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  const movie = data && !Array.isArray(data) ? data : null;
   return (
     <Dialog title="Edit Movie" onClose={handleClose}>
       <MovieForm onSubmit={onSubmit} movie={movie} />

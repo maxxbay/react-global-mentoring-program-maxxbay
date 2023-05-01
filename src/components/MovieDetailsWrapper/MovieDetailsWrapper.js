@@ -30,7 +30,7 @@ const MovieDetailsWrapper = () => {
 
   return (
     <div className="movie-details-wrapper" onClick={handleMovieDetailsClose}>
-      <MovieDetails movie={movie} />
+      <MovieDetails movie={movie} onClose={handleMovieDetailsClose} />
     </div>
   );
 };

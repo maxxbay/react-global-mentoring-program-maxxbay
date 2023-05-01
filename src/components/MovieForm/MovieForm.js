@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './MovieForm.scss';
 import Button from '../Button/Button';
@@ -6,7 +6,7 @@ import GenreSelect from '../GenreSelect/GenreSelect';
 import { useForm, Controller } from 'react-hook-form';
 import { genres } from '../MovieTile/genres';
 
-const MovieForm = ({ onSubmit, movie }) => {
+const MovieForm = ({ onSubmit, movie, onReset }) => {
   const defaultValues = {
     title: '',
     poster_path: '',
@@ -22,7 +22,12 @@ const MovieForm = ({ onSubmit, movie }) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({ defaultValues: movie || defaultValues });
+    reset,
+  } = useForm({ defaultValues: { ...defaultValues, ...movie } });
+
+  useEffect(() => {
+    reset(movie);
+  }, [movie, reset]);
 
   const rules = {
     title: { required: true },
@@ -43,7 +48,10 @@ const MovieForm = ({ onSubmit, movie }) => {
 
   const handleReset = e => {
     e.preventDefault();
-    e.target.form.reset();
+    reset({ ...defaultValues });
+    if (typeof onReset === 'function') {
+      onReset();
+    }
   };
 
   return (
@@ -98,7 +106,7 @@ const MovieForm = ({ onSubmit, movie }) => {
                 />
               )}
             />
-            {errors.releaseDate && <p>Release Date is required</p>}
+            {errors.release_date && <p>Release Date is required</p>}
           </div>
 
           <div className="movie-form__field">
@@ -135,7 +143,7 @@ const MovieForm = ({ onSubmit, movie }) => {
                 />
               )}
             />
-            {errors.genre && <p>Genre is required</p>}
+            {!!errors.genre && <p>Genre is required</p>}
           </div>
         </div>
         <div className="movie-form__column">
@@ -178,7 +186,15 @@ const MovieForm = ({ onSubmit, movie }) => {
         </div>
       </div>
       <div className="movie-form__actions">
-        <Button type="button" onClick={handleReset}>
+        <Button
+          type="button"
+          onClick={e => {
+            handleReset(e);
+            if (typeof onReset === 'function') {
+              onReset(reset);
+            }
+          }}
+        >
           RESET
         </Button>
         <Button type="submit">SUBMIT</Button>
@@ -188,6 +204,7 @@ const MovieForm = ({ onSubmit, movie }) => {
 };
 MovieForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  onReset: PropTypes.func,
   movie: PropTypes.object,
 };
 export default MovieForm;

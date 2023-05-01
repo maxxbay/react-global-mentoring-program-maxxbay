@@ -13,9 +13,11 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<MovieListPage />}>
-            <Route path="/" element={<SearchForm />} />
-            <Route path="new" element={<AddMovieForm />} />
-            <Route path="/movies/:movieId/edit" element={<EditMovieForm />} />
+            <Route path="/" element={<SearchForm />}>
+              <Route path="new" element={<AddMovieForm />} />
+              <Route path="/movies/:movieId/edit" element={<EditMovieForm />} />
+            </Route>
+
             <Route path="movies/:movieId" element={<MovieDetailsWrapper />} />
           </Route>
         </Routes>

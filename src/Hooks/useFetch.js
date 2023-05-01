@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const useFetch = (url, params = {}) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const stringifiedParams = JSON.stringify(params);
 
   useEffect(() => {
+    console.log('useEffect called with params:', params);
     const source = axios.CancelToken.source();
     const fetchData = async () => {
       try {
@@ -32,9 +34,44 @@ const useFetch = (url, params = {}) => {
     return () => {
       source.cancel('Operation canceled by the user.');
     };
-  }, [url, params]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url, stringifiedParams]);
 
-  return { data, loading, error };
+  const postData = async data => {
+    setLoading(true);
+    try {
+      const response = await axios.post(url, data);
+      setLoading(false);
+      return response;
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+      throw error;
+    }
+  };
+
+  const putData = async (id, data) => {
+    setLoading(true);
+    try {
+      const response = await axios.put(
+        `${url}`,
+        { ...data, id },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      setLoading(false);
+      return response;
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+      throw error;
+    }
+  };
+
+  return { data, loading, error, post: postData, put: putData };
 };
 
 export default useFetch;
