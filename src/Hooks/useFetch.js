@@ -7,6 +7,7 @@ const useFetch = (url, params = {}) => {
   const [error, setError] = useState('');
 
   const getData = useCallback(async () => {
+    console.log('Infinite rendering', params);
     const source = axios.CancelToken.source();
     try {
       const response = await axios.get(url, {
@@ -29,7 +30,7 @@ const useFetch = (url, params = {}) => {
       source.cancel('Operation canceled by the user.');
     };
     // eslint-disable-next-line
-  }, [url, params]);
+  }, [url, JSON.stringify(params)]);
 
   useEffect(() => {
     getData();
