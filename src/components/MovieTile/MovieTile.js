@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './MovieTile.scss';
 import ContextMenu from '../ContextMenu/ContextMenu';
 
-const MovieTile = ({ movie }) => {
+const MovieTile = ({ movie, onClick }) => {
   const navigate = useNavigate();
 
   const { title, release_date, genres, poster_path } = movie;
@@ -24,7 +24,9 @@ const MovieTile = ({ movie }) => {
   };
 
   const handleTileClick = async () => {
-    await navigate(`movies/${movie.id}`);
+    if (onClick) {
+      onClick(movie);
+    }
   };
 
   useEffect(() => {

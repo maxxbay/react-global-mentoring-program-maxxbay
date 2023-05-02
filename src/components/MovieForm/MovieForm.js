@@ -8,14 +8,18 @@ import { genres } from '../MovieTile/genres';
 
 const MovieForm = ({ onSubmit, movie, onReset }) => {
   const defaultValues = {
+    id: '',
     title: '',
-    poster_path: '',
-    release_date: '',
-    rating: '',
+    tagline: '',
     vote_average: '',
+    vote_count: '',
+    release_date: '',
+    poster_path: '',
+    overview: '',
+    budget: '',
+    revenue: '',
     runtime: '',
     genre: 'All',
-    overview: '',
   };
 
   const {
@@ -36,7 +40,7 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
     rating: { required: true },
     vote_average: { required: true, min: 0 },
     runtime: { required: true, min: 0 },
-    genres: { required: true },
+    genre: { required: true },
     overview: { required: true },
   };
 
@@ -112,11 +116,16 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
           <div className="movie-form__field">
             <label htmlFor="rating">Rating</label>
             <Controller
-              name="rating"
+              name="vote_average"
               control={control}
-              rules={rules.rating}
+              rules={rules.vote_average}
               render={({ field }) => (
-                <input id="rating" type="text" name="rating" {...field} />
+                <input
+                  id="vote_average"
+                  type="text"
+                  name="vote_average"
+                  {...field}
+                />
               )}
             />
             {errors.rating && (

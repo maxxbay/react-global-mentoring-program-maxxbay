@@ -37,7 +37,7 @@ const GenreSelect = ({ value, onSelect }) => {
   );
 };
 GenreSelect.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string),
+  // genres: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
 };

@@ -37,7 +37,8 @@ const MovieListPage = () => {
     resetPagination,
   } = usePagination(fetchedMovies, itemsPerPage);
 
-  const params =  {
+  const params = useMemo(
+    () => ({
       sortBy: sortCriterion,
       sortOrder: sortOrder,
       search: searchQuery,
@@ -45,11 +46,20 @@ const MovieListPage = () => {
       filter: activeGenre,
       offset: (currentPage - 1) * itemsPerPage,
       limit: itemsPerPage + 100,
-    };
+    }),
+    [
+      sortCriterion,
+      sortOrder,
+      searchQuery,
+      activeGenre,
+      currentPage,
+      itemsPerPage,
+    ]
+  );
 
   useEffect(() => {
-    getData(url, params)
-  }, [sortCriterion, searchQuery, activeGenre]);
+    getData(url, params);
+  }, [params, url, getData]);
 
   const handleMovieClick = movie => {
     navigate(`/movies/${movie.id}`, {

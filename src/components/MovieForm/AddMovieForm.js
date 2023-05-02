@@ -34,7 +34,7 @@ const AddMovieForm = () => {
       const formattedData = formatMovieData(data);
       console.log('Formatted data:', formattedData);
 
-      const response = await addMovie(formattedData);
+      const response = await addMovie(API_URL, formattedData);
       console.log('Movie added:', response.data);
 
       if (response.status === 201) {

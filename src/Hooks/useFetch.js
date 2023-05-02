@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
+import { editMovieData } from '../helpers';
 import axios from 'axios';
 
-const useFetch = () => {
+const useFetch = url => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -27,38 +28,24 @@ const useFetch = () => {
     }
   }, []);
 
-  const postData = async data => {
+  const postData = async (url, data) => {
     setLoading(true);
-    try {
-      const response = await axios.post(url, data);
-      setLoading(false);
-      return response;
-    } catch (error) {
-      setError(error.message);
-      setLoading(false);
-      throw error;
-    }
+    const response = await axios.post(url, data);
+    setLoading(false);
+    return response;
   };
 
   const putData = async (id, data) => {
     setLoading(true);
-    try {
-      const response = await axios.put(
-        `${url}`,
-        { ...data, id },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      setLoading(false);
-      return response;
-    } catch (error) {
-      setError(error.message);
-      setLoading(false);
-      throw error;
-    }
+    const transformedData = editMovieData(id, data);
+
+    const response = await axios.put(`${url}/${id}`, transformedData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    setLoading(false);
+    return response;
   };
 
   return { data, loading, error, getData, post: postData, put: putData };
