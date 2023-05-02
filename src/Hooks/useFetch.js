@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
-const useFetch = (url, params = {}) => {
+const useFetch = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const getData = useCallback(async () => {
+  const getData = useCallback(async (url, params = {}) => {
     console.log('Infinite rendering', params);
     const source = axios.CancelToken.source();
     try {
@@ -25,16 +25,7 @@ const useFetch = (url, params = {}) => {
       }
       setLoading(false);
     }
-
-    return () => {
-      source.cancel('Operation canceled by the user.');
-    };
-    // eslint-disable-next-line
-  }, [url, JSON.stringify(params)]);
-
-  useEffect(() => {
-    getData();
-  }, [getData]);
+  }, []);
 
   const postData = async data => {
     setLoading(true);
@@ -70,7 +61,7 @@ const useFetch = (url, params = {}) => {
     }
   };
 
-  return { data, loading, error, get: getData, post: postData, put: putData };
+  return { data, loading, error, getData, post: postData, put: putData };
 };
 
 export default useFetch;

@@ -19,13 +19,14 @@ const MovieListPage = () => {
   const sortCriterion = searchParams.get('sortBy') || '';
   const activeGenre = searchParams.get('genre') || '';
 
-  const [movies, setMovies] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const sortOrder = sortCriterion === 'title' ? 'asc' : 'desc';
 
   const itemsPerPage = 6;
   const url = API_URL;
   const navigate = useNavigate();
+
+  const { loading, error, data: fetchedMovies, getData } = useFetch();
 
   const {
     currentData,
@@ -34,10 +35,9 @@ const MovieListPage = () => {
     currentPage,
     maxPages,
     resetPagination,
-  } = usePagination(movies, itemsPerPage);
+  } = usePagination(fetchedMovies, itemsPerPage);
 
-  const params = useMemo(() => {
-    return {
+  const params =  {
       sortBy: sortCriterion,
       sortOrder: sortOrder,
       search: searchQuery,
@@ -46,20 +46,10 @@ const MovieListPage = () => {
       offset: (currentPage - 1) * itemsPerPage,
       limit: itemsPerPage + 100,
     };
-  }, [
-    sortCriterion,
-    sortOrder,
-    searchQuery,
-    activeGenre,
-    currentPage,
-    itemsPerPage,
-  ]);
-
-  const { loading, error, data: fetchedMovies } = useFetch(url, params);
 
   useEffect(() => {
-    setMovies(fetchedMovies);
-  }, [fetchedMovies]);
+    getData(url, params)
+  }, [sortCriterion, searchQuery, activeGenre]);
 
   const handleMovieClick = movie => {
     navigate(`/movies/${movie.id}`, {
