@@ -15,8 +15,8 @@ const MovieTile = ({ movie, onClick }) => {
     setShowContextMenu(prevShowContextMenu => !prevShowContextMenu);
   };
 
-  const handleEdit = async () => {
-    await navigate(`/movies/${movie.id}/edit`, { state: { movie } });
+  const handleEdit = () => {
+    navigate(`/movies/${movie.id}/edit`, { state: { movie } });
   };
 
   const handleDelete = () => {
