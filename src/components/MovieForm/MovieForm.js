@@ -148,7 +148,7 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
                 <GenreSelect
                   genres={genres}
                   onSelect={field.onChange}
-                  value={field.value}
+                  value={field.value.toString()}
                 />
               )}
             />
