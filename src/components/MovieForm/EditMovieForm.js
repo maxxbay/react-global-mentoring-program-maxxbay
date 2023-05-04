@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Dialog from '../Dialog/Dialog';
 import MovieForm from './MovieForm';
 import { API_EDIT_URL } from '../../constants';
-import { editMovieData } from '../../helpers';
 import useFetch from '../../Hooks/useFetch';
 
 const EditMovieForm = () => {
@@ -19,24 +18,10 @@ const EditMovieForm = () => {
     }
   }, [movieId, getData]);
 
-  const [submitted, setSubmitted] = useState(false);
-  const [movieData, setMovieData] = useState({});
-
-  const onSubmit = data => {
-    setMovieData(editMovieData(movieId, data));
-    setSubmitted(true);
+  const onSubmit = async data => {
+    await put(movieId, data);
+    navigate('/');
   };
-
-  useEffect(() => {
-    if (submitted && movieData) {
-      const updateMovie = async () => {
-        await put(movieId, movieData);
-        setSubmitted(false);
-        navigate('/');
-      };
-      updateMovie();
-    }
-  }, [submitted, movieData, movieId, put, navigate]);
 
   const handleClose = () => {
     navigate('/');

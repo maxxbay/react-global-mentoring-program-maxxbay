@@ -30,30 +30,12 @@ const AddMovieForm = () => {
 
   const onSubmit = async data => {
     console.log('Submitting:', data);
-    try {
-      const formattedData = formatMovieData(data);
-      console.log('Formatted data:', formattedData);
+    const formattedData = formatMovieData(data);
+    console.log('Formatted data:', formattedData);
 
-      const response = await addMovie(API_URL, formattedData);
-      console.log('Movie added:', response.data);
-
-      if (response.status === 201) {
-        navigate('/');
-      } else {
-        setErrorMessage('Error adding movie.');
-      }
-    } catch (error) {
-      console.error('Error adding movie:', error);
-      console.error('Server response:', error.response);
-      if (error.response && error.response.status === 400) {
-        setErrorDialogOpen(true);
-        setErrorMessage(response.data.messages.join(', '));
-      } else {
-        setErrorMessage(
-          'An unexpected error occurred. Please try again later.'
-        );
-      }
-    }
+    const response = await addMovie(API_URL, formattedData);
+    console.log('Movie added:', response.data);
+    navigate('/');
   };
 
   return (
