@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Dialog from '../Dialog/Dialog';
 import MovieForm from '../MovieForm/MovieForm';
-import { API_URL } from '../../constants';
+import { API_POST_URL } from '../../constants';
 import { useForm } from 'react-hook-form';
 import useFetch from 'Hooks/useFetch';
 import { formatMovieData } from '../../helpers';
@@ -11,7 +11,7 @@ const AddMovieForm = () => {
   const navigate = useNavigate();
   const [errorDialogOpen, setErrorDialogOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const { post: addMovie } = useFetch(API_URL);
+  const { post: addMovie } = useFetch(API_POST_URL);
 
   const {
     control,
@@ -33,7 +33,7 @@ const AddMovieForm = () => {
     const formattedData = formatMovieData(data);
     console.log('Formatted data:', formattedData);
 
-    const response = await addMovie(API_URL, formattedData);
+    const response = await addMovie(`${API_POST_URL}/movies`, formattedData);
     console.log('Movie added:', response.data);
     navigate('/');
   };

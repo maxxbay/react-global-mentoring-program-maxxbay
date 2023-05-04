@@ -42,7 +42,7 @@ const useFetch = (url, setErrorDialogOpen, setErrorMessage) => {
       console.error('Server response:', error.response);
       if (error.response && error.response.status === 400) {
         setErrorDialogOpen(true);
-        setErrorMessage(response.data.messages.join(', '));
+        setErrorMessage(error.response.data.messages.join(', '));
       } else {
         setErrorMessage(
           'An unexpected error occurred. Please try again later.'
