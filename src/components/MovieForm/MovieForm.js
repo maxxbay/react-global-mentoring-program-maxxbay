@@ -72,7 +72,7 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
                 <input id="title" type="text" {...field} />
               )}
             />
-            {errors.title && <p>Title is required</p>}
+            {!!errors.title && <p>Title is required</p>}
           </div>
           <div className="movie-form__field">
             <label htmlFor="poster_path">Movie URL</label>
@@ -90,7 +90,7 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
                 />
               )}
             />
-            {errors.poster_path && <p>Poster Path is required</p>}
+            {!!errors.poster_path && <p>Poster Path is required</p>}
           </div>
         </div>
         <div className="movie-form__column">
@@ -110,7 +110,7 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
                 />
               )}
             />
-            {errors.release_date && <p>Release Date is required</p>}
+            {!!errors.release_date && <p>Release Date is required</p>}
           </div>
 
           <div className="movie-form__field">
@@ -128,7 +128,7 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
                 />
               )}
             />
-            {errors.vote_average && (
+            {!!errors.vote_average && (
               <p>Rating is required and should be more than 0</p>
             )}
           </div>
@@ -191,7 +191,7 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
               />
             )}
           />
-          {errors.overview && <p>Overview is required</p>}
+          {!!errors.overview && <p>Overview is required</p>}
         </div>
       </div>
       <div className="movie-form__actions">
