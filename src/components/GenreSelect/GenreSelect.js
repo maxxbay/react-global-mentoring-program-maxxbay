@@ -20,16 +20,16 @@ const GenreSelect = ({ value, onSelect }) => {
       onClick={toggleDropdown}
     >
       <select
-        title="Genre"
-        name="genre"
+        title="Genres"
+        name="genres"
         onChange={handleGenreChange}
         value={value}
       >
         <option value="All">All</option>
 
-        {genres.map(genre => (
-          <option value={genre} key={genre}>
-            {genre}
+        {genres.map(genres => (
+          <option value={genres} key={genres}>
+            {genres}
           </option>
         ))}
       </select>

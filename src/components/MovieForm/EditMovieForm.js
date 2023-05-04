@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Dialog from '../Dialog/Dialog';
 import MovieForm from './MovieForm';
@@ -8,13 +8,27 @@ import useFetch from '../../Hooks/useFetch';
 const EditMovieForm = () => {
   const { movieId } = useParams();
   const navigate = useNavigate();
+  const [errorDialogOpen, setErrorDialogOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const { data, loading, error, getData, put } = useFetch(
-    `${API_EDIT_URL}/movies`
+    `${API_EDIT_URL}/movies`,
+    setErrorDialogOpen,
+    setErrorMessage
   );
 
   useEffect(() => {
     if (movieId) {
-      getData(`${API_EDIT_URL}/movies/${movieId}`);
+      let abortController;
+      const fetchData = async () => {
+        abortController = await getData(`${API_EDIT_URL}/movies/${movieId}`);
+      };
+      fetchData();
+
+      return () => {
+        if (abortController) {
+          abortController.abort();
+        }
+      };
     }
   }, [movieId, getData]);
 

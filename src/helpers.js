@@ -5,7 +5,7 @@ export const formatMovieData = data => {
     release_date: data.release_date || '1970-01-01',
     vote_average: data.vote_average ? parseFloat(data.vote_average) : 0,
     runtime: data.runtime ? parseInt(data.runtime, 10) : 0,
-    genres: [data.genre || 'Other'],
+    genres: [data.genres || 'Other'],
     overview: data.overview || 'No overview',
   };
 };
@@ -23,6 +23,6 @@ export const editMovieData = (id, data) => {
     budget: parseInt(data.budget),
     revenue: parseInt(data.revenue),
     runtime: parseInt(data.runtime),
-    genres: [data.genre],
+    genres: [data.genres],
   };
 };

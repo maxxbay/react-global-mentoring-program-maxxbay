@@ -19,7 +19,7 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
     budget: '',
     revenue: '',
     runtime: '',
-    genre: 'All',
+    genres: 'All',
   };
 
   const {
@@ -40,7 +40,7 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
     rating: { required: true },
     vote_average: { required: true, min: 0 },
     runtime: { required: true, min: 0 },
-    genre: { required: true },
+    genres: { required: true },
     overview: { required: true },
   };
 
@@ -137,13 +137,13 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
       <div className="movie-form__row">
         <div className="movie-form__column">
           <div className="movie-form__field">
-            <label id="genre-label" htmlFor="genre">
+            <label id="genre-label" htmlFor="genres">
               Genre
             </label>
             <Controller
-              name="genre"
+              name="genres"
               control={control}
-              defaultValue={defaultValues.genre || 'All'}
+              defaultValue={defaultValues.genres || 'All'}
               render={({ field }) => (
                 <GenreSelect
                   genres={genres}
@@ -152,7 +152,7 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
                 />
               )}
             />
-            {!!errors.genre && <p>Genre is required</p>}
+            {!!errors.genres && <p>Genre is required</p>}
           </div>
         </div>
         <div className="movie-form__column">
