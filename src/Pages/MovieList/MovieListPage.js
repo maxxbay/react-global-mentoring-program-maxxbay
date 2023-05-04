@@ -37,29 +37,20 @@ const MovieListPage = () => {
     resetPagination,
   } = usePagination(fetchedMovies, itemsPerPage);
 
-  const params = useMemo(
-    () => ({
-      sortBy: sortCriterion,
-      sortOrder: sortOrder,
-      search: searchQuery,
-      searchBy: 'title',
-      filter: activeGenre,
-      offset: (currentPage - 1) * itemsPerPage,
-      limit: itemsPerPage + 100,
-    }),
-    [
-      sortCriterion,
-      sortOrder,
-      searchQuery,
-      activeGenre,
-      currentPage,
-      itemsPerPage,
-    ]
-  );
+  const params = {
+    sortBy: sortCriterion,
+    sortOrder: sortOrder,
+    search: searchQuery,
+    searchBy: 'title',
+    filter: activeGenre,
+    offset: (currentPage - 1) * itemsPerPage,
+    limit: itemsPerPage + 100,
+  };
 
   useEffect(() => {
     getData(url, params);
-  }, [params, url, getData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortCriterion, searchQuery, activeGenre]);
 
   const handleMovieClick = movie => {
     navigate(`/movies/${movie.id}`, {
