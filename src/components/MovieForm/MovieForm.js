@@ -128,8 +128,8 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
                 />
               )}
             />
-            {errors.rating && (
-              <p>Rating is required and should be more then 0</p>
+            {errors.vote_average && (
+              <p>Rating is required and should be more than 0</p>
             )}
           </div>
         </div>
