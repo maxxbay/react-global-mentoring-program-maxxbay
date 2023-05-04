@@ -89,7 +89,7 @@ MovieTile.propTypes = {
     genres: PropTypes.arrayOf(PropTypes.string).isRequired,
     poster_path: PropTypes.string.isRequired,
     vote_average: PropTypes.number.isRequired,
-    runtime: PropTypes.number.isRequired,
+    runtime: PropTypes.number,
     overview: PropTypes.string,
   }).isRequired,
   onClick: PropTypes.func,
