@@ -10,30 +10,31 @@ const EditMovieForm = () => {
   const navigate = useNavigate();
   const [errorDialogOpen, setErrorDialogOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const { data, loading, error, getData, put } = useFetch(
-    `${API_EDIT_URL}/movies`,
-    setErrorDialogOpen,
-    setErrorMessage
-  );
+  const {
+    data,
+    loading,
+    error,
+    getData,
+    putData: put,
+  } = useFetch(setErrorDialogOpen, setErrorMessage);
 
   useEffect(() => {
     if (movieId) {
-      let abortController;
-      const fetchData = async () => {
-        abortController = await getData(`${API_EDIT_URL}/movies/${movieId}`);
+      const abortController = new AbortController();
+
+      const fetchData = () => {
+        getData(`${API_EDIT_URL}/movies/${movieId}`, abortController.signal);
       };
       fetchData();
 
       return () => {
-        if (abortController) {
-          abortController.abort();
-        }
+        abortController.abort();
       };
     }
   }, [movieId, getData]);
 
-  const onSubmit = async data => {
-    await put(movieId, data);
+  const onSubmit = data => {
+    put(`${API_EDIT_URL}/movies`, movieId, data);
     navigate('/');
   };
 

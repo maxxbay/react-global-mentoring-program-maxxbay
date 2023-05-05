@@ -11,14 +11,7 @@ const AddMovieForm = () => {
   const navigate = useNavigate();
   const [errorDialogOpen, setErrorDialogOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const { post: addMovie } = useFetch(API_POST_URL);
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
+  const { postData } = useFetch(API_POST_URL);
 
   const handleClose = () => {
     navigate('/');
@@ -28,12 +21,12 @@ const AddMovieForm = () => {
     setErrorMessage('');
   };
 
-  const onSubmit = async data => {
+  const onSubmit = data => {
     console.log('Submitting:', data);
     const formattedData = formatMovieData(data);
     console.log('Formatted data:', formattedData);
 
-    const response = await addMovie(`${API_POST_URL}/movies`, formattedData);
+    const response = postData(`${API_POST_URL}/movies`, formattedData);
     console.log('Movie added:', response.data);
     navigate('/');
   };
@@ -42,9 +35,9 @@ const AddMovieForm = () => {
     <>
       <Dialog title="Add Movie" onClose={handleClose}>
         <MovieForm
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={onSubmit}
           onReset={() => {
-            reset();
+            console.log('Resetting');
           }}
         />
       </Dialog>

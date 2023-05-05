@@ -12,9 +12,16 @@ const MovieDetailsWrapper = () => {
   const url = `${API_URL}/${movieId}`;
   const { loading, error, data: movieData, getData } = useFetch();
   const movie = Array.isArray(movieData) ? movieData[0] : movieData;
+
   useEffect(() => {
-    getData(url);
+    const abortController = new AbortController();
+
+    getData(url, abortController.signal);
+    return () => {
+      abortController.abort();
+    };
   }, [url, getData]);
+
   const handleMovieDetailsClose = () => {
     navigate('/');
   };

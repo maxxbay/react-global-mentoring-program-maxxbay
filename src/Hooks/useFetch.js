@@ -2,32 +2,27 @@ import { useState, useCallback } from 'react';
 import { editMovieData } from '../helpers';
 import axios from 'axios';
 
-const useFetch = (url, setErrorDialogOpen, setErrorMessage) => {
+const useFetch = (setErrorDialogOpen, setErrorMessage) => {
   const [data, setData] = useState();
 
-  const getData = useCallback(async (url, params = {}) => {
+  const getData = useCallback(async (url, signal, params = {}) => {
     console.log('Infinite rendering', params);
-    const abortController = new AbortController();
-    const signal = abortController.signal;
 
     try {
       const response = await axios.get(url, {
-        params: params,
-        signal: signal,
+        params,
+        signal,
       });
 
       setData(response.data.data || response.data);
     } catch (error) {
-      if (error.name === 'AbortError') {
+      if (error.name === 'AbortError' || signal.aborted) {
         console.log('Request canceled:', error.message);
       } else {
         console.error('Error fetching data:', error);
       }
       throw error;
-    } finally {
-      abortController.abort();
     }
-    return abortController;
   }, []);
 
   const postData = async (url, data) => {
@@ -52,7 +47,7 @@ const useFetch = (url, setErrorDialogOpen, setErrorMessage) => {
     }
   };
 
-  const putData = async (id, data) => {
+  const putData = async (url, id, data) => {
     try {
       const transformedData = editMovieData(id, data);
       const response = await axios.put(`${url}`, transformedData, {
@@ -89,7 +84,7 @@ const useFetch = (url, setErrorDialogOpen, setErrorMessage) => {
     }
   };
 
-  return { data, getData, post: postData, put: putData };
+  return { data, getData, postData, putData };
 };
 
 export default useFetch;

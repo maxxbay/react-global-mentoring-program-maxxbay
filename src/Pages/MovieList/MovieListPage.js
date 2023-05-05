@@ -48,7 +48,13 @@ const MovieListPage = () => {
   };
 
   useEffect(() => {
-    getData(url, params);
+    const abortController = new AbortController();
+
+    getData(url, abortController.signal, params);
+    return () => {
+      abortController.abort();
+    };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortCriterion, searchQuery, activeGenre]);
 
