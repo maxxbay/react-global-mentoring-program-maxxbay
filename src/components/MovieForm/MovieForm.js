@@ -95,7 +95,7 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
         </div>
         <div className="movie-form__column">
           <div className="movie-form__field">
-            <label htmlFor="releaseDate">Release Date</label>
+            <label htmlFor="release_date">Release Date</label>
             <Controller
               name="release_date"
               control={control}
@@ -114,7 +114,7 @@ const MovieForm = ({ onSubmit, movie, onReset }) => {
           </div>
 
           <div className="movie-form__field">
-            <label htmlFor="rating">Rating</label>
+            <label htmlFor="vote_average">Rating</label>
             <Controller
               name="vote_average"
               control={control}

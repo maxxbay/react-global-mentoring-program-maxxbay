@@ -69,7 +69,7 @@ describe('MovieTile component', () => {
 
 describe('ContextMenu component', () => {
   it('renders correctly when show is true', () => {
-    const { container } = render(
+    const { asFragment } = render(
       <ContextMenu
         show
         onClose={jest.fn()}
@@ -77,7 +77,7 @@ describe('ContextMenu component', () => {
         onDelete={jest.fn()}
       />
     );
-    expect(container).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('does not render when show is false', () => {

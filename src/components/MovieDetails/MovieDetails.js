@@ -4,6 +4,9 @@ import Button from '../Button/Button';
 import './MovieDetails.scss';
 
 const MovieDetails = ({ movie, onClose }) => {
+  if (!movie) {
+    return <p>Movie not found</p>;
+  }
   const {
     poster_path: imageUrl,
     title: movieName,

@@ -27,6 +27,7 @@ describe('MovieListPage', () => {
       loading: false,
       error: null,
       data: [mockMovie],
+      getData: jest.fn(),
     });
   });
 

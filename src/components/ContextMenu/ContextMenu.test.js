@@ -14,7 +14,7 @@ describe('ContextMenu component', () => {
   });
 
   it('renders correctly when show is true', () => {
-    const { container } = render(
+    const { asFragment } = render(
       <ContextMenu
         show
         onClose={onCloseMock}
@@ -22,7 +22,7 @@ describe('ContextMenu component', () => {
         onDelete={onDeleteMock}
       />
     );
-    expect(container).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('does not render when show is false', () => {
