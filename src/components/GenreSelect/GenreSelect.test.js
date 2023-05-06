@@ -5,13 +5,18 @@ import { genres } from '../MovieTile/genres';
 
 describe('GenreSelect', () => {
   test('renders dropdown with all genres', () => {
-    const onSelect = jest.fn();
-    render(<GenreSelect genres={genres} onSelect={onSelect} />);
+    const onSelect = jest.fn(event => {
+      expect(event).toHaveProperty('target');
+      expect(event.target).toHaveProperty('value', genres[0]);
+    });
 
-    fireEvent.change(screen.getByTitle(/genre/i), {
+    render(<GenreSelect value="All" onSelect={onSelect} />);
+
+    const genreDropdown = screen.getByTitle(/genre/i);
+    fireEvent.change(genreDropdown, {
       target: { value: genres[0] },
     });
 
-    expect(onSelect).toHaveBeenCalledWith(genres[0]);
+    expect(onSelect).toHaveBeenCalled();
   });
 });

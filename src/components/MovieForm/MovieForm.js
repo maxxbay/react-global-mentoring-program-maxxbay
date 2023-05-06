@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './MovieForm.scss';
 import Button from '../Button/Button';
@@ -6,23 +6,32 @@ import GenreSelect from '../GenreSelect/GenreSelect';
 import { useForm, Controller } from 'react-hook-form';
 import { genres } from '../MovieTile/genres';
 
-const MovieForm = ({ onSubmit, movie }) => {
+const MovieForm = ({ onSubmit, movie, onReset }) => {
   const defaultValues = {
+    id: '',
     title: '',
-    poster_path: '',
-    release_date: '',
-    rating: '',
+    tagline: '',
     vote_average: '',
-    runtime: '',
-    genre: 'All',
+    vote_count: '',
+    release_date: '',
+    poster_path: '',
     overview: '',
+    budget: '',
+    revenue: '',
+    runtime: '',
+    genres: 'All',
   };
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({ defaultValues: movie || defaultValues });
+    reset,
+  } = useForm({ defaultValues: { ...defaultValues, ...movie } });
+
+  useEffect(() => {
+    reset(movie);
+  }, [movie, reset]);
 
   const rules = {
     title: { required: true },
@@ -43,7 +52,10 @@ const MovieForm = ({ onSubmit, movie }) => {
 
   const handleReset = e => {
     e.preventDefault();
-    e.target.form.reset();
+    reset({ ...defaultValues });
+    if (typeof onReset === 'function') {
+      onReset();
+    }
   };
 
   return (
@@ -60,7 +72,7 @@ const MovieForm = ({ onSubmit, movie }) => {
                 <input id="title" type="text" {...field} />
               )}
             />
-            {errors.title && <p>Title is required</p>}
+            {!!errors.title && <p>Title is required</p>}
           </div>
           <div className="movie-form__field">
             <label htmlFor="poster_path">Movie URL</label>
@@ -78,12 +90,12 @@ const MovieForm = ({ onSubmit, movie }) => {
                 />
               )}
             />
-            {errors.poster_path && <p>Poster Path is required</p>}
+            {!!errors.poster_path && <p>Poster Path is required</p>}
           </div>
         </div>
         <div className="movie-form__column">
           <div className="movie-form__field">
-            <label htmlFor="releaseDate">Release Date</label>
+            <label htmlFor="release_date">Release Date</label>
             <Controller
               name="release_date"
               control={control}
@@ -98,21 +110,26 @@ const MovieForm = ({ onSubmit, movie }) => {
                 />
               )}
             />
-            {errors.releaseDate && <p>Release Date is required</p>}
+            {!!errors.release_date && <p>Release Date is required</p>}
           </div>
 
           <div className="movie-form__field">
-            <label htmlFor="rating">Rating</label>
+            <label htmlFor="vote_average">Rating</label>
             <Controller
-              name="rating"
+              name="vote_average"
               control={control}
-              rules={rules.rating}
+              rules={rules.vote_average}
               render={({ field }) => (
-                <input id="rating" type="text" name="rating" {...field} />
+                <input
+                  id="vote_average"
+                  type="text"
+                  name="vote_average"
+                  {...field}
+                />
               )}
             />
-            {errors.rating && (
-              <p>Rating is required and should be more then 0</p>
+            {!!errors.vote_average && (
+              <p>Rating is required and should be more than 0</p>
             )}
           </div>
         </div>
@@ -120,22 +137,22 @@ const MovieForm = ({ onSubmit, movie }) => {
       <div className="movie-form__row">
         <div className="movie-form__column">
           <div className="movie-form__field">
-            <label id="genre-label" htmlFor="genre">
+            <label id="genre-label" htmlFor="genres">
               Genre
             </label>
             <Controller
-              name="genre"
+              name="genres"
               control={control}
-              defaultValue={defaultValues.genre || 'All'}
+              defaultValue={defaultValues.genres || 'All'}
               render={({ field }) => (
                 <GenreSelect
                   genres={genres}
                   onSelect={field.onChange}
-                  value={field.value}
+                  value={field.value.toString()}
                 />
               )}
             />
-            {errors.genre && <p>Genre is required</p>}
+            {!!errors.genres && <p>Genre is required</p>}
           </div>
         </div>
         <div className="movie-form__column">
@@ -174,11 +191,19 @@ const MovieForm = ({ onSubmit, movie }) => {
               />
             )}
           />
-          {errors.overview && <p>Overview is required</p>}
+          {!!errors.overview && <p>Overview is required</p>}
         </div>
       </div>
       <div className="movie-form__actions">
-        <Button type="button" onClick={handleReset}>
+        <Button
+          type="button"
+          onClick={e => {
+            handleReset(e);
+            if (typeof onReset === 'function') {
+              onReset(reset);
+            }
+          }}
+        >
           RESET
         </Button>
         <Button type="submit">SUBMIT</Button>
@@ -188,6 +213,7 @@ const MovieForm = ({ onSubmit, movie }) => {
 };
 MovieForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  onReset: PropTypes.func,
   movie: PropTypes.object,
 };
 export default MovieForm;

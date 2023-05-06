@@ -4,6 +4,9 @@ import Button from '../Button/Button';
 import './MovieDetails.scss';
 
 const MovieDetails = ({ movie, onClose }) => {
+  if (!movie) {
+    return <p>Movie not found</p>;
+  }
   const {
     poster_path: imageUrl,
     title: movieName,
@@ -14,7 +17,7 @@ const MovieDetails = ({ movie, onClose }) => {
   } = movie;
 
   const imageBaseUrl = 'https://image.tmdb.org/t/p/';
-  const imageWidth = 'w185';
+    const imageWidth = 'w185';
 
   const handleCloseClick = e => {
     e.stopPropagation();

@@ -49,7 +49,7 @@ describe('MovieDetails component', () => {
   });
 
   it('renders "Movie not found" if movie prop is not provided', () => {
-    render(<MovieDetails />);
+    render(<MovieDetails movie={null} />);
     expect(screen.getByText('Movie not found')).toBeInTheDocument();
   });
 });

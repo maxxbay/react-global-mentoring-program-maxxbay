@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './MovieTile.scss';
 import ContextMenu from '../ContextMenu/ContextMenu';
 
-const MovieTile = ({ movie }) => {
+const MovieTile = ({ movie, onClick }) => {
   const navigate = useNavigate();
 
   const { title, release_date, genres, poster_path } = movie;
@@ -23,8 +23,10 @@ const MovieTile = ({ movie }) => {
     console.log('Delete action for movie:', movie);
   };
 
-  const handleTileClick = () => {
-    navigate(`movies/${movie.id}`);
+  const handleTileClick = async () => {
+    if (onClick) {
+      onClick(movie);
+    }
   };
 
   useEffect(() => {
@@ -87,7 +89,7 @@ MovieTile.propTypes = {
     genres: PropTypes.arrayOf(PropTypes.string).isRequired,
     poster_path: PropTypes.string.isRequired,
     vote_average: PropTypes.number.isRequired,
-    runtime: PropTypes.number.isRequired,
+    runtime: PropTypes.number,
     overview: PropTypes.string,
   }).isRequired,
   onClick: PropTypes.func,

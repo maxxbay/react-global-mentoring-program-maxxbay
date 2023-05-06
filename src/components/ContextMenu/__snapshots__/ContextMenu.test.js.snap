@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ContextMenu component renders correctly when show is true 1`] = `
-<div>
+<DocumentFragment>
   <div
     class="context-menu"
   >
@@ -16,5 +16,5 @@ exports[`ContextMenu component renders correctly when show is true 1`] = `
       Delete
     </button>
   </div>
-</div>
+</DocumentFragment>
 `;

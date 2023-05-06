@@ -19,13 +19,14 @@ const MovieListPage = () => {
   const sortCriterion = searchParams.get('sortBy') || '';
   const activeGenre = searchParams.get('genre') || '';
 
-  const [movies, setMovies] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const sortOrder = sortCriterion === 'title' ? 'asc' : 'desc';
 
   const itemsPerPage = 6;
   const url = API_URL;
   const navigate = useNavigate();
+
+  const { loading, error, data: fetchedMovies, getData } = useFetch();
 
   const {
     currentData,
@@ -34,32 +35,28 @@ const MovieListPage = () => {
     currentPage,
     maxPages,
     resetPagination,
-  } = usePagination(movies, itemsPerPage);
+  } = usePagination(fetchedMovies, itemsPerPage);
 
-  const params = useMemo(() => {
-    return {
-      sortBy: sortCriterion,
-      sortOrder: sortOrder,
-      search: searchQuery,
-      searchBy: 'title',
-      filter: activeGenre,
-      offset: (currentPage - 1) * itemsPerPage,
-      limit: itemsPerPage + 100,
-    };
-  }, [
-    sortCriterion,
-    sortOrder,
-    searchQuery,
-    activeGenre,
-    currentPage,
-    itemsPerPage,
-  ]);
-
-  const { loading, error, data: fetchedMovies } = useFetch(url, params);
+  const params = {
+    sortBy: sortCriterion,
+    sortOrder: sortOrder,
+    search: searchQuery,
+    searchBy: 'title',
+    filter: activeGenre,
+    offset: (currentPage - 1) * itemsPerPage,
+    limit: itemsPerPage + 100,
+  };
 
   useEffect(() => {
-    setMovies(fetchedMovies);
-  }, [fetchedMovies]);
+    const abortController = new AbortController();
+
+    getData(url, abortController.signal, params);
+    return () => {
+      abortController.abort();
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortCriterion, searchQuery, activeGenre]);
 
   const handleMovieClick = movie => {
     navigate(`/movies/${movie.id}`, {
@@ -89,7 +86,7 @@ const MovieListPage = () => {
     });
   };
 
-  const handleActiveGenreChange = value => {
+  const handleActiveGenreChange = ({ target: { value } }) => {
     setSearchParams(prev => {
       const newParams = new URLSearchParams(prev);
       newParams.set('genre', value);

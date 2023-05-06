@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import MovieForm from './MovieForm';
 
 describe('MovieForm', () => {
@@ -7,7 +7,7 @@ describe('MovieForm', () => {
     const onSubmit = jest.fn();
     render(<MovieForm onSubmit={onSubmit} />);
     expect(screen.getByLabelText(/title/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/movie url/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/movie url/i)).toBeInTheDocument(); // Змініть тут
     expect(screen.getByLabelText(/release date/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/rating/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/runtime/i)).toBeInTheDocument();

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ContextMenu component renders correctly when show is true 1`] = `
-<div>
+<DocumentFragment>
   <div
     class="context-menu"
   >
@@ -16,7 +16,7 @@ exports[`ContextMenu component renders correctly when show is true 1`] = `
       Delete
     </button>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`MovieTile component renders correctly 1`] = `
@@ -24,48 +24,52 @@ exports[`MovieTile component renders correctly 1`] = `
   <div
     class="movie-tile"
   >
-    <img
-      alt="Mock Movie"
-      class="movie-tile__image"
-      src="https://image.tmdb.org/t/p/w185/mock-poster.jpg"
-    />
-    <div
-      class="movie-tile__info"
+    <button
+      class="movie-tile__button"
     >
-      <h2
-        class="movie-tile__title"
+      <img
+        alt="Mock Movie"
+        class="movie-tile__image"
+        src="https://image.tmdb.org/t/p/w185/mock-poster.jpg"
+      />
+      <div
+        class="movie-tile__info"
       >
-        Mock Movie
-      </h2>
-      <p
-        class="movie-tile__year"
-      >
-        2022-01-01
-      </p>
-      <p
-        class="movie-tile__genres"
-      >
-        Action, Adventure
-      </p>
-      <p
-        class="movie-tile__rating"
-      >
-        Rating: 
-        7.5
-      </p>
-      <p
-        class="movie-tile__duration"
-      >
-        Duration: 
-        120
-         min
-      </p>
-      <p
-        class="movie-tile__description"
-      >
-        This is a mock movie.
-      </p>
-    </div>
+        <h2
+          class="movie-tile__title"
+        >
+          Mock Movie
+        </h2>
+        <p
+          class="movie-tile__year"
+        >
+          2022-01-01
+        </p>
+        <p
+          class="movie-tile__genres"
+        >
+          Action, Adventure
+        </p>
+        <p
+          class="movie-tile__rating"
+        >
+          Rating: 
+          7.5
+        </p>
+        <p
+          class="movie-tile__duration"
+        >
+          Duration: 
+          120
+           min
+        </p>
+        <p
+          class="movie-tile__description"
+        >
+          This is a mock movie.
+        </p>
+      </div>
+    </button>
     <div
       class="movie-tile__context-menu-wrapper"
     >

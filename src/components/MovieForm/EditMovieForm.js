@@ -1,43 +1,56 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Dialog from '../Dialog/Dialog';
 import MovieForm from './MovieForm';
-import axios from 'axios';
-import { API_URL } from '../../constants';
+import { API_EDIT_URL } from '../../constants';
+import useFetch from '../../Hooks/useFetch';
 
 const EditMovieForm = () => {
   const { movieId } = useParams();
   const navigate = useNavigate();
-  const [movie, setMovie] = useState(null);
+  const [errorDialogOpen, setErrorDialogOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const {
+    data,
+    loading,
+    error,
+    getData,
+    putData: put,
+  } = useFetch(setErrorDialogOpen, setErrorMessage);
 
   useEffect(() => {
-    const fetchMovie = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/${movieId}`);
-        setMovie(response.data);
-      } catch (error) {
-        console.error('Error fetching movie:', error.response || error);
-      }
-    };
-    fetchMovie();
-  }, [movieId]);
+    if (movieId) {
+      const abortController = new AbortController();
 
-  const onSubmit = async data => {
-    try {
-      await axios.put(`${API_URL}/${movieId}`, data);
-      navigate('/');
-    } catch (error) {
-      console.error('Error updating movie:', error.response || error);
+      const fetchData = () => {
+        getData(`${API_EDIT_URL}/movies/${movieId}`, abortController.signal);
+      };
+      fetchData();
+
+      return () => {
+        abortController.abort();
+      };
     }
+  }, [movieId, getData]);
+
+  const onSubmit = data => {
+    put(`${API_EDIT_URL}/movies`, movieId, data);
+    navigate('/');
   };
 
   const handleClose = () => {
     navigate('/');
   };
 
-  if (!movie) {
+  if (loading) {
     return <div>Loading...</div>;
   }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  const movie = data && !Array.isArray(data) ? data : {};
 
   return (
     <Dialog title="Edit Movie" onClose={handleClose}>
