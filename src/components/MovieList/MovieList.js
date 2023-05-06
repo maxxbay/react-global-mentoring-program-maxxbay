@@ -11,5 +11,16 @@ const MovieList = ({ movies, onMovieClick }) => {
     </div>
   );
 };
-
+MovieList.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      releaseYear: PropTypes.number.isRequired,
+      genre: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+  onMovieClick: PropTypes.func.isRequired,
+};
 export default MovieList;
