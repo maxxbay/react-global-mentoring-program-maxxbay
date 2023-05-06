@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/react-global-mentoring-program-maxxbay/static/css/main.c1587967.css",
-    "main.js": "/react-global-mentoring-program-maxxbay/static/js/main.b436f1c6.js",
+    "main.css": "/react-global-mentoring-program-maxxbay/static/css/main.6296e09a.css",
+    "main.js": "/react-global-mentoring-program-maxxbay/static/js/main.3697055b.js",
     "static/media/HeaderBackground.png": "/react-global-mentoring-program-maxxbay/static/media/HeaderBackground.53531d7fe69062ef9213.png",
     "index.html": "/react-global-mentoring-program-maxxbay/index.html",
-    "main.c1587967.css.map": "/react-global-mentoring-program-maxxbay/static/css/main.c1587967.css.map",
-    "main.b436f1c6.js.map": "/react-global-mentoring-program-maxxbay/static/js/main.b436f1c6.js.map"
+    "main.6296e09a.css.map": "/react-global-mentoring-program-maxxbay/static/css/main.6296e09a.css.map",
+    "main.3697055b.js.map": "/react-global-mentoring-program-maxxbay/static/js/main.3697055b.js.map"
   },
   "entrypoints": [
-    "static/css/main.c1587967.css",
-    "static/js/main.b436f1c6.js"
+    "static/css/main.6296e09a.css",
+    "static/js/main.3697055b.js"
   ]
 }
