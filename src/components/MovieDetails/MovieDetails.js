@@ -17,7 +17,7 @@ const MovieDetails = ({ movie, onClose }) => {
   } = movie;
 
   const imageBaseUrl = 'https://image.tmdb.org/t/p/';
-  const imageWidth = 'w185';
+    const imageWidth = 'w185';
 
   const handleCloseClick = e => {
     e.stopPropagation();
