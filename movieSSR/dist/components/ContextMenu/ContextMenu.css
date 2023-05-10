@@ -1,0 +1,19 @@
+.context-menu {
+  position: absolute;
+  background-color: #424242;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  overflow: hidden; }
+  .context-menu__item {
+    display: block;
+    padding: 12px 24px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    border: none;
+    background-color: #424242;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1.5; }
+    .context-menu__item:hover {
+      background-color: #616161; }

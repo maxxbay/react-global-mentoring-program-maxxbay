@@ -1,0 +1,30 @@
+.MovieDetailsWrapper {
+  padding: 1rem;
+  background-color: #232323;
+  color: #ffffff; }
+  .MovieDetailsWrapper .movie-info {
+    display: flex;
+    gap: 2rem; }
+    .MovieDetailsWrapper .movie-info .poster {
+      max-width: 250px; }
+      .MovieDetailsWrapper .movie-info .poster img {
+        width: 100%;
+        height: auto; }
+    .MovieDetailsWrapper .movie-info .details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem; }
+      .MovieDetailsWrapper .movie-info .details .title {
+        font-size: 2rem;
+        font-weight: bold; }
+      .MovieDetailsWrapper .movie-info .details .release-date {
+        font-size: 1rem;
+        opacity: 0.7; }
+      .MovieDetailsWrapper .movie-info .details .rating {
+        font-size: 1.5rem; }
+      .MovieDetailsWrapper .movie-info .details .genre {
+        font-size: 1.2rem;
+        opacity: 0.8; }
+      .MovieDetailsWrapper .movie-info .details .overview {
+        font-size: 1rem;
+        opacity: 0.9; }

@@ -1,0 +1,40 @@
+.sort-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 16px; }
+  .sort-control__label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a4a4a;
+    margin-right: 18px;
+    width: 100px;
+    justify-content: center; }
+  .sort-control__select {
+    appearance: none;
+    background-color: #424242;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 40px 10px 20px;
+    width: 90%;
+    box-sizing: border-box; }
+    .sort-control__select:focus {
+      outline: none; }
+  .sort-control::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #f65261;
+    transform: translateY(-50%);
+    pointer-events: none; }
+  .sort-control.open::after {
+    border-top: none;
+    border-bottom: 5px solid #f65261; }
