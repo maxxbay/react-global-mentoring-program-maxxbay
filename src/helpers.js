@@ -11,6 +11,7 @@ export const formatMovieData = data => {
 };
 
 export const editMovieData = (id, data) => {
+  const newGenres = Array.isArray(data.genres) ? data.genres : [data.genres];
   return {
     id: parseInt(id),
     title: data.title,
@@ -23,6 +24,6 @@ export const editMovieData = (id, data) => {
     budget: parseInt(data.budget),
     revenue: parseInt(data.revenue),
     runtime: parseInt(data.runtime),
-    genres: [data.genres],
+    genres: newGenres,
   };
 };
