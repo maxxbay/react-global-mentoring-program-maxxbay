@@ -1,0 +1,9 @@
+import { RemixServer } from "@remix-run/react";
+import { createRequestHandler } from "@remix-run/express";
+
+export default createRequestHandler({
+  getLoadContext() {
+    // Whatever you return here will be passed as `context` to your loaders.
+  },
+  RemixServer,
+});

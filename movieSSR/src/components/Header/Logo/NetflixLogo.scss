@@ -1,0 +1,14 @@
+.netflix-logo {
+    display: flex;
+    font-size: 24px;
+    font-weight: bold;
+    color: #e50914;
+
+    &__netflix {
+        margin-right: 5px;
+    }
+
+    &__roulette {
+        color: white;
+    }
+}
