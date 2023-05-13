@@ -1,9 +1,14 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import SearchContext from '../../Pages/MovieList/SearchContext';
+import SearchContext from '../../routes/SearchContext';
 import Button from '../Button/Button';
 import { Outlet } from 'react-router-dom';
-import './SearchForm.scss';
+
+import styleForm from '~/styles/SearchForm.css';
+
+export function StyleFormLinks() {
+  return <link rel="stylesheet" href={styleForm} />;
+}
 
 const SearchForm = ({ initialSearchQuery }) => {
   const [value, setValue] = useState(initialSearchQuery || '');

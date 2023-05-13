@@ -8,6 +8,9 @@ import { DialogLinks } from './components/Dialog/Dialog';
 import { MovieFromLinks } from './components/MovieForm/MovieForm';
 import { ButtonLinks } from './components/Button/Button';
 import { LogoLinks } from './components/Header/Logo/NetflixLogo.jsx';
+import { MovieDetailsWrapperLinks } from './routes/movies';
+import { MovieDetailsLinks } from './routes/movies.$movieId';
+import { StyleFormLinks } from './components/SearchForm/SearchForm';
 
 export default function App() {
   return (
@@ -20,12 +23,15 @@ export default function App() {
         <StylesGlobalLinks />
         <MovieListPageLinks />
         <HeaderLinks />
+        <StyleFormLinks />
         <GenreSelectLinks />
         <SortControlLinks />
         <MovieTileLinks />
         <DialogLinks />
         <MovieFromLinks />
         <ButtonLinks />
+        <MovieDetailsWrapperLinks />
+        <MovieDetailsLinks />
         <LogoLinks />
       </head>
       <body>

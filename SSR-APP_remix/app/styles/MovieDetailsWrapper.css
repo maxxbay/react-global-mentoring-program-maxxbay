@@ -1,0 +1,50 @@
+.MovieDetailsWrapper {
+    padding: 1rem;
+    background-color: #232323;
+    color: #ffffff;
+}
+
+.movie-info {
+    display: flex;
+    gap: 2rem;
+}
+
+.poster {
+max-width: 250px;
+}
+
+.poster img {
+    width: 100%;
+    height: auto;
+}
+
+        
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.release-date {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+.rating {
+    font-size: 1.5rem;
+}
+
+.genre {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.overview {
+    font-size: 1rem;
+    opacity: 0.9;
+}

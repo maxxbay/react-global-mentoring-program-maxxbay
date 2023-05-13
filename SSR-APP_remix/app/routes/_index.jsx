@@ -51,7 +51,6 @@ export async function loader({ request }) {
 
 const MovieListPage = () => {
   const fetchedMovies = useLoaderData();
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   const searchQuery = searchParams.get('query') || '';
@@ -83,6 +82,12 @@ const MovieListPage = () => {
     offset: (currentPage - 1) * itemsPerPage,
     limit: itemsPerPage + 100,
   };
+
+  // const handleMovieClick = movie => {
+  //   navigate(`/movies/${movie.id}`, {
+  //     state: { searchParams: searchParams.toString() },
+  //   });
+  // };
 
   const handleMovieClick = movie => {
     navigate(`/movies/${movie.id}`, {

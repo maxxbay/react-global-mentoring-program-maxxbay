@@ -2,8 +2,12 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import NetflixLogo from './Logo/NetflixLogo.jsx';
 import SearchContext from '../../routes/SearchContext';
-import { Outlet } from 'react-router';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
+// import MovieDetailsWrapper from '../MovieDetailsWrapper/MovieDetailsWrapper.jsx';
+// import MovieDetails from '../MovieDetails/MovieDetails.jsx';
+// import MovieDetails from '~/routes/movies.jsx';
+import SearchForm from '../SearchForm/SearchForm.jsx';
 
 import stylesUrl from '~/styles/Header.css';
 
@@ -12,8 +16,9 @@ export function HeaderLinks() {
 }
 
 const Header = ({ selectedMovie, onAddMovie, children }) => {
-  const { searchQuery, handleSearchQueryChange } = useContext(SearchContext);
   const navigate = useNavigate();
+  const { movieId } = useParams();
+  const { searchQuery, handleSearchQueryChange } = useContext(SearchContext);
 
   const handleAddMovieClick = () => {
     navigate('/new');
@@ -26,6 +31,7 @@ const Header = ({ selectedMovie, onAddMovie, children }) => {
       <div className="header-container">
         <NetflixLogo />
         <Outlet context={[searchQuery, handleSearchQueryChange]} />
+        <SearchForm />
         <div className="add-button">
           <button className="add" onClick={handleAddMovieClick}>
             + Add movie

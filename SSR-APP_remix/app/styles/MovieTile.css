@@ -7,6 +7,8 @@
     background-color: rgba(42, 42, 42, 0.7);
     cursor: pointer;
     margin: 0 10px 20px 0;
+    text-decoration: none;
+    cursor: pointer;
 
     @media screen and (max-width: 1024px) {
         width: calc(100% - 20px);

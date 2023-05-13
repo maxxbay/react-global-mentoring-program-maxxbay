@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ContextMenu from '../ContextMenu/ContextMenu';
 
@@ -28,11 +28,11 @@ const MovieTile = ({ movie, onClick }) => {
     console.log('Delete action for movie:', movie);
   };
 
-  const handleTileClick = async () => {
-    if (onClick) {
-      onClick(movie);
-    }
-  };
+  // const handleTileClick = async () => {
+  //   if (onClick) {
+  //     onClick(movie);
+  //   }
+  // };
 
   useEffect(() => {
     const handleClickOutside = e => {
@@ -47,8 +47,9 @@ const MovieTile = ({ movie, onClick }) => {
   }, [showContextMenu]);
 
   return (
-    <div className="movie-tile">
-      <button className="movie-tile__button" onClick={handleTileClick}>
+    <Link to={`/movies/${movie.id}`} className="movie-tile">
+      {/* <div className="movie-tile"> */}
+      <button className="movie-tile__button">
         <img
           className="movie-tile__image"
           src={`https://image.tmdb.org/t/p/w185${poster_path}`}
@@ -83,7 +84,8 @@ const MovieTile = ({ movie, onClick }) => {
           onDelete={handleDelete}
         />
       </div>
-    </div>
+      {/* </div> */}
+    </Link>
   );
 };
 MovieTile.propTypes = {
