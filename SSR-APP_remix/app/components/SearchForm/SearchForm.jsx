@@ -28,6 +28,7 @@ const SearchForm = ({ initialSearchQuery }) => {
         <input
           type="text"
           name="query"
+          autoComplete="off"
           placeholder="What do you want to watch?"
         />
         <Button type="submit">search</Button>

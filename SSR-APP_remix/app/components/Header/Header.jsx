@@ -30,7 +30,6 @@ const Header = ({ selectedMovie, onAddMovie, children }) => {
     >
       <div className="header-container">
         <NetflixLogo />
-        <Outlet context={[searchQuery, handleSearchQueryChange]} />
         <SearchForm />
         <div className="add-button">
           <button className="add" onClick={handleAddMovieClick}>
