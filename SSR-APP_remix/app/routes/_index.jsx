@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useLoaderData } from '@remix-run/react';
 import axios from 'axios';
@@ -38,7 +38,6 @@ export async function loader({ request }) {
     search: searchQuery,
     searchBy: 'title',
     filter: activeGenre,
-    // offset: (currentPage - 1) * itemsPerPage,
     limit: itemsPerPage + 100,
   };
 
@@ -82,12 +81,6 @@ const MovieListPage = () => {
     offset: (currentPage - 1) * itemsPerPage,
     limit: itemsPerPage + 100,
   };
-
-  // const handleMovieClick = movie => {
-  //   navigate(`/movies/${movie.id}`, {
-  //     state: { searchParams: searchParams.toString() },
-  //   });
-  // };
 
   const handleMovieClick = movie => {
     navigate(`/movies/${movie.id}`, {
@@ -148,8 +141,6 @@ const MovieListPage = () => {
 
         <main className="container">
           <div className="movie-list">
-            {/* {loading && <div>Loading...</div>} */}
-            {/* {error && <div>Error: {error}</div>} */}
             {fetchedMovies.slice(0, itemsPerPage).map(movie => (
               <MovieTile
                 key={movie.id}

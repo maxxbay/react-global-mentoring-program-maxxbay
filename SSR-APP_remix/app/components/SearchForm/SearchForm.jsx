@@ -1,11 +1,7 @@
-import React, { useState, useContext } from 'react';
-import { useLoaderData, Form } from '@remix-run/react';
-import axios from 'axios';
+import { Form } from '@remix-run/react';
 import PropTypes from 'prop-types';
-import SearchContext from '../../routes/SearchContext';
 import Button from '../Button/Button';
 import { Outlet } from 'react-router-dom';
-import { API_URL } from '../../constants';
 
 import styleForm from '~/styles/SearchForm.css';
 

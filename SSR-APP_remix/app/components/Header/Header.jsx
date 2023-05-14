@@ -2,11 +2,8 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import NetflixLogo from './Logo/NetflixLogo.jsx';
 import SearchContext from '../../routes/SearchContext';
-import { Outlet, Route, Routes } from 'react-router';
 import { useNavigate, useParams } from 'react-router-dom';
-// import MovieDetailsWrapper from '../MovieDetailsWrapper/MovieDetailsWrapper.jsx';
-// import MovieDetails from '../MovieDetails/MovieDetails.jsx';
-// import MovieDetails from '~/routes/movies.jsx';
+
 import SearchForm from '../SearchForm/SearchForm.jsx';
 
 import stylesUrl from '~/styles/Header.css';

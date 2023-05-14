@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLoaderData } from '@remix-run/react';
-import PropTypes from 'prop-types';
-import Button from '../Button/Button';
+
 import { API_URL } from '../../constants';
 import { Link } from 'react-router-dom';
 

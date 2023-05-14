@@ -28,12 +28,6 @@ const MovieTile = ({ movie, onClick }) => {
     console.log('Delete action for movie:', movie);
   };
 
-  // const handleTileClick = async () => {
-  //   if (onClick) {
-  //     onClick(movie);
-  //   }
-  // };
-
   useEffect(() => {
     const handleClickOutside = e => {
       if (showContextMenu) {
@@ -48,7 +42,6 @@ const MovieTile = ({ movie, onClick }) => {
 
   return (
     <Link to={`/movies/${movie.id}`} className="movie-tile">
-      {/* <div className="movie-tile"> */}
       <button className="movie-tile__button">
         <img
           className="movie-tile__image"
@@ -84,7 +77,6 @@ const MovieTile = ({ movie, onClick }) => {
           onDelete={handleDelete}
         />
       </div>
-      {/* </div> */}
     </Link>
   );
 };
