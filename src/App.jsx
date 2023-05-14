@@ -17,7 +17,6 @@ const App = () => {
               <Route path="new" element={<AddMovieForm />} />
               <Route path="/movies/:movieId/edit" element={<EditMovieForm />} />
             </Route>
-
             <Route path="movies/:movieId" element={<MovieDetailsWrapper />} />
           </Route>
         </Routes>
