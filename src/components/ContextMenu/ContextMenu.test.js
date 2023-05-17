@@ -7,6 +7,8 @@ describe('ContextMenu component', () => {
   const onEditMock = jest.fn();
   const onDeleteMock = jest.fn();
 
+  console.log('Test for lint ');
+
   beforeEach(() => {
     onCloseMock.mockClear();
     onEditMock.mockClear();

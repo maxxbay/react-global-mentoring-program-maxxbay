@@ -12,6 +12,8 @@ const AddMovieForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const { postData } = useFetch(API_POST_URL);
 
+  console.log(setErrorDialogOpen);
+
   const handleClose = () => {
     navigate('/');
   };

@@ -20,6 +20,7 @@ const mockMovie = {
 };
 
 const history = createMemoryHistory();
+console.log(history);
 
 describe('MovieListPage', () => {
   beforeEach(() => {
@@ -44,7 +45,7 @@ describe('MovieListPage', () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => screen.getByText(mockMovie.title));
+    await screen.findByText(mockMovie.title);
 
     fireEvent.click(screen.getByText(mockMovie.title));
 

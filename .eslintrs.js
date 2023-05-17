@@ -4,14 +4,28 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'react-app',
+    'airbnb',
+    'plugin:prettier/recommended',
+  ],
   overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    project: './jsconfig.js',
   },
-  plugins: ['react'],
+  plugins: ['react', 'prettier'],
   rules: {
+    quotes: [
+      'error',
+      'double',
+      {
+        avoidEscape: true,
+      },
+    ],
     eqeqeq: 'warn',
     'no-unused-vars': [
       'error',

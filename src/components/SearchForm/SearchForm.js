@@ -9,6 +9,8 @@ const SearchForm = ({ initialSearchQuery }) => {
   const [value, setValue] = useState(initialSearchQuery || '');
   const { searchQuery, handleSearchQueryChange } = useContext(SearchContext);
 
+  console.log(searchQuery);
+
   const handleForm = event => {
     event.preventDefault();
 

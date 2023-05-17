@@ -1,5 +1,0 @@
-{
-  "*": "your-cmd",
-  "*.js": "eslint",
-  "*.md": "prettier --list-different"
-}
