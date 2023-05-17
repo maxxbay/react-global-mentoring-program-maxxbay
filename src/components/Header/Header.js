@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import NetflixLogo from 'components/Header/Logo/NetflixLogo';
+import NetflixLogo from '../Header/Logo/NetflixLogo';
 import './Header.scss';
 import SearchContext from '../../Pages/MovieList/SearchContext';
 import { Outlet } from 'react-router';

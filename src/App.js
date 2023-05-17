@@ -2,10 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.scss';
 import MovieListPage from './Pages/MovieList/MovieListPage';
-import MovieDetailsWrapper from './components/MovieDetailsWrapper/MovieDetailsWrapper';
-import SearchForm from 'components/SearchForm/SearchForm';
-import AddMovieForm from './components/MovieForm/AddMovieForm';
-import EditMovieForm from 'components/MovieForm/EditMovieForm';
+import MovieDetailsWrapper from '../src/components/MovieDetailsWrapper/MovieDetailsWrapper';
+import SearchForm from '../src/components/SearchForm/SearchForm';
+import AddMovieForm from '../src/components/MovieForm/AddMovieForm';
+import EditMovieForm from '../src/components/MovieForm/EditMovieForm';
 
 const App = () => {
   return (

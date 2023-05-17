@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import GenreSelect from '../../components/GenreSelect/GenreSelect';
 import SortControl from '../../components/SortControl/SortControl';
 import MovieTile from '../../components/MovieTile/MovieTile';
-import Header from 'components/Header/Header';
+import Header from '../../components/Header/Header';
 import Dialog from '../../components/Dialog/Dialog';
 import MovieForm from '../../components/MovieForm/MovieForm';
 import usePagination from '../../Hooks/usePagination';

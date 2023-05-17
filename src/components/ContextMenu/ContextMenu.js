@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './ContextMenu.scss';
 import PropTypes from 'prop-types';
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import MovieTile from '../MovieTile/MovieTile';
 import './MovieList.scss';
+import PropTypes from 'prop-types';
 
 const MovieList = ({ movies, onMovieClick }) => {
   return (
