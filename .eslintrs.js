@@ -8,10 +8,8 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'react-app',
-    'airbnb',
     'plugin:prettier/recommended',
   ],
-  overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -26,10 +24,29 @@ module.exports = {
         avoidEscape: true,
       },
     ],
-    eqeqeq: 'warn',
-    'no-unused-vars': [
+    'no-unused-expressions': [
       'error',
-      { vars: 'all', args: 'after-used', ignoreRestSiblings: false },
+      { allowShortCircuit: true, allowTernary: true },
     ],
+    'no-useless-concat': 'off',
+    'no-restricted-globals': [
+      'error',
+      { name: 'self', message: 'Use this instead.' },
+    ],
+    'no-mixed-operators': 'off',
+    'no-new-func': 'off',
+    'no-useless-escape': 'off',
+    'no-lone-blocks': 'off',
+    'react-internal/no-production-logging': 'off',
   },
+  overrides: [
+    {
+      files: ['**/*.js', '**/*.jsx'],
+      rules: {
+        'react-internal/no-production-logging': 'off',
+        'no-lone-blocks': 'off',
+        'no-useless-concat': 'off',
+      },
+    },
+  ],
 };

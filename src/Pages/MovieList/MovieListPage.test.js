@@ -51,6 +51,7 @@ describe('MovieListPage', () => {
 
     await waitFor(() =>
       expect(
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
         container.querySelector('[data-testid="movie-details"]')
       ).toBeInTheDocument()
     );

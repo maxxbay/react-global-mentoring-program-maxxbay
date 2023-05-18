@@ -36,12 +36,12 @@ const MovieDetails = () => {
   const imageBaseUrl = 'https://image.tmdb.org/t/p/';
   const imageWidth = 'w185';
 
-  const handleCloseClick = e => {
-    e.stopPropagation();
-    if (typeof onClose === 'function') {
-      onClose();
-    }
-  };
+  // const handleCloseClick = e => {
+  //   e.stopPropagation();
+  //   if (typeof onClose === 'function') {
+  //     onClose();
+  //   }
+  // };
 
   return (
     <div className="movie-details-wrapper">

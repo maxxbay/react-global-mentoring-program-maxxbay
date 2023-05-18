@@ -11,7 +11,7 @@ const SearchForm = ({ initialSearchQuery }) => {
 
   console.log(searchQuery);
 
-  const handleForm = event => {
+  const handleForm = (event) => {
     event.preventDefault();
 
     if (value.trim() === '') {
