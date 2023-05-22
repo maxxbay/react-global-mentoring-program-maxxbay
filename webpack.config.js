@@ -20,7 +20,7 @@ module.exports = (env, argv) => {
       filename: '[name].js',
       clean: true,
       assetModuleFilename: '[name][ext]',
-      publicPath: '/',
+      publicPath: isProduction ? './' : '/',
     },
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
