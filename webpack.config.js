@@ -13,14 +13,14 @@ module.exports = (env, argv) => {
   return {
     mode: isProduction ? 'production' : 'development',
     entry: {
-      bundle: path.resolve(__dirname, 'src/index.js'),
+      bundle: path.resolve(__dirname, './src/index.js'),
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: '[name].js',
       clean: true,
       assetModuleFilename: '[name][ext]',
-      publicPath: isProduction ? './' : '/',
+      publicPath: isProduction ? '/dist/' : '/',
     },
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
@@ -74,8 +74,9 @@ module.exports = (env, argv) => {
       new HtmlWebpackPlugin({
         title: 'Webpack App',
         filename: 'index.html',
-        template: 'src/index.html',
+        template: './src/index.html',
       }),
+
       // new BundleAnalyzerPlugin(),
       new ESLintPlugin({}),
     ],

@@ -4350,7 +4350,7 @@ module.exports = __webpack_require__.p + "HeaderBackground.png";
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	!function() {
-/******/ 		__webpack_require__.p = "./";
+/******/ 		__webpack_require__.p = "/dist/";
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
