@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  HashRouter as Router,
-  Route,
-  Routes,
-  Redirect,
-} from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.scss';
 import MovieListPage from './Pages/MovieList/MovieListPage';
 import MovieDetailsWrapper from '../src/components/MovieDetailsWrapper/MovieDetailsWrapper';
