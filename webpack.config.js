@@ -20,7 +20,8 @@ module.exports = (env, argv) => {
       filename: '[name].js',
       clean: true,
       assetModuleFilename: '[name][ext]',
-      publicPath: isProduction ? '/dist/' : '/',
+      // publicPath: isProduction ? '/dist/' : '/',
+      publicPath: '',
     },
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
@@ -84,7 +85,7 @@ module.exports = (env, argv) => {
       splitChunks: {
         chunks: 'all',
       },
-      minimize: false,
+      minimize: true,
       minimizer: [
         new CssMinimizerPlugin(),
         new TerserPlugin({
