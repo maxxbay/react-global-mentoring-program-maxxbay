@@ -20,6 +20,7 @@
   "scripts": {
     "start": "webpack serve --mode development",
     "build": "webpack --mode production",
+    "build-dev": "webpack --mode development",
     "start-api": "node ./MoviesAPI.ReactJS/src/index.js",
     "start-all": "npm concurrently --kill-other \"npm run start-api\" \"npm run start\"",
     "dev": "webpack-dev-server",

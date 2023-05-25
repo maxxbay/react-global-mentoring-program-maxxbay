@@ -13,7 +13,7 @@ module.exports = (env, argv) => {
   return {
     mode: isProduction ? 'production' : 'development',
     entry: {
-      bundle: path.resolve(__dirname, './src/index.js'),
+      bundle: path.resolve(__dirname, 'src/index.js'),
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
@@ -23,7 +23,7 @@ module.exports = (env, argv) => {
       // publicPath: isProduction ? '/dist/' : '/',
       publicPath: '',
     },
-    devtool: isProduction ? 'source-map' : 'inline-source-map',
+    devtool: !isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
       static: {
         directory: path.resolve(__dirname, 'dist'),
@@ -40,18 +40,18 @@ module.exports = (env, argv) => {
           test: /\.(css|scss|sass)$/i,
           use: ['style-loader', 'css-loader', 'sass-loader'],
         },
-        {
-          test: /\.jsx?$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env', '@babel/preset-react'],
-              cacheDirectory: true,
-              cacheCompression: false,
-            },
-          },
-        },
+        // {
+        //   test: /\.jsx?$/,
+        //   exclude: /node_modules/,
+        //   use: {
+        //     loader: 'babel-loader',
+        //     options: {
+        //       presets: ['@babel/preset-env', '@babel/preset-react'],
+        //       cacheDirectory: true,
+        //       cacheCompression: false,
+        //     },
+        //   },
+        // },
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
@@ -82,20 +82,42 @@ module.exports = (env, argv) => {
       new ESLintPlugin({}),
     ],
     optimization: {
-      splitChunks: {
-        chunks: 'all',
-      },
       minimize: true,
-      minimizer: [
-        new CssMinimizerPlugin(),
-        new TerserPlugin({
-          terserOptions: {
-            compress: {
-              drop_console: true,
-            },
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            name: 'node_vendors',
+            test: /[\\/]node_modules[\\/]/,
+            chunks: 'all',
           },
-        }),
-      ],
+
+          common: {
+            test: /[\\/]src[\\/]components[\\/]/,
+            chunks: 'all',
+            minSize: 0,
+          },
+        },
+      },
+      runtimeChunk: {
+        name: 'manifest',
+      },
     },
+
+    // optimization: {
+    //   splitChunks: {
+    //     chunks: 'all',
+    //   },
+    //   minimize: true,
+    //   minimizer: [
+    //     new CssMinimizerPlugin(),
+    //     new TerserPlugin({
+    //       terserOptions: {
+    //         compress: {
+    //           drop_console: true,
+    //         },
+    //       },
+    //     }),
+    //   ],
+    // },
   };
 };

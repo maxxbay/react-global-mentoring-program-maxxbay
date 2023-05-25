@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+  HashRouter as Router,
+  Route,
+  Routes,
+  Redirect,
+} from 'react-router-dom';
 import './App.scss';
 import MovieListPage from './Pages/MovieList/MovieListPage';
 import MovieDetailsWrapper from '../src/components/MovieDetailsWrapper/MovieDetailsWrapper';
@@ -8,6 +13,8 @@ import AddMovieForm from '../src/components/MovieForm/AddMovieForm';
 import EditMovieForm from '../src/components/MovieForm/EditMovieForm';
 
 const App = () => {
+  console.log('Start');
+
   return (
     <>
       <Router>
