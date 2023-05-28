@@ -10,6 +10,10 @@ const EditMovieForm = () => {
   const navigate = useNavigate();
   const [errorDialogOpen, setErrorDialogOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  console.log(errorDialogOpen);
+  console.log(errorMessage);
+
   const {
     data,
     loading,

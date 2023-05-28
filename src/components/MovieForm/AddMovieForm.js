@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import Dialog from '../Dialog/Dialog';
 import MovieForm from '../MovieForm/MovieForm';
 import { API_POST_URL } from '../../constants';
-import { useForm } from 'react-hook-form';
-import useFetch from 'Hooks/useFetch';
+import useFetch from '../../Hooks/useFetch';
 import { formatMovieData } from '../../helpers';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +11,8 @@ const AddMovieForm = () => {
   const [errorDialogOpen, setErrorDialogOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const { postData } = useFetch(API_POST_URL);
+
+  console.log(setErrorDialogOpen);
 
   const handleClose = () => {
     navigate('/');

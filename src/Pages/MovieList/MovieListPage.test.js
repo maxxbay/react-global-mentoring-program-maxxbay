@@ -20,6 +20,7 @@ const mockMovie = {
 };
 
 const history = createMemoryHistory();
+console.log(history);
 
 describe('MovieListPage', () => {
   beforeEach(() => {
@@ -44,12 +45,13 @@ describe('MovieListPage', () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => screen.getByText(mockMovie.title));
+    await screen.findByText(mockMovie.title);
 
     fireEvent.click(screen.getByText(mockMovie.title));
 
     await waitFor(() =>
       expect(
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
         container.querySelector('[data-testid="movie-details"]')
       ).toBeInTheDocument()
     );

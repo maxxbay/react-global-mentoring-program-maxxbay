@@ -2,7 +2,6 @@ import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import MovieTile from './MovieTile';
 import ContextMenu from '../ContextMenu/ContextMenu';
-import { useNavigate } from 'react-router-dom';
 import '@testing-library/jest-dom';
 
 jest.mock('react-router-dom', () => ({
